@@ -1,0 +1,16 @@
+{
+  "name": "EatingClubHub",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ellacolby/EatingClubHub.git",
+  "author": "Johnny Ramirez, Ella Colby, Brian Zhou, Muhammad Zaeem",
+  "license": "MIT",
+  "scripts": {
+    "frontend": "cd frontend && yarn start",
+    "backend": "cd backend && python server.py",
+    "start": "concurrently \"cd frontend && yarn start\" \"cd backend && python server.py\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
