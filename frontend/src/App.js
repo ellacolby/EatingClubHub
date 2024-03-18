@@ -1,13 +1,14 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [time, setTime] = useState('');
 
   const fetchAPI = useCallback(async () => {
     const res = await fetch('/api');
     const { data } = await res.json();
-    console.log(data);
+    setTime(data);
   }, []);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function App() {
         >
           Learn React
         </a>
+        <p>{time}</p>
       </header>
     </div>
   );
