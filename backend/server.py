@@ -1,10 +1,14 @@
-from flask import Flask
+from flask import Flask, jsonify
 from datetime import datetime
 from database import (
-    get_announcements,
-    get_clubs,
-    get_events,
-    get_users,
+    create_announcement,
+    create_club,
+    create_event,
+    create_user,
+    get_announcements, 
+    get_clubs, 
+    get_events, 
+    get_users
 )
 
 app = Flask(__name__)
@@ -17,27 +21,27 @@ def index():
 @app.route('/announcements')
 def announcements():
     res = get_announcements()
-    print(res)
-    return res
+    print('announcements:', res)
+    return {'data': res}
 
 
 @app.route('/clubs')
 def clubs():
     res = get_clubs()
-    print(res)
-    return res
+    print('clubs:', res)
+    return {'data': res}
 
 @app.route('/events')
 def events():
     res = get_events()
-    print(res)
-    return res
+    print('events:', res)
+    return {'data': res}
 
 @app.route('/users')
 def users():
     res = get_users()
-    print(res)
-    return res
+    print('users:', res)
+    return {'data': res}
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080)

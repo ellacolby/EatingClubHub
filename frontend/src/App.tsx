@@ -3,14 +3,15 @@ import logo from "./logo.svg";
 import "./App.css";
 
 const App = () => {
-  const [time, setTime] = useState("");
+  const [data, setData] = useState("");
 
   const fetchAPI = useCallback(async () => {
-    const res = await fetch("/api");
+    const res = await fetch("/clubs");
     const { data } = await res.json();
-    setTime(data);
 
-    await fetch("/clubs");
+    console.log(data);
+    setData(data);
+
   }, []);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const App = () => {
         >
           Learn React
         </a>
-        <p>{time}</p>
+        <p>{data}</p>
       </header>
     </div>
   );
