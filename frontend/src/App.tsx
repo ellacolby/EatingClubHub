@@ -1,14 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useCallback, useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 const App = () => {
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState("");
 
   const fetchAPI = useCallback(async () => {
-    const res = await fetch('/api');
+    const res = await fetch("/api");
     const { data } = await res.json();
     setTime(data);
+
+    await fetch("/clubs");
   }, []);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ const App = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Edit <code>HELLO WORLD</code> and save to reload.
         </p>
         <a
           className="App-link"
@@ -34,6 +36,6 @@ const App = () => {
       </header>
     </div>
   );
-}
+};
 
 export default App;
