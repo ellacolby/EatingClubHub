@@ -6,7 +6,31 @@ import dotenv
 dotenv.load_dotenv()
 DATABASE_URL = os.environ['DATABASE_URL']
 
-#-----------------------------------------------------------------------
+def execute(statements):
+    try:
+        with psycopg2.connect(DATABASE_URL) as connection:
+            with connection.cursor() as cursor:
+                res = None
+                for statement in statements:
+                    res = cursor.execute(statement)
+                print(res)
+                return res
+
+    except Exception as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(1)
+
+def get_announcements():
+    return execute(["SELECT * from announcements"])
+
+def get_clubs():
+    return execute(["SELECT * from clubs"])
+
+def get_events():
+    return execute(["SELECT * from events"])
+
+def get_users():
+    return execute(["SELECT * from users"])
 
 def main():
 
