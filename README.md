@@ -20,7 +20,9 @@ To install the Python packages, checkout the backend directory and run:
 ```
 pip install -r requirements.txt
 ```
-If there are any issues with installation, make sure that pip is installed on your local environment. If it is, then contact the service administrator.
+If there are any issues with installation, make sure that pip or pip3 is installed on your local environment.
+If pip is not installed but pip3 is installed, replace `pip` with `pip3`.
+If it is, then contact the service administrator.
 
 Also include the `DATABASE_URL` environment variable in a .env file.
 
