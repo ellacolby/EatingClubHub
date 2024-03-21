@@ -16,11 +16,13 @@ After having yarn installed on your local environment, activate the Python virut
 ```
 yarn install && yarn activate
 ```
-To install the Python packges, checkout the backend directory and run:
+To install the Python packages, checkout the backend directory and run:
 ```
 pip install -r requirements.txt
 ```
 If there are any issues with installation, make sure that pip is installed on your local environment. If it is, then contact the service administrator.
+
+Also include the `DATABASE_URL` environment variable in a .env file.
 
 To install the packages on the frontend, checkout the frontend directory and run:
 ```
