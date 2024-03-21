@@ -6,9 +6,10 @@
   "author": "Johnny Ramirez, Ella Colby, Brian Zhou, Muhammad Zaeem",
   "license": "MIT",
   "scripts": {
+    "activate": ". ./backend/.venv/bin/activate",
     "frontend": "cd frontend && yarn start",
-    "backend": "cd backend && python server.py",
-    "start": "concurrently \"cd frontend && yarn start\" \"cd backend && python server.py\""
+    "backend": ". ./backend/.venv/bin/activate && cd backend && python server.py",
+    "start": "concurrently \"yarn frontend\" \"yarn backend\""
   },
   "dependencies": {
     "concurrently": "^8.2.2"
