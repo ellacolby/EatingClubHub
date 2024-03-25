@@ -4,6 +4,8 @@ Team members: Ella Colby, Johnny Ramirez, Muhammad Zaeem, Brian Zhou
 
 ## Installation guide
 
+This installation guide assumes your local environment is a Mac.
+
 Check to see that yarn is installed on your local environment by running:
 
 ```
@@ -12,9 +14,10 @@ yarn -v
 
 If your yarn version isn't printed, then follow the instructions to install yarn on the yarn website.
 
-After having yarn installed on your local environment, activate the Python virutal environment by running:
+After having yarn installed on your local environment, checkout the backend directory and
+create the virtual environment by running:
 ```
-yarn install && yarn activate
+python -m venv .venv
 ```
 To install the Python packages, checkout the backend directory and run:
 ```

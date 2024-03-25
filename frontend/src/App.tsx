@@ -1,21 +1,32 @@
 import { useCallback, useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { log } from "console";
+import get from "./utils/get";
 
 const App = () => {
   const [data, setData] = useState("");
 
+  const logout = async () => {
+    const res = await fetch("/logout");
+    const data = await res.json();
+    window.location.href = data["logout_url"];
+  };
+
+  const fetchClubs = async () => {
+    const data = await get("/clubs");
+    if (data) {
+      setData(data.data);
+    }
+  };
+
   const fetchAPI = useCallback(async () => {
-    const res = await fetch("/clubs");
-    const { data } = await res.json();
-
-    console.log(data);
-    setData(data);
-
+    // logout();
+    fetchClubs();
   }, []);
 
   useEffect(() => {
-    fetchAPI();
+    // fetchAPI();
   }, [fetchAPI]);
 
   return (
@@ -34,6 +45,8 @@ const App = () => {
           Learn React
         </a>
         <p>{data}</p>
+        <button onClick={() => logout()}>Log Out</button>
+        <button onClick={() => fetchClubs()}>Log In</button>
       </header>
     </div>
   );
