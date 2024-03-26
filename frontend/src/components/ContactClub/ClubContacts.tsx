@@ -1,4 +1,4 @@
-const ClubContact = ({ club }: { club: string }) => {
+const ClubContacts = ({ club }: { club: string }) => {
   return (
     <div>
       <h2>Club: {club}</h2>
@@ -10,4 +10,4 @@ const ClubContact = ({ club }: { club: string }) => {
   );
 };
 
-export default ClubContact;
+export default ClubContacts;
