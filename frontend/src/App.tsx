@@ -1,10 +1,17 @@
+import React from "react";
 import { useCallback, useEffect, useState } from "react";
+// internal imports
 import logo from "./logo.svg";
 import "./App.css";
-import { log } from "console";
-import get from "./utils/get";
 
-const App = () => {
+// external imports
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// utils
+import get from "./utils/get";
+import ContactOfficers from "./pages/ContactOfficers";
+
+const Home = () => {
   const [data, setData] = useState("");
 
   const logout = async () => {
@@ -47,8 +54,22 @@ const App = () => {
         <p>{data}</p>
         <button onClick={() => logout()}>Log Out</button>
         <button onClick={() => fetchClubs()}>Log In</button>
+        <a href="/contact">Contact Officers</a>
       </header>
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <Router>
+      {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+      <Routes>
+        <Route path="/contact" element={<ContactOfficers />}></Route>
+        <Route path="/" element={<Home />}></Route>
+      </Routes>
+    </Router>
   );
 };
 
