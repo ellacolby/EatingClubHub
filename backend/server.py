@@ -19,17 +19,14 @@ from database import (
 app = Flask(__name__)
 app.secret_key = os.environ['APP_SECRET_KEY']
 
-# middleware 
+# Middleware  for Auth
 @app.before_request
-def before_request_func():
+def authenticate():
     res = auth.authenticate()
-    print('username' in session)
     if 'username' in session:
         return
     if res.headers['Location'] is not None:
         return {'login_url': res.headers['Location']}
-
-        
 
 #-----------------------------------------------------------------------
 
