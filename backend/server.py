@@ -22,15 +22,19 @@ app.secret_key = os.environ['APP_SECRET_KEY']
 # Middleware  for Auth
 @app.before_request
 def authenticate():
-    res = auth.authenticate()
-    if 'username' in session:
+    if request.endpoint == 'logout':
         return
-    if res.headers['Location'] is not None:
+    res = auth.authenticate()
+    if 'username' not in session and res.headers['Location'] is not None:
         return {'login_url': res.headers['Location']}
 
 #-----------------------------------------------------------------------
 
 # Routes for authentication.
+@app.route('/login')
+def login():
+    if 'username' in session:
+        return {'username': session['username']}
 
 @app.route('/logout')
 def logout():

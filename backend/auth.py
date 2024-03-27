@@ -74,7 +74,6 @@ def authenticate():
     # If the login ticket is invalid, then redirect the browser
     # to the login page to get a new one.
     username = validate(ticket)
-    print('username', username)
     if username is None:
         login_url = (_CAS_URL + 'login?service='
             + urllib.parse.quote(strip_ticket(_CLIENT_URL)))
@@ -104,4 +103,5 @@ def logoutcas():
     flask.session.clear()
     logout_url = (_CAS_URL + 'logout?service='
         + urllib.parse.quote(_CLIENT_URL))
+    
     return {'logout_url': logout_url}
