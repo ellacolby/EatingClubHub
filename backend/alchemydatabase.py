@@ -30,6 +30,15 @@ class Club(Base):
     image = Column(Text)
     coffee_chat_link = Column(Text)
 
+class ClubAnnouncement(Base):
+    __tablename__ = 'club_announcements'
+
+    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    announcement_id = Column(Integer, ForeignKey('announcements.announcement_id'), primary_key=True)
+
+    user = relationship('User', backref='club_announcements')
+    announcement = relationship('Announcement', backref='club_announcements')
+
 class Event(Base):
     __tablename__ = 'events'
 
@@ -62,6 +71,10 @@ def get_clubs():
     with sqlalchemy.orm.Session(engine) as session:
         return session.query(Club).all() # Select * from clubs
 
+def get_club_announcements():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(ClubAnnouncement).all()
+    
 def get_events():
     with sqlalchemy.orm.Session(engine) as session:
         return session.query(Event).all() # Select * from events
@@ -70,27 +83,33 @@ def get_users():
    with sqlalchemy.orm.Session(engine) as session:
         return session.query(User).all() # Select * from users
    
-def create_announcement(title=None, description=None, image=None):
+def create_announcement(announcement_id=None, title=None, description=None, image=None):
     with sqlalchemy.orm.Session(engine) as session:
-        new_announcement = Announcement(title=title, description=description, image=image)
+        new_announcement = Announcement(announcement_id=announcement_id, title=title, description=description, image=image)
         session.add(new_announcement)
         session.commit()
 
-def create_club(name=None, description=None, image=None, coffee_chat_link=None):
+def create_club(club_id=None, name=None, description=None, image=None, coffee_chat_link=None):
     with sqlalchemy.orm.Session(engine) as session:
-        new_club = Club(name=name, description=description, image=image, coffee_chat_link=coffee_chat_link)
+        new_club = Club(club_id=club_id, name=name, description=description, image=image, coffee_chat_link=coffee_chat_link)
         session.add(new_club)
         session.commit()
 
-def create_event(name=None, location=None, description=None, start_time=None, end_time=None):
+def create_club_announcement(user_id=None, announcement_id=None):
     with sqlalchemy.orm.Session(engine) as session:
-        new_event = Event(name=name, location=location, description=description, start_time=start_time, end_time=end_time)
+        new_club_announcement = ClubAnnouncement(user_id=user_id, announcement_id=announcement_id)
+        session.add(new_club_announcement)
+        session.commit()
+       
+def create_event(event_id=None, name=None, location=None, description=None, start_time=None, end_time=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        new_event = Event(event_id=event_id, name=name, location=location, description=description, start_time=start_time, end_time=end_time)
         session.add(new_event)
         session.commit()
 
-def create_user(name=None, netid=None, profile_pic=None):
+def create_user(user_id=None, name=None, netid=None, profile_pic=None):
     with sqlalchemy.orm.Session(engine) as session:
-        new_user = User(name=name, netid=netid, profile_pic=profile_pic)
+        new_user = User(user_id=user_id, name=name, netid=netid, profile_pic=profile_pic)
         session.add(new_user)
         session.commit()
  
@@ -107,8 +126,16 @@ def main():
             print(f"Description: {club.description}")
             print(f"Image: {club.image}")
             print(f"Coffee Chat Link: {club.coffee_chat_link}")
-            print()  # Add a newline for better readability
+            print()  
         
+        create_user(user_id = 7, name = "Johnny", netid="jr___")
+        create_announcement(announcement_id=4, title="Test2")
+        create_club_announcement(user_id=7, announcement_id=4)
+
+        club_announcements = get_club_announcements()
+        for club_announcement in club_announcements:
+            print(club_announcement.user_id, club_announcement.announcement_id)
+
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
