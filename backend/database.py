@@ -73,7 +73,9 @@ def main():
         with psycopg2.connect(DATABASE_URL) as connection:
 
             with connection.cursor() as cursor:
-                pass
+                clubs = get_clubs()
+                for club in clubs:
+                    print(club)
 
                 #-------------------------------------------------------
 
