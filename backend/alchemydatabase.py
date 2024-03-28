@@ -58,15 +58,23 @@ def get_announcements():
     with sqlalchemy.orm.Session(engine) as session:
         return session.query(Announcement).all() # Select * from announcements
 
+def get_clubs():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(Club).all() # Select * from clubs
+
+def get_events():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(Event).all() # Select * from events
+
+def get_users():
+   with sqlalchemy.orm.Session(engine) as session:
+        return session.query(User).all() # Select * from users
+   
 def create_announcement(title=None, description=None, image=None):
     with sqlalchemy.orm.Session(engine) as session:
         new_announcement = Announcement(title=title, description=description, image=image)
         session.add(new_announcement)
         session.commit()
-
-def get_clubs():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(Club).all() # Select * from clubs
 
 def create_club(name=None, description=None, image=None, coffee_chat_link=None):
     with sqlalchemy.orm.Session(engine) as session:
@@ -74,39 +82,17 @@ def create_club(name=None, description=None, image=None, coffee_chat_link=None):
         session.add(new_club)
         session.commit()
 
-def get_events():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(Event).all() # Select * from events
-
 def create_event(name=None, location=None, description=None, start_time=None, end_time=None):
     with sqlalchemy.orm.Session(engine) as session:
         new_event = Event(name=name, location=location, description=description, start_time=start_time, end_time=end_time)
         session.add(new_event)
         session.commit()
 
-def get_users():
-   with sqlalchemy.orm.Session(engine) as session:
-        return session.query(User).all() # Select * from users
-
 def create_user(name=None, netid=None, profile_pic=None):
     with sqlalchemy.orm.Session(engine) as session:
         new_user = User(name=name, netid=netid, profile_pic=profile_pic)
         session.add(new_user)
         session.commit()
-
-# don't really need this ?
-def execute(session, statements, params=[]):
-    try:
-        for statement in statements:
-            if params:
-                session.execute(statement, params)
-            else:
-                session.execute(statement)
-            session.commit()
-    except Exception as ex:
-        print(ex, file=sys.stderr)
-        sys.exit(1)
-
  
 def main():
     if len(sys.argv) != 1:
