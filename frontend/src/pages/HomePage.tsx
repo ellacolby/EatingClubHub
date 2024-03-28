@@ -21,14 +21,6 @@ const HomePage = () => {
     }
   };
 
-  const fetchAPI = useCallback(async () => {
-    fetchClubs();
-  }, []);
-
-  useEffect(() => {
-    // fetchAPI();
-  }, [fetchAPI]);
-
   return (
     <div className="App">
       <header className="App-header">
@@ -45,6 +37,7 @@ const HomePage = () => {
         <button onClick={() => logout()}>Log Out</button>
         <button onClick={() => fetchClubs()}>Fetch Clubs</button>
         <a href="/contact">Contact Officers</a>
+        <a href="/events">See Event Calendar</a>
       </header>
     </div>
   );

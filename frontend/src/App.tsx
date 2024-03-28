@@ -11,19 +11,19 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // utils
 import get from "./utils/get";
 
+type TokenResponse = { username: string } | { login_url: string } | null;
+
 const App = () => {
-  const [loginUrl, setLoginUrl] = useState<string | null>(null);
+  const [token, setToken] = useState<TokenResponse>(null);
 
   const getUsername = useCallback(async () => {
-    const data = await get("/login");
-    if (data["login_url"]) {
+    const res: TokenResponse = await get("/login");
+    if (res && "login_url" in res) {
       if (window.location.pathname !== "/") {
         window.location.href = "/";
       }
-      setLoginUrl(data["login_url"]);
-    } else {
-      setLoginUrl(null);
     }
+    setToken(res);
   }, []);
 
   useEffect(() => {
@@ -33,15 +33,19 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/"
-          element={loginUrl ? <LoginPage loginUrl={loginUrl} /> : <HomePage />}
-        ></Route>
-        {!loginUrl && (
+        {token && "username" in token ? (
           <>
-            <Route path="/contact" element={<ContactClub />}></Route>
-            <Route path="/events" element={<CalendarPage />}></Route>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/contact" element={<ContactClub />} />
+            <Route path="/events" element={<CalendarPage />} />
           </>
+        ) : token && "login_url" in token ? (
+          <Route
+            path="/"
+            element={<LoginPage loginUrl={token["login_url"]} />}
+          />
+        ) : (
+          <Route path="/" element={<p>Loading...</p>} />
         )}
       </Routes>
     </Router>
