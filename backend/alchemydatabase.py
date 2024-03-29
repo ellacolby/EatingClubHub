@@ -103,70 +103,56 @@ class User(Base):
     netid = Column(Text)
     profile_pic = Column(Text)
 
-def get_records(table_name):
+
+def get_records(class_name):
     records = []
     with sqlalchemy.orm.Session(engine) as session:
-        table_class = globals()[table_name.capitalize()]  # Get the class corresponding to the table name
+        table_class = globals()[class_name.capitalize()]  # Get the class corresponding to the table name
         results = session.query(table_class).all()
         for result in results:
             record_tuple = tuple(getattr(result, column.name) for column in result.__table__.columns)
             records.append(record_tuple)
     return records
 
-
-def get_announcements():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(Announcement).all() 
-
-def get_club_announcements():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(ClubAnnouncement).all()
-
-def get_club_events():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(ClubEvent).all()
-
-def get_clubs():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(Club).all()
-# def get_clubs():
-#     clubs = []
+# def get_announcements():
 #     with sqlalchemy.orm.Session(engine) as session:
-#         results = session.query(Club).all()
-#         for club in results:
-#             clubs.append({
-#                 'club_id': club.club_id,
-#                 'name': club.name,
-#                 'description': club.description,
-#                 'image': club.image,
-#                 'coffee_chat_link': club.coffee_chat_link
-#             })
-#     return clubs
+#         return session.query(Announcement).all() 
 
+# def get_club_announcements():
+#     with sqlalchemy.orm.Session(engine) as session:
+#         return session.query(ClubAnnouncement).all()
 
-def get_event_attendees():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(EventAttendee).all() 
+# def get_club_events():
+#     with sqlalchemy.orm.Session(engine) as session:
+#         return session.query(ClubEvent).all()
+
+# def get_clubs():
+#     with sqlalchemy.orm.Session(engine) as session:
+#         return session.query(Club).all()
+
+# def get_event_attendees():
+#     with sqlalchemy.orm.Session(engine) as session:
+#         return session.query(EventAttendee).all() 
     
-def get_events():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(Event).all() 
+# def get_events():
+#     with sqlalchemy.orm.Session(engine) as session:
+#         return session.query(Event).all() 
 
-def get_favorite_clubs():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(FavoriteClub).all() 
+# def get_favorite_clubs():
+#     with sqlalchemy.orm.Session(engine) as session:
+#         return session.query(FavoriteClub).all() 
 
-def get_officers():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(Officer).all()
+# def get_officers():
+#     with sqlalchemy.orm.Session(engine) as session:
+#         return session.query(Officer).all()
 
-def get_user_events():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(UserEvent).all()
+# def get_user_events():
+#     with sqlalchemy.orm.Session(engine) as session:
+#         return session.query(UserEvent).all()
 
-def get_users():
-   with sqlalchemy.orm.Session(engine) as session:
-        return session.query(User).all() 
+# def get_users():
+#    with sqlalchemy.orm.Session(engine) as session:
+#         return session.query(User).all() 
    
 def create_announcement(announcement_id=None, title=None, description=None, image=None):
     with sqlalchemy.orm.Session(engine) as session:
@@ -241,9 +227,10 @@ def main():
         for club in clubs:
             print(club)
         
-        
-        
-
+        announcements = get_records('announcement')
+        for announcement in announcements:
+            print(announcement)
+            
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
