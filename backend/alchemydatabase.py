@@ -21,6 +21,25 @@ class Announcement(Base):
     description = Column(Text)
     image = Column(Text)
 
+class ClubAnnouncement(Base):
+    __tablename__ = 'club_announcements'
+
+    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    announcement_id = Column(Integer, ForeignKey('announcements.announcement_id'), primary_key=True)
+
+    user = relationship('User', backref='club_announcements')
+    announcement = relationship('Announcement', backref='club_announcements')
+
+
+class ClubEvent(Base):
+    __tablename__ = 'club_events'
+
+    club_id = Column(Integer, ForeignKey('clubs.club_id'), primary_key=True)
+    event_id = Column(Integer, ForeignKey('events.event_id'), primary_key=True)
+
+    club = relationship('Club', backref='club_events')
+    event = relationship('Event', backref='club_events')
+
 class Club(Base):
     __tablename__ = 'clubs'
 
@@ -30,14 +49,14 @@ class Club(Base):
     image = Column(Text)
     coffee_chat_link = Column(Text)
 
-class ClubAnnouncement(Base):
-    __tablename__ = 'club_announcements'
+class EventAttendee(Base):
+    __tablename__ = 'event_attendees'
 
+    event_id = Column(Integer, ForeignKey('events.event_id'), primary_key=True)
     user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
-    announcement_id = Column(Integer, ForeignKey('announcements.announcement_id'), primary_key=True)
 
-    user = relationship('User', backref='club_announcements')
-    announcement = relationship('Announcement', backref='club_announcements')
+    event = relationship('Event', backref='event_attendees')
+    user = relationship('User', backref='event_attendees')
 
 class Event(Base):
     __tablename__ = 'events'
@@ -49,6 +68,42 @@ class Event(Base):
     start_time = Column(Text)
     end_time = Column(Text)
 
+class FavoriteClub(Base):
+    __tablename__ = 'favorite_clubs'
+
+    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    club_id = Column(Integer, ForeignKey('clubs.club_id'), primary_key=True)
+
+    user = relationship('User', backref='favorite_clubs')
+    club = relationship('Club', backref='favorite_clubs')
+
+class Officer(Base):
+    __tablename__ = 'officers'
+
+    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    club_id = Column(Integer, ForeignKey('clubs.club_id'), primary_key=True)
+
+    user = relationship('User', backref='officers')
+    club = relationship('Club', backref='officers')
+
+class PointsOfContact(Base):
+    __tablename__ = 'points_of_contact'
+
+    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    club_id = Column(Integer, ForeignKey('clubs.club_id'), primary_key=True)
+
+    user = relationship('User', backref='points_of_contact')
+    club = relationship('Club', backref='points_of_contact')
+
+class UserEvent(Base):
+    __tablename__ = 'user_events'
+
+    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    event_id = Column(Integer, ForeignKey('events.event_id'), primary_key=True)
+
+    user = relationship('User', backref='user_events')
+    event = relationship('Event', backref='user_events')
+
 class User(Base):
     __tablename__ = 'users'
 
@@ -57,36 +112,66 @@ class User(Base):
     netid = Column(Text)
     profile_pic = Column(Text)
 
-    # favorite_clubs = Column(ARRAY(Integer), ForeignKey('clubs.club_id'))
-    # events = Column(ARRAY(Integer), ForeignKey('events.event_id'))
-    # # Define relationships
-    # clubs = relationship('Club', foreign_keys=[favorite_clubs])
-    # event = relationship('Event', foreign_keys=[events])
-
 def get_announcements():
     with sqlalchemy.orm.Session(engine) as session:
         return session.query(Announcement).all() # Select * from announcements
 
-def get_clubs():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(Club).all() # Select * from clubs
-
 def get_club_announcements():
     with sqlalchemy.orm.Session(engine) as session:
         return session.query(ClubAnnouncement).all()
+
+def get_club_events():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(ClubEvent).all()
+
+def get_clubs():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(Club).all() 
+
+def get_event_attendees():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(EventAttendee).all() 
     
 def get_events():
     with sqlalchemy.orm.Session(engine) as session:
-        return session.query(Event).all() # Select * from events
+        return session.query(Event).all() 
+
+def get_favorite_clubs():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(FavoriteClub).all() 
+
+def get_officers():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(Officer).all()
+
+def get_points_of_contact():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(PointsOfContact).all()
+
+def get_user_events():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(UserEvent).all()
 
 def get_users():
    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(User).all() # Select * from users
+        return session.query(User).all() 
    
 def create_announcement(announcement_id=None, title=None, description=None, image=None):
     with sqlalchemy.orm.Session(engine) as session:
         new_announcement = Announcement(announcement_id=announcement_id, title=title, description=description, image=image)
         session.add(new_announcement)
+        session.commit()
+
+def create_club_announcement(user_id=None, announcement_id=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        new_club_announcement = ClubAnnouncement(user_id=user_id, announcement_id=announcement_id)
+        session.add(new_club_announcement)
+        session.commit()
+
+def create_club_event(club_id=None, event_id=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        new_club_event = ClubEvent(club_id=club_id, event_id=event_id)
+        session.add(new_club_event)
         session.commit()
 
 def create_club(club_id=None, name=None, description=None, image=None, coffee_chat_link=None):
@@ -95,16 +180,34 @@ def create_club(club_id=None, name=None, description=None, image=None, coffee_ch
         session.add(new_club)
         session.commit()
 
-def create_club_announcement(user_id=None, announcement_id=None):
+def create_event_attendee(event_id=None, user_id=None):
     with sqlalchemy.orm.Session(engine) as session:
-        new_club_announcement = ClubAnnouncement(user_id=user_id, announcement_id=announcement_id)
-        session.add(new_club_announcement)
+        new_event_attendee = EventAttendee(event_id=event_id, user_id=user_id)
+        session.add(new_event_attendee)
         session.commit()
-       
+
 def create_event(event_id=None, name=None, location=None, description=None, start_time=None, end_time=None):
     with sqlalchemy.orm.Session(engine) as session:
         new_event = Event(event_id=event_id, name=name, location=location, description=description, start_time=start_time, end_time=end_time)
         session.add(new_event)
+        session.commit()
+
+def create_favorite_club(user_id=None, club_id=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        new_favorite_club = FavoriteClub(user_id=user_id, club_id=club_id)
+        session.add(new_favorite_club)
+        session.commit()
+
+def create_officer(user_id=None, club_id=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        new_officer = Officer(user_id=user_id, club_id=club_id)
+        session.add(new_officer)
+        session.commit()
+
+def create_user_event(user_id=None, event_id=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        new_user_event = UserEvent(user_id=user_id, event_id=event_id)
+        session.add(new_user_event)
         session.commit()
 
 def create_user(user_id=None, name=None, netid=None, profile_pic=None):
@@ -112,29 +215,23 @@ def create_user(user_id=None, name=None, netid=None, profile_pic=None):
         new_user = User(user_id=user_id, name=name, netid=netid, profile_pic=profile_pic)
         session.add(new_user)
         session.commit()
- 
+
+
 def main():
     if len(sys.argv) != 1:
         print('Usage: python ' + sys.argv[0], file=sys.stderr)
         sys.exit(1)
 
     try:
-        clubs = get_clubs()
-        for club in clubs:
-            print(f"Club ID: {club.club_id}")
-            print(f"Name: {club.name}")
-            print(f"Description: {club.description}")
-            print(f"Image: {club.image}")
-            print(f"Coffee Chat Link: {club.coffee_chat_link}")
-            print()  
+        Base.metadata.create_all(engine)
+        # club_names = ["Cannon", "Cap", "Charter", "Cloister", "Colo", "Cottage", "Ivy", "Quad", "Terrace", "TigerInn", "Tower"]
+        # for i, name in enumerate(club_names):
+        #     description = f"Deadline for {name} Coffee Chats"
+        #     create_announcement(announcement_id=i+1, description=description)
         
-        create_user(user_id = 7, name = "Johnny", netid="jr___")
-        create_announcement(announcement_id=4, title="Test2")
-        create_club_announcement(user_id=7, announcement_id=4)
-
-        club_announcements = get_club_announcements()
-        for club_announcement in club_announcements:
-            print(club_announcement.user_id, club_announcement.announcement_id)
+        
+        
+        
 
     except Exception as ex:
         print(ex, file=sys.stderr)
