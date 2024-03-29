@@ -5,16 +5,19 @@ from flask import Flask, jsonify, abort, redirect, request, session
 # internal imports
 import auth
 from datetime import datetime
-from database import (
+# from database import (
+from alchemydatabase import (
     create_announcement,
     create_club,
     create_event,
     create_user,
-    get_announcements, 
-    get_clubs, 
-    get_events, 
-    get_users
+    get_announcements,
+    get_clubs,
+    get_events,
+    get_users,
+    get_records
 )
+
 
 app = Flask(__name__)
 app.secret_key = os.environ['APP_SECRET_KEY']
@@ -51,7 +54,8 @@ def announcements():
 
 @app.route('/clubs')
 def clubs():
-    res = get_clubs()
+    res = get_records('club')
+    # res = get_clubs()
     print('clubs', res)
     return {'data': res}
 
