@@ -86,15 +86,6 @@ class Officer(Base):
     user = relationship('User', backref='officers')
     club = relationship('Club', backref='officers')
 
-class PointsOfContact(Base):
-    __tablename__ = 'points_of_contact'
-
-    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
-    club_id = Column(Integer, ForeignKey('clubs.club_id'), primary_key=True)
-
-    user = relationship('User', backref='points_of_contact')
-    club = relationship('Club', backref='points_of_contact')
-
 class UserEvent(Base):
     __tablename__ = 'user_events'
 
@@ -112,9 +103,20 @@ class User(Base):
     netid = Column(Text)
     profile_pic = Column(Text)
 
+def get_records(table_name):
+    records = []
+    with sqlalchemy.orm.Session(engine) as session:
+        table_class = globals()[table_name.capitalize()]  # Get the class corresponding to the table name
+        results = session.query(table_class).all()
+        for result in results:
+            record_tuple = tuple(getattr(result, column.name) for column in result.__table__.columns)
+            records.append(record_tuple)
+    return records
+
+
 def get_announcements():
     with sqlalchemy.orm.Session(engine) as session:
-        return session.query(Announcement).all() # Select * from announcements
+        return session.query(Announcement).all() 
 
 def get_club_announcements():
     with sqlalchemy.orm.Session(engine) as session:
@@ -126,7 +128,21 @@ def get_club_events():
 
 def get_clubs():
     with sqlalchemy.orm.Session(engine) as session:
-        return session.query(Club).all() 
+        return session.query(Club).all()
+# def get_clubs():
+#     clubs = []
+#     with sqlalchemy.orm.Session(engine) as session:
+#         results = session.query(Club).all()
+#         for club in results:
+#             clubs.append({
+#                 'club_id': club.club_id,
+#                 'name': club.name,
+#                 'description': club.description,
+#                 'image': club.image,
+#                 'coffee_chat_link': club.coffee_chat_link
+#             })
+#     return clubs
+
 
 def get_event_attendees():
     with sqlalchemy.orm.Session(engine) as session:
@@ -143,10 +159,6 @@ def get_favorite_clubs():
 def get_officers():
     with sqlalchemy.orm.Session(engine) as session:
         return session.query(Officer).all()
-
-def get_points_of_contact():
-    with sqlalchemy.orm.Session(engine) as session:
-        return session.query(PointsOfContact).all()
 
 def get_user_events():
     with sqlalchemy.orm.Session(engine) as session:
@@ -224,11 +236,10 @@ def main():
 
     try:
         Base.metadata.create_all(engine)
-        # club_names = ["Cannon", "Cap", "Charter", "Cloister", "Colo", "Cottage", "Ivy", "Quad", "Terrace", "TigerInn", "Tower"]
-        # for i, name in enumerate(club_names):
-        #     description = f"Deadline for {name} Coffee Chats"
-        #     create_announcement(announcement_id=i+1, description=description)
         
+        clubs = get_records('club')
+        for club in clubs:
+            print(club)
         
         
         
