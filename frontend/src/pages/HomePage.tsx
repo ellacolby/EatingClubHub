@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
+import "../App.css";
+
 // utils
 import get from "../utils/get";
 
@@ -7,16 +9,10 @@ const HomePage = () => {
   const [data, setData] = useState("");
   const [clubs, setClubs] = useState([]);
 
-  const logout = async () => {
-    const res = await get("/logout");
-    window.location.href = res["logout_url"];
-  };
-
   const fetchClubs = async () => {
-    const data = await get("/clubs");
+    const data = await get("/api/clubs");
     console.log(data);
     if (data) {
-      // setData(data);
       setClubs(data);
     }
   };
@@ -34,8 +30,8 @@ const HomePage = () => {
             {club[1]}
           </button>
         ))}
-        <button onClick={() => logout()}>Log Out</button>
         <button onClick={() => fetchClubs()}>Fetch Clubs</button>
+        <a href="/logout">Log Out</a>
         <a href="/contact">Contact Officers</a>
         <a href="/events">See Event Calendar</a>
       </header>

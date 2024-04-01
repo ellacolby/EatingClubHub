@@ -8,7 +8,8 @@
   "scripts": {
     "frontend": "cd frontend && yarn start && cd ..",
     "backend": "cd backend && python server.py && cd ..",
-    "start": "concurrently \"yarn frontend\" \"yarn backend\""
+    "build": "cd frontend && yarn run build --prefix frontend",
+    "start": "yarn build && yarn backend"
   },
   "dependencies": {
     "concurrently": "^8.2.2"
