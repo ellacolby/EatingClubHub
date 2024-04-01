@@ -17,13 +17,13 @@ const App = () => {
   const [token, setToken] = useState<TokenResponse>(null);
 
   const getUsername = useCallback(async () => {
-    const res: TokenResponse = await get("/login");
-    if (res && "login_url" in res) {
-      if (window.location.pathname !== "/") {
-        window.location.href = "/";
-      }
-    }
-    setToken(res);
+    // const res: TokenResponse = await get("/api/login");
+    // if (res && 'login_url' in res) {
+    //   // if (window.location.pathname !== '/') {
+    //   //   window.location.href = '/';
+    //   // }
+    // }
+    // setToken(res);
   }, []);
 
   useEffect(() => {
@@ -33,20 +33,13 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {token && "username" in token ? (
+        {
           <>
             <Route path="/" element={<HomePage />} />
             <Route path="/contact" element={<ContactClub />} />
             <Route path="/events" element={<CalendarPage />} />
           </>
-        ) : token && "login_url" in token ? (
-          <Route
-            path="/"
-            element={<LoginPage loginUrl={token["login_url"]} />}
-          />
-        ) : (
-          <Route path="/" element={<p>Loading...</p>} />
-        )}
+        }
       </Routes>
     </Router>
   );

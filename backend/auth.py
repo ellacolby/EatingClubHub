@@ -5,8 +5,6 @@
 # Authors: Alex Halderman, Scott Karlin, Brian Kernighan, Bob Dondero
 #-----------------------------------------------------------------------
 
-import os
-import dotenv
 import urllib.request
 import urllib.parse
 import re
@@ -14,9 +12,7 @@ import flask
 
 #-----------------------------------------------------------------------
 
-dotenv.load_dotenv()
 _CAS_URL = 'https://fed.princeton.edu/cas/'
-_CLIENT_URL = os.environ['CLIENT_URL']
 
 #-----------------------------------------------------------------------
 
@@ -37,7 +33,7 @@ def strip_ticket(url):
 
 def validate(ticket):
     val_url = (_CAS_URL + "validate" + '?service='
-        + urllib.parse.quote(strip_ticket(_CLIENT_URL))
+        + urllib.parse.quote(strip_ticket(flask.request.url))
         + '&ticket=' + urllib.parse.quote(ticket))
     lines = []
     with urllib.request.urlopen(val_url) as flo:
@@ -60,48 +56,35 @@ def authenticate():
     # If the username is in the session, then the user was
     # authenticated previously.  So return the username.
     if 'username' in flask.session:
-        return {'username': flask.session.get('username')}
+        return flask.session.get('username')
 
     # If the request does not contain a login ticket, then redirect
     # the browser to the login page to get one.
     ticket = flask.request.args.get('ticket')
     if ticket is None:
         login_url = (_CAS_URL + 'login?service=' +
-            urllib.parse.quote(_CLIENT_URL))
-        return flask.redirect(login_url)
-
+            urllib.parse.quote(flask.request.url))
+        flask.abort(flask.redirect(login_url))
 
     # If the login ticket is invalid, then redirect the browser
     # to the login page to get a new one.
     username = validate(ticket)
     if username is None:
         login_url = (_CAS_URL + 'login?service='
-            + urllib.parse.quote(strip_ticket(_CLIENT_URL)))
-        return flask.redirect(login_url)
+            + urllib.parse.quote(strip_ticket(flask.request.url)))
+        flask.abort(flask.redirect(login_url))
 
     # The user is authenticated, so store the username in
     # the session.
     username = username.strip()
     flask.session['username'] = username
-    return {'username': username}
+    return username
 
 #-----------------------------------------------------------------------
 
-def logoutapp():
-
-    # Log out of the application.
-    flask.session.clear()
-    html_code = flask.render_template('loggedout.html')
-    response = flask.make_response(html_code)
-    return response
-
-#-----------------------------------------------------------------------
-
-def logoutcas():
-
+def logout():
     # Log out of the CAS session, and then the application.
     flask.session.clear()
     logout_url = (_CAS_URL + 'logout?service='
-        + urllib.parse.quote(_CLIENT_URL))
-    
-    return {'logout_url': logout_url}
+        + urllib.parse.quote("http://localhost:8080"))
+    flask.abort(flask.redirect(logout_url))
