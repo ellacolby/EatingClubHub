@@ -1,0 +1,109 @@
+.root {
+    position: relative;
+    width: 1413px;
+    height: 84px;
+    align-items: flex-start;
+    outline: solid 1px #000;
+    outline-offset: -1px;
+    background-color: #fffffe;
+    overflow: hidden;
+  }
+  .logo {
+    position: absolute;
+    left: 201px;
+    top: 30px;
+    width: min-content;
+    height: min-content;
+  }
+  .eatingClubHub {
+    color: #fc9114;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'Liberation Sans', sans-serif;
+    text-transform: capitalize;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+  }
+  .navLinks {
+    position: absolute;
+    left: 904px;
+    top: 35px;
+    width: min-content;
+    height: min-content;
+    align-items: center;
+    gap: 32px;
+  }
+  .home {
+    color: #fc9114;
+    font-size: 16px;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'Liberation Sans', sans-serif;
+    text-transform: capitalize;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+  }
+  .frame2 {
+    width: min-content;
+    height: min-content;
+    place-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+  .clubs {
+    color: #fc9114;
+    font-size: 16px;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'Liberation Sans', sans-serif;
+    text-transform: capitalize;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+  }
+  .akarIconsChevronDown {
+    width: 12px;
+    height: 12px;
+  }
+  .icon {
+    width: 100%;
+    height: 100%;
+  }
+  .events {
+    color: #fc9114;
+    font-size: 16px;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'Liberation Sans', sans-serif;
+    text-transform: capitalize;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+  }
+  .contact {
+    color: #fc9114;
+    font-size: 16px;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'Liberation Sans', sans-serif;
+    text-transform: capitalize;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+  }
+  .profile {
+    color: #fc9114;
+    font-size: 16px;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'Liberation Sans', sans-serif;
+    text-transform: capitalize;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+  }
+  
