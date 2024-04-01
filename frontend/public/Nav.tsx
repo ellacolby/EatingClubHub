@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import resets from '../_resets.module.css';
 import { AkarIconsChevronDownIcon } from './AkarIconsChevronDownIcon';
-import classes from './Navs.module.css';
+import classes from './Nav.css';
 
 interface Props {
   className?: string;
@@ -30,3 +30,4 @@ export const Navs: FC<Props> = memo(function Navs(props = {}) {
     </div>
   );
 });
+
