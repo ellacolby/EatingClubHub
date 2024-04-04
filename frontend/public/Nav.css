@@ -1,109 +1,151 @@
-.root {
-    position: relative;
-    width: 1413px;
+* {
+    box-sizing: border-box;
+  }
+  body {
+    font-size: 14px;
+  }
+  .navbar {
+    width: 100%;
     height: 84px;
-    align-items: flex-start;
-    outline: solid 1px #000;
-    outline-offset: -1px;
-    background-color: #fffffe;
+    background: rgba(255,254,253,1);
+    opacity: 1;
+    position: relative;
+    top: 0px;
+    left: 0px;
     overflow: hidden;
   }
-  .logo {
+  .v31_6 {
+    width: 175px;
+    height: 29px;
+    background: url("../images/v31_6.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin: 2px;
+    opacity: 1;
     position: absolute;
-    left: 201px;
     top: 30px;
-    width: min-content;
-    height: min-content;
+    left: 201px;
+    overflow: hidden;
   }
-  .eatingClubHub {
-    color: #fc9114;
+  .v31_7 {
+    width: 175px;
+    color: rgba(251,145,20,1);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    font-family: Inter;
+    font-weight: Semi Bold;
     font-size: 24px;
-    font-weight: 600;
-    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-      'Liberation Sans', sans-serif;
-    text-transform: capitalize;
-    width: min-content;
-    height: min-content;
-    white-space: nowrap;
-    flex-direction: column;
+    opacity: 1;
+    text-align: left;
   }
-  .navLinks {
+  .v31_8 {
+    width: 317px;
+    height: 19px;
+    background: url("../images/v31_8.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin: 32px;
+    opacity: 1;
     position: absolute;
-    left: 904px;
     top: 35px;
-    width: min-content;
-    height: min-content;
-    align-items: center;
-    gap: 32px;
+    left: 904px;
+    overflow: hidden;
   }
-  .home {
-    color: #fc9114;
+  .v31_9 {
+    width: 45px;
+    color: rgba(251,145,20,1);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    font-family: Inter;
+    font-weight: Regular;
     font-size: 16px;
-    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-      'Liberation Sans', sans-serif;
-    text-transform: capitalize;
-    width: min-content;
-    height: min-content;
-    white-space: nowrap;
-    flex-direction: column;
+    opacity: 1;
+    text-align: left;
   }
-  .frame2 {
-    width: min-content;
-    height: min-content;
-    place-content: center;
-    align-items: center;
-    gap: 8px;
+  .v31_10 {
+    width: 64px;
+    height: 19px;
+    background: url("../images/v31_10.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin: 8px;
+    opacity: 1;
+    position: absolute;
+    top: 0px;
+    left: 77px;
+    overflow: hidden;
   }
-  .clubs {
-    color: #fc9114;
+  .v31_11 {
+    width: 44px;
+    color: rgba(251,145,20,1);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    font-family: Inter;
+    font-weight: Regular;
     font-size: 16px;
-    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-      'Liberation Sans', sans-serif;
-    text-transform: capitalize;
-    width: min-content;
-    height: min-content;
-    white-space: nowrap;
-    flex-direction: column;
+    opacity: 1;
+    text-align: left;
   }
-  .akarIconsChevronDown {
+  .v31_12 {
     width: 12px;
     height: 12px;
+    background: rgba(255,255,255,1);
+    opacity: 1;
+    position: absolute;
+    top: 3px;
+    left: 52px;
+    overflow: hidden;
   }
-  .icon {
-    width: 100%;
-    height: 100%;
+  .v31_13 {
+    width: 8px;
+    height: 4px;
+    background: url("../images/v31_13.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    overflow: hidden;
   }
-  .events {
-    color: #fc9114;
+  .v31_14 {
+    width: 8px;
+    height: 4px;
+    background: url("../images/v31_14.png");
+    opacity: 1;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    border: 1.149999976158142px solid rgba(251,145,20,1);
+  }
+  .v31_15 {
+    width: 51px;
+    color: rgba(251,145,20,1);
+    position: absolute;
+    top: 0px;
+    left: 173px;
+    font-family: Inter;
+    font-weight: Regular;
     font-size: 16px;
-    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-      'Liberation Sans', sans-serif;
-    text-transform: capitalize;
-    width: min-content;
-    height: min-content;
-    white-space: nowrap;
-    flex-direction: column;
+    opacity: 1;
+    text-align: left;
   }
-  .contact {
-    color: #fc9114;
+  .v31_16 {
+    width: 61px;
+    color: rgba(251,145,20,1);
+    position: absolute;
+    top: 0px;
+    left: 256px;
+    font-family: Inter;
+    font-weight: Regular;
     font-size: 16px;
-    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-      'Liberation Sans', sans-serif;
-    text-transform: capitalize;
-    width: min-content;
-    height: min-content;
-    white-space: nowrap;
-    flex-direction: column;
+    opacity: 1;
+    text-align: left;
   }
-  .profile {
-    color: #fc9114;
-    font-size: 16px;
-    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-      'Liberation Sans', sans-serif;
-    text-transform: capitalize;
-    width: min-content;
-    height: min-content;
-    white-space: nowrap;
-    flex-direction: column;
-  }
-  
