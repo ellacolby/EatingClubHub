@@ -1,12 +1,57 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="nav.css" rel="stylesheet" />
-        <iframe src="nav.html" width="100%" height="100px"></iframe>
+        <link rel="stylesheet" href=
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+        
+        <link href="home.css" rel="stylesheet" />
         <title>Home Page</title>
     </head>
     <body>
+        <div class="container-fluid navbar">
+            <span class="title">EatingClubHub</span>
+
+            <a class="active" href="#home">Home</a>
+            <a href="#events">Events</a>
+            <a href="#contact">Contact</a>
+            <a href="#profile">Profile</a>
+
+
+
+            <script>
+                'use strict';
+
+                function handleHome(){
+                    console.log("home clicked");
+                }
+                function handleEvents(){
+                    console.log("event clicked");
+                }
+                function handleContact(){
+                    newurl('contact.html');
+                }
+                function handleProfile(){
+                    console.log("profile clicker");
+                }
+                function newurl(pageClicked) {
+                    let url = '/' + pageClicked;
+
+                    // Navigate to the new URL
+                    window.location.href = url;       
+                }
+                document.getElementById('homeButton').addEventListener('click', handleHome);
+                document.getElementById('eventsButton').addEventListener('click', handleEvents);
+                document.getElementById('contactButton').addEventListener('click', handleContact);
+                document.getElementById('profileButton').addEventListener('click', handleProfile);
+            </script>
+
+        </div>
        
-        <div class="homephoto"></div>
+        <div class="background">
+            <p class="container-fluid square">
+                Welcome, {{USER_NAME}}
+            </p>
+        </div>
+
     </body>
 </html>
