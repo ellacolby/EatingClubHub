@@ -2,27 +2,60 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
-    <link href="./css/nav.css" rel="stylesheet" />
+    <link href="nav.css" rel="stylesheet" />
     <title>NavBar</title>
 </head>
 <body>
     <div class="navbar">
-        <div class="v31_6">
-            <span class="v31_7">EatingClubHub</span>
+        <div class="title">
+            <span class="eatingclubhub">EatingClubHub</span>
         </div>
-        <div class="v31_8">
-            <span class="v31_9">Home</span>
-            <div class="v31_10">
-                <span class="v31_11">Clubs</span>
-                <div class="v31_12">
+        <div class="buttons">
+            <span id="homeButton"class="home">Home</span>
+            <div class="dropdown">
+                <span class="clubs">Clubs</span>
+                <div class="carrot">
                     <div class="v31_13">
                         <div class="v31_14"></div>
                     </div>
                 </div>
             </div>
-            <span class="v31_15">Events</span>
-            <span class="v31_16">Contact</span>
-            <span class="v31_17">Profile</span>
+            <span id="eventsButton"class="events">Events</span>
+            <span id="contactButton" class="contact">Contact</span>
+            <span id="profileButton"class="profile">Profile</span>
+
+            <script src=
+            "https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+            </script>
+        
+            <!-- <script src="static/jquery-3.7.1.min.js"></script> -->
+        
+            <script>
+                'use strict';
+
+                function handleHome(){
+                    console.log("home clicked");
+                }
+                function handleEvents(){
+                    console.log("event clicked");
+                }
+                function handleContact(){
+                    newurl('contact.html');
+                }
+                function handleProfile(){
+                    console.log("profile clicker");
+                }
+                function newurl(pageClicked) {
+                    let url = '/' + newPage;
+
+                    // Navigate to the new URL
+                    window.location.href = url;       
+                }
+                document.getElementById('homeButton').addEventListener('click', handleHome);
+                document.getElementById('eventsButton').addEventListener('click', handleEvents);
+                document.getElementById('contactButton').addEventListener('click', handleContact);
+                document.getElementById('profileButton').addEventListener('click', handleProfile);
+        </script>
         </div>
     </div>
 </body>

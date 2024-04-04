@@ -14,10 +14,9 @@
     left: 0px;
     overflow: hidden;
   }
-  .v31_6 {
+  .title {
     width: 175px;
     height: 29px;
-    background: url("../images/v31_6.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -28,7 +27,7 @@
     left: 201px;
     overflow: hidden;
   }
-  .v31_7 {
+  .eatingclubhub {
     width: 175px;
     color: rgba(251,145,20,1);
     position: relative;
@@ -40,21 +39,21 @@
     opacity: 1;
     text-align: left;
   }
-  .v31_8 {
+  .buttons {
     width: 317px;
-    height: 19px;
-    background: url("../images/v31_8.png");
+    height: 29px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     margin: 32px;
     opacity: 1;
     position: absolute;
-    top: 35px;
-    left: 904px;
-    overflow: hidden;
+    top: 30px;
+    left: 821px;
+    margin: 2px;
+    overflow: visible;
   }
-  .v31_9 {
+  .home {
     width: 45px;
     color: rgba(251,145,20,1);
     position: relative;
@@ -66,21 +65,19 @@
     opacity: 1;
     text-align: left;
   }
-  .v31_10 {
+  .dropdown {
     width: 64px;
     height: 19px;
-    background: url("../images/v31_10.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    margin: 8px;
     opacity: 1;
     position: absolute;
     top: 0px;
     left: 77px;
     overflow: hidden;
   }
-  .v31_11 {
+  .clubs {
     width: 44px;
     color: rgba(251,145,20,1);
     position: relative;
@@ -92,7 +89,7 @@
     opacity: 1;
     text-align: left;
   }
-  .v31_12 {
+  .carrot {
     width: 12px;
     height: 12px;
     background: rgba(255,255,255,1);
@@ -102,10 +99,10 @@
     left: 52px;
     overflow: hidden;
   }
+  */
   .v31_13 {
     width: 8px;
     height: 4px;
-    background: url("../images/v31_13.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -118,14 +115,13 @@
   .v31_14 {
     width: 8px;
     height: 4px;
-    background: url("../images/v31_14.png");
     opacity: 1;
     position: relative;
     top: 0px;
     left: 0px;
     border: 1.149999976158142px solid rgba(251,145,20,1);
   }
-  .v31_15 {
+  .events {
     width: 51px;
     color: rgba(251,145,20,1);
     position: absolute;
@@ -137,7 +133,7 @@
     opacity: 1;
     text-align: left;
   }
-  .v31_16 {
+  .contact {
     width: 61px;
     color: rgba(251,145,20,1);
     position: absolute;
@@ -149,3 +145,24 @@
     opacity: 1;
     text-align: left;
   }
+  .profile {
+    width: 61px;
+    color: rgba(251,145,20,1);
+    position: absolute;
+    top: 0px;
+    left: 339px;
+    font-family: Inter;
+    font-weight: Regular;
+    font-size: 16px;
+    opacity: 1;
+    text-align: left;
+  }
+  .homephoto {
+    background-image: url('homephoto.png');
+    width: 100%;
+    height: 859px;
+  }
+
+  /*
+      background: url("../images/v31_6.png");
+  */
