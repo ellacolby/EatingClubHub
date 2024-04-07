@@ -4,15 +4,13 @@ from flask import Flask, jsonify, abort, redirect, request, session, render_temp
 
 # internal imports
 import auth
-from database import (
+from datetime import datetime
+from alchemydatabase import (
     create_announcement,
     create_club,
     create_event,
     create_user,
-    get_announcements, 
-    get_clubs, 
-    get_events, 
-    get_users
+    get_records
 )
 
 app = Flask(
@@ -38,25 +36,26 @@ def logout():
 # API Routes
 @app.route('/api/announcements')
 def announcements():
-    res = get_announcements()
+    res = get_records('announcement')
     print('announcements:', res)
     return {'data': res}
 
 @app.route('/api/clubs')
 def clubs():
-    res = get_clubs()
+    res = get_records('club')
+    # res = get_clubs()
     print('clubs', res)
     return {'data': res}
 
 @app.route('/api/events')
 def events():
-    res = get_events()
+    res = get_records('event')
     print('events:', res)
     return {'data': res}
 
 @app.route('/api/users')
 def users():
-    res = get_users()
+    res = get_records('user')
     print('users:', res)
     return {'data': res}
 
