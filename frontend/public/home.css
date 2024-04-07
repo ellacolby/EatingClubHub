@@ -1,0 +1,44 @@
+.navbar {
+    background-color: #ffffff;
+  }
+  
+  .title {
+    font-size: 30px;
+    color: rgba(251,145,20,1);
+    text-align: center;
+    padding: 12px 16px;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .navbar a {
+    float: left;
+    color: rgba(251,145,20,1);
+    text-align: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    font-family: Inter;
+    font-weight: Regular;
+    font-size: 16px;
+    font-size: 17px;
+}
+  
+  /* Change the color of links on hover */
+  .navbar a:hover {
+    background-color: rgba(251,145,20,1);
+    color: rgb(255, 255, 255);
+  }
+
+.background {
+    background-image: url('homephoto.png');
+    margin: 0; /* Removes the default margin around the body */
+    height: 100vh; /* Sets the height of the body to fill the whole viewport height */
+    background-size: cover; /* Scales the background image to be as large as possible */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Ensures the image does not repeat */
+}
+  
+.square {
+    size: 200px 100px;
+    padding: 100px 100px;
+    text-align: center;
+}

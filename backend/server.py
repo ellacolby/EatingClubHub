@@ -1,6 +1,6 @@
 # external imports
 import os
-from flask import Flask, jsonify, abort, redirect, request, session
+from flask import Flask, jsonify, abort, redirect, request, session, render_template
 
 # internal imports
 import auth
@@ -13,58 +13,56 @@ from alchemydatabase import (
     get_records
 )
 
-
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_url_path='',
+    static_folder='../frontend/build',
+    template_folder='../frontend/build'
+)
 app.secret_key = os.environ['APP_SECRET_KEY']
 
 # Middleware  for Auth
 @app.before_request
 def authenticate():
-    if request.endpoint == 'logout':
-        return
-    res = auth.authenticate()
-    if 'username' not in session and res.headers['Location'] is not None:
-        return {'login_url': res.headers['Location']}
+    auth.authenticate()
 
 #-----------------------------------------------------------------------
-
-# Routes for authentication.
-@app.route('/login')
-def login():
-    if 'username' in session:
-        return {'username': session['username']}
 
 @app.route('/logout')
 def logout():
-    res = auth.logoutcas()
-    return res
+    return auth.logout()
 
 #-----------------------------------------------------------------------
-
-@app.route('/announcements')
+# API Routes
+@app.route('/api/announcements')
 def announcements():
     res = get_records('announcement')
     print('announcements:', res)
     return {'data': res}
 
-@app.route('/clubs')
+@app.route('/api/clubs')
 def clubs():
     res = get_records('club')
     # res = get_clubs()
     print('clubs', res)
     return {'data': res}
 
-@app.route('/events')
+@app.route('/api/events')
 def events():
     res = get_records('event')
     print('events:', res)
     return {'data': res}
 
-@app.route('/users')
+@app.route('/api/users')
 def users():
     res = get_records('user')
     print('users:', res)
     return {'data': res}
+
+# Temporary solution to load other pages
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
