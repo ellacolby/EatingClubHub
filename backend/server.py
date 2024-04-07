@@ -16,8 +16,8 @@ from alchemydatabase import (
 app = Flask(
     __name__,
     static_url_path='',
-    static_folder='../frontend/build',
-    template_folder='../frontend/build'
+    static_folder='../frontend/public',
+    template_folder='../frontend/public'
 )
 app.secret_key = os.environ['APP_SECRET_KEY']
 
@@ -60,9 +60,18 @@ def users():
     return {'data': res}
 
 # Temporary solution to load other pages
-@app.errorhandler(404)
-def not_found(e):
-    return render_template("index.html")
+@app.route('/', methods=['GET'])
+def index():
+    render_template('index.html')
+
+@app.route('/home', methods=['GET'])
+def home():
+    render_template('home.html')
+
+@app.route('/contact', methods=['GET'])
+def contact():
+    render_template('contact.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
