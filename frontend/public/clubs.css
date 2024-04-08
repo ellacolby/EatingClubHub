@@ -1,0 +1,48 @@
+.cottage-background {
+    background-image: url('cottage.png');
+    margin: 0;
+    height: 100vh; /* Adjust height as needed to fit the background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative; /* Added to position the child elements absolutely relative to this container */
+}
+
+.description {
+    position: absolute; /* Position the text absolutely within the .cottage-background */
+    top: 70%; /* Adjust as needed to move the text up or down relative to the container */
+    left: 70%; /* Adjust as needed to move the text left or right relative to the container */
+    transform: translate(-50%, -50%); /* Center the text block */
+    color: rgba(255,253,253,1);
+    font-family: Inter;
+    font-weight: Regular;
+    font-size: 29px;
+    text-align: center;
+    width: 568px; /* Adjust width as needed */
+}
+.club-name {
+    position: absolute; /* Position the container absolutely within the .cottage-background */
+    top: 20%; /* Adjust as needed to move the container up or down relative to the background */
+    left: 30%; /* Adjust as needed to move the container left or right relative to the background */
+    color: rgba(255,253,253,1);
+    width: 604px; /* Adjust the width as needed */
+    transform: translate(-50%, -50%);
+}
+
+.title, .sub-title {
+    color: rgba(255,253,253,1);
+    font-family: Inter;
+    text-align: left; /* Align the text to the left */
+}
+
+.title {
+    font-weight: bold;
+    font-size: 85px; /* Adjust the font size as needed */
+    display: block; /* Ensures that the title takes up the full width and forces the subtitle to the next line */
+}
+
+.sub-title {
+    display: block; /* Ensures that the subtitle is on a new line */
+    font-weight: regular;
+    font-size: 48px; /* Adjust the font size as needed */
+}
