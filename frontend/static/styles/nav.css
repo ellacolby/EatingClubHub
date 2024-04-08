@@ -1,0 +1,168 @@
+* {
+    box-sizing: border-box;
+  }
+  body {
+    font-size: 14px;
+  }
+  .navbar {
+    width: 100%;
+    height: 84px;
+    background: rgba(255,254,253,1);
+    opacity: 1;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+  }
+  .title {
+    width: 175px;
+    height: 29px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin: 2px;
+    opacity: 1;
+    position: absolute;
+    top: 30px;
+    left: 201px;
+    overflow: hidden;
+  }
+  .eatingclubhub {
+    width: 175px;
+    color: rgba(251,145,20,1);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    font-family: Inter;
+    font-weight: Semi Bold;
+    font-size: 24px;
+    opacity: 1;
+    text-align: left;
+  }
+  .buttons {
+    width: 317px;
+    height: 29px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin: 32px;
+    opacity: 1;
+    position: absolute;
+    top: 30px;
+    left: 821px;
+    margin: 2px;
+    overflow: visible;
+  }
+  .home {
+    width: 45px;
+    color: rgba(251,145,20,1);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    font-family: Inter;
+    font-weight: Regular;
+    font-size: 16px;
+    opacity: 1;
+    text-align: left;
+  }
+  .dropdown {
+    width: 64px;
+    height: 19px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 0px;
+    left: 77px;
+    overflow: hidden;
+  }
+  .clubs {
+    width: 44px;
+    color: rgba(251,145,20,1);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    font-family: Inter;
+    font-weight: Regular;
+    font-size: 16px;
+    opacity: 1;
+    text-align: left;
+  }
+  .carrot {
+    width: 12px;
+    height: 12px;
+    background: rgba(255,255,255,1);
+    opacity: 1;
+    position: absolute;
+    top: 3px;
+    left: 52px;
+    overflow: hidden;
+  }
+  */
+  .v31_13 {
+    width: 8px;
+    height: 4px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    overflow: hidden;
+  }
+  .v31_14 {
+    width: 8px;
+    height: 4px;
+    opacity: 1;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    border: 1.149999976158142px solid rgba(251,145,20,1);
+  }
+  .events {
+    width: 51px;
+    color: rgba(251,145,20,1);
+    position: absolute;
+    top: 0px;
+    left: 173px;
+    font-family: Inter;
+    font-weight: Regular;
+    font-size: 16px;
+    opacity: 1;
+    text-align: left;
+  }
+  .contact {
+    width: 61px;
+    color: rgba(251,145,20,1);
+    position: absolute;
+    top: 0px;
+    left: 256px;
+    font-family: Inter;
+    font-weight: Regular;
+    font-size: 16px;
+    opacity: 1;
+    text-align: left;
+  }
+  .profile {
+    width: 61px;
+    color: rgba(251,145,20,1);
+    position: absolute;
+    top: 0px;
+    left: 339px;
+    font-family: Inter;
+    font-weight: Regular;
+    font-size: 16px;
+    opacity: 1;
+    text-align: left;
+  }
+  .homephoto {
+    background-image: url('homephoto.png');
+    width: 100%;
+    height: 859px;
+  }
+
+  /*
+      background: url("../images/v31_6.png");
+  */

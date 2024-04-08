@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="{{ url_for('static', filename='styles/calendar_page.css')}}" rel="stylesheet" />
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+        <title>Events</title>
+    </head>
+    <body>
+        <div class="calendar-page">
+            {% include '/components/calendar_page/sidebar.html' %}
+            {% include '/components/calendar_page/calendar.html' %}
+        </div>
+    </body>
+</html>
+
+

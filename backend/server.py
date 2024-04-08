@@ -16,7 +16,8 @@ from alchemydatabase import (
 app = Flask(
     __name__,
     static_url_path='',
-    template_folder='../frontend/public'
+    static_folder='../frontend/static',
+    template_folder='../frontend'
 )
 app.secret_key = os.environ['APP_SECRET_KEY']
 
@@ -60,17 +61,20 @@ def users():
 
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
+def index_page():
+    return render_template('pages/index.html')
 
 @app.route('/home', methods=['GET'])
-def home():
-    return render_template('home.html')
+def home_page():
+    return render_template('pages/home.html')
 
 @app.route('/contact', methods=['GET'])
-def contact():
-   return render_template('contact.html')
+def contact_page():
+   return render_template('pages/contact.html')
 
+@app.route('/events', methods=['GET'])
+def events_page():
+    return render_template('pages/calendarpage.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
