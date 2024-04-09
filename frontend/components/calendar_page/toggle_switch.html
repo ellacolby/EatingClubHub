@@ -1,10 +1,12 @@
+{% macro toggle_switch(label) %}
 <div class="container">
-  <p class="toggle-label">Cottage</p>
+  <p class="toggle-label">{{ label }}</p>
   <div class="toggle-switch">
-    <input type="checkbox" class="checkbox" name="Cottage" id="Cottage">
-    <label class="label" for="Cottage">
+    <input type="checkbox" class="checkbox" name="{{ label }}" id="{{ label }}">
+    <label class="label" for="{{ label }}">
       <span class="inner"></span>
       <span class="switch"></span>
     </label>
   </div>
 </div>
+{% endmacro %}

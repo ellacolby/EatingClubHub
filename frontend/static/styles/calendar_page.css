@@ -4,24 +4,49 @@ body {
 }
 table {
     width: 100%;
-    height: 100%;
+    table-layout: fixed;
 }
 
 tr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
     height: 70px;
 }
 
 .sidebar {
-    width: 500px;
+    width: 300px;
     padding: 16px;
     min-height: 100%;
     background-color: rgba(0, 0, 0, .9);
 }
-
+.calendar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.time {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.time-row {
+    height: 70px;
+}
 .calendar-page {
     height: 100%;
     display: flex;
     flex-direction: row;
+}
+.day {
+    width: 100%;
+    border-left: solid #808080 1px;
+    text-align: center;
+}
+p {
+    margin: 0;
 }
 
 .date {
@@ -49,7 +74,7 @@ tr {
 
 .toggle-switch {
     position: relative;
-    width: 75px;
+    width: 50px;
     display: inline-block;
     text-align: left;
     top: 8px;
@@ -59,11 +84,13 @@ tr {
     color: #ffffff;
     display: inline;
     margin-right: 4px;
+    font-size: 12px;
 }
 
 .toggles-row {
     display: flex;
     flex-direction: row;
+    border: none;
 }
 
 .checkbox {
@@ -86,7 +113,7 @@ tr {
 .inner:after {
     float: left;
     width: 50%;
-    height: 36px;
+    height: 24px;
     padding: 0;
     line-height: 36px;
     box-sizing: border-box;
@@ -107,13 +134,13 @@ tr {
 
 .switch {
     display: block;
-    width: 24px;
+    width: 14px;
     margin: 5px;
     background: #fff;
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 40px;
+    right: 27px;
     border: 0 solid #bbb;
     border-radius: 20px;
     transition: all 0.3s ease-in 0s;
@@ -128,3 +155,11 @@ tr {
     right: 0px;
 }
 /* End toggle switch */
+/* Start Event */
+.event {
+    position: relative;
+    background-color: #2196F3;
+    border-radius: 15px;
+    padding: 10px;
+}
+/* End Event */
