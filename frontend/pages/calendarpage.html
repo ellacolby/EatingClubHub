@@ -10,24 +10,6 @@
             {% include '/components/calendar_page/sidebar.html' %}
             {% include '/components/calendar_page/calendar.html' %}
         </div>
-        <script>
-            const getEvents = async () => {
-                const res = await fetch('http://localhost:8080/api/events');
-                const arrayEvents = await res.json();
-                const events = Object.values(arrayEvents).map(event => {
-                    const [id, title, location, description, start_time, end_time] = event[0];
-                    return {
-                        id, 
-                        title,
-                        location,
-                        description,
-                        start_time,
-                        end_time
-                    };
-                });
-            }
-            getEvents();
-        </script>
     </body>
 </html>
 
