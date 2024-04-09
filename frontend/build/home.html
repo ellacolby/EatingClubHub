@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="nav.css" rel="stylesheet" />
+
+        <div class="navbar">
+            <div class="title">
+                <span class="eatingclubhub">EatingClubHub</span>
+            </div>
+            <div class="buttons">
+                <span id="homeButton"class="home">Home</span>
+                <div class="dropdown">
+                    <span id = "clubsDrop"class="clubs">Clubs</span>
+                    <div class="horizontal">
+                        <div class="carrot">
+                            <div id = "downicon"class="akar-icons--chevron-down">
+                              </div>
+                            <div class="spacing"></div>
+                        </div>
+                    </div>
+                </div>
+                <span id="eventsButton"class="events">Events</span>
+                <span id="contactButton" class="contact">Contact</span>
+
+                <a href="/contact_clicked"> 
+                    <span id="contactButton" class="contact">Contact</span>
+                  </a>
+                <span id="profileButton"class="profile">Profile</span>
+    
+                <script src=
+                "https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+                </script>
+            
+                <!-- <script src="static/jquery-3.7.1.min.js"></script> -->
+            
+                <script>
+                    'use strict';
+    
+                    function handleHome(){
+                        console.log("home clicked");
+                    }
+                    function handleEvents(){
+                        console.log("event clicked");
+                    }
+                    function handleContact(){
+                        console.log(window.location.pathname);
+                        newurl("contact.html");
+                    }
+                    function handleProfile(){
+                        console.log("profile clicker");
+                    }
+                    function newurl(newPage) {
+                        /* fix hard coding */
+                        window.location.pathname = "/Users/ellacolby/Desktop/COS%20333/EatingClubHub/frontend/public/" + newPage
+                    }
+                    document.getElementById('homeButton').addEventListener('click', handleHome);
+                    document.getElementById('eventsButton').addEventListener('click', handleEvents);
+                    document.getElementById('contactButton').addEventListener('click', handleContact);
+                    document.getElementById('profileButton').addEventListener('click', handleProfile);
+            </script>
+            </div>
+        </div>
+    </head>
+    <body>
+
+        <div class="homephoto"></div>
+    </body>
+</html>
