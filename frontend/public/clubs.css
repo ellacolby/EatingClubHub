@@ -40,9 +40,48 @@
     font-size: 85px; /* Adjust the font size as needed */
     display: block; /* Ensures that the title takes up the full width and forces the subtitle to the next line */
 }
-
 .sub-title {
     display: block; /* Ensures that the subtitle is on a new line */
     font-weight: regular;
     font-size: 48px; /* Adjust the font size as needed */
+}
+.event-handle {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 560px;
+    height: 331px;
+    text-align: center
+}
+
+.upcoming-events, .event_description {
+    color: rgba(255,253,253,1);
+    font-family: Inter;
+}
+
+.outer-layer {
+    background: rgba(255,255,255,0.3);
+    position: absolute;
+    border-radius: 8px;
+    width: 352px;
+    height: 148px;
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transform: translate(-50%, -50%);
+}
+
+.inner-layer {
+    position: absolute;
+    width: 300px;
+    height: 100px;
+    background-position: center;
+    background-size: cover;
+    background: rgba(251,145,20,1);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 5;
 }
