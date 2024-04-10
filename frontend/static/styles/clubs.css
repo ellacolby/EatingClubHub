@@ -8,7 +8,7 @@
     position: relative; /* Added to position the child elements absolutely relative to this container */
 }
 
-.description {
+.club-description {
     position: absolute; /* Position the text absolutely within the .cottage-background */
     top: 70%; /* Adjust as needed to move the text up or down relative to the container */
     left: 70%; /* Adjust as needed to move the text left or right relative to the container */
@@ -18,29 +18,29 @@
     font-weight: Regular;
     font-size: 29px;
     text-align: center;
-    width: 568px; /* Adjust width as needed */
+    width: 50px; /* Adjust width as needed */
 }
 .club-name {
     position: absolute; /* Position the container absolutely within the .cottage-background */
     top: 20%; /* Adjust as needed to move the container up or down relative to the background */
-    left: 30%; /* Adjust as needed to move the container left or right relative to the background */
+    left: 50%; /* Adjust as needed to move the container left or right relative to the background */
     color: rgba(255,253,253,1);
     width: 604px; /* Adjust the width as needed */
     transform: translate(-50%, -50%);
 }
 
-.title, .sub-title {
+.club-title, .club-subtitle {
     color: rgba(255,253,253,1);
     font-family: Inter;
     text-align: left; /* Align the text to the left */
 }
 
-.title {
+.club-title {
     font-weight: bold;
     font-size: 85px; /* Adjust the font size as needed */
     display: block; /* Ensures that the title takes up the full width and forces the subtitle to the next line */
 }
-.sub-title {
+.club-subtitle {
     display: block; /* Ensures that the subtitle is on a new line */
     font-weight: regular;
     font-size: 48px; /* Adjust the font size as needed */
@@ -48,7 +48,7 @@
 .event-handle {
     position: absolute;
     top: 90%;
-    left: 50%;
+    left: 70%;
     transform: translate(-50%, -50%);
     width: 560px;
     height: 331px;
