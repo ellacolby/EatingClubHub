@@ -81,11 +81,24 @@ def create_new_event():
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
 def index_page():
-    return render_template('pages/home.html')
+    return render_template('home.html')
 
 @app.route('/home', methods=['GET'])
 def home_page():
-    return render_template('pages/home.html')
+    # Authenticate the user and get the CAS username
+    username = auth.authenticate()
+    print('username:', username)
+
+    # If the user is authenticated, retrieve the username from the session
+    if 'username' in session:
+        cas_username = session['username']
+        print("in if")
+        # Do something with the CAS username, e.g., pass it to a template
+        return render_template('pages/home.html', USER_NAME=cas_username)
+    else:
+        return render_template('pages/home.html')
+        # Handle the case when the user is not authenticated
+     #   return redirect(url_for('login'))
 
 @app.route('/contact', methods=['GET'])
 def contact_page():
