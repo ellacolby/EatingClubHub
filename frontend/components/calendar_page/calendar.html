@@ -1,49 +1,56 @@
-<table class="calendar">
-    <thead>
-        <tr>
-            <td></td>
-            <td>Sunday</td>
-            <td>Monday</td>
-            <td>Tuesday</td>
-            <td>Wednesday</td>
-            <td>Thursday</td>
-            <td>Friday</td>
-            <td>Saturday</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>7 AM</td>
-        </tr>
-        <tr>
-            <td>8 AM</td>
-        </tr>
-        <tr>
-            <td>9 AM</td>
-        </tr>
-        <tr>
-            <td>10 AM</td>
-        </tr>
-        <tr>
-            <td>11 AM</td>
-        </tr>
-        <tr>
-            <td>12 PM</td>
-        </tr>
-        <tr>
-            <td>1 PM</td>
-        </tr>
-        <tr>
-            <td>2 PM</td>
-        </tr>
-        <tr>
-            <td>3 PM</td>
-        </tr>
-        <tr>
-            <td>4 PM</td>
-        </tr>
-        <tr>
-            <td>5 PM</td>
-        </tr>
-    </tbody>
-</table>
+{% from '/components/calendar_page/event.html' import event as event %}
+<div class="calendar">
+    <div class="time">
+        <div class="time-row"></div>
+        <div class="time-row">7AM</div>
+        <div class="time-row">8AM</div>
+        <div class="time-row">9AM</div>
+        <div class="time-row">10AM</div>
+        <div class="time-row">11AM</div>
+        <div class="time-row">12PM</div>
+        <div class="time-row">1PM</div>
+        <div class="time-row">2PM</div>
+        <div class="time-row">3PM</div>
+        <div class="time-row">4PM</div>
+        <div class="time-row">5PM</div>
+    </div>
+    <div class="day">Sunday</div>
+    <div class="day">
+        <p>Monday</p>
+        {% for monday_event in monday_events: %}
+            {{ event(monday_event['name'], monday_event['location'], monday_event['description'], monday_event['start_time'], monday_event['end_time'])}}
+        {% endfor %}
+    </div>
+    <div class="day">
+        <p>Tuesday</p>
+            {% for tuesday_event in tuesday_events: %}
+                {{ event(tuesday_event['name'], tuesday_event['location'], tuesday_event['description'], tuesday_event['start_time'],
+                tuesday_event['end_time'])}}
+            {% endfor %}
+    </div>
+    <div class="day">
+        <p>Wednesday</p>
+        {% for wednesday_event in wednesday_events: %}
+            {{ event(wednesday_event['name'], wednesday_event['location'], wednesday_event['description'], wednesday_event['start_time'],
+            wednesday_event['end_time'])}}
+        {% endfor %}
+    </div>
+    <div class="day">
+        <p>Thursday</p>
+        {% for thursday_event in thursday_events: %}
+            {{ event(thursday_event['name'], thursday_event['location'], thursday_event['description'], thursday_event['start_time'], thursday_event['end_time'])}}
+        {% endfor %}
+    </div>
+    <div class="day">
+        <p>Friday</p>
+        {% for friday_event in friday_events: %}
+            {{ event(friday_event['name'], friday_event['location'], friday_event['description'], friday_event['start_time'], friday_event['end_time'])}}
+        {% endfor %}
+    </div>
+    <div class="day">
+        <p>Saturday</p>
+        {% for saturday_event in saturday_events: %}
+            {{ event(saturday_event['name'], saturday_event['location'], saturday_event['description'], saturday_event['start_time'], saturday_event['end_time'])}}
+        {% endfor %}
+    </div>
+</div>
