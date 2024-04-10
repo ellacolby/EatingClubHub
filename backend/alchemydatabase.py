@@ -142,17 +142,17 @@ def get_records(class_name):
 #     with sqlalchemy.orm.Session(engine) as session:
 #         return session.query(FavoriteClub).all() 
 
-# def get_officers():
-#     with sqlalchemy.orm.Session(engine) as session:
-#         return session.query(Officer).all()
+def get_officers():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(Officer).all()
 
 # def get_user_events():
 #     with sqlalchemy.orm.Session(engine) as session:
 #         return session.query(UserEvent).all()
 
-# def get_users():
-#    with sqlalchemy.orm.Session(engine) as session:
-#         return session.query(User).all() 
+def get_users():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(User).all()
    
 def create_announcement(announcement_id=None, title=None, description=None, image=None):
     with sqlalchemy.orm.Session(engine) as session:
