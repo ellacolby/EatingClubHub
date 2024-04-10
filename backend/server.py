@@ -1,6 +1,6 @@
 # external imports
 import os
-from flask import Flask, jsonify, abort, redirect, request, session, render_template
+from flask import Flask, jsonify, abort, redirect, request, session, render_template, make_response
 
 # internal imports
 import auth
@@ -75,6 +75,25 @@ def contact_page():
 @app.route('/eventcreation', methods=['GET'])
 def event_creation_page():
    return render_template('pages/eventcreation.html')
+
+@app.route('/create_event', methods=['POST'])
+def create_new_event():
+    event_name = request.form['eventName']
+    location = request.form['location']
+    description = request.form['description']
+    start_datetime = request.form['startDateTime']
+    end_datetime = request.form['endDateTime']
+    start_datetime = datetime.strptime(start_datetime, '%m/%d/%Y, %I:%M:%S %p')
+    end_datetime = datetime.strptime(end_datetime, '%m/%d/%Y, %I:%M:%S %p')
+
+    # Creates new event in database
+    eventid = get_records('event')[-1][0]
+    create_event(event_id=eventid+1, name=event_name, location=location, description=description, start_time=start_datetime, end_time=end_datetime)
+
+    # Render the event creation success page directly
+    html_code = render_template('pages/eventcreation_success.html')
+    response = make_response(html_code)
+    return response
 
 @app.route('/events', methods=['GET'])
 def events_page():

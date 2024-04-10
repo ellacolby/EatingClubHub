@@ -13,7 +13,7 @@
         <div class="container">
             <div class="eventcreation-container">
                 <h2>Create New Event</h2>
-                <form action="#" method="post">
+                <form id="eventForm" method="post" action="/create_event">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -66,9 +66,43 @@
             </div>
         </div>
         
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('eventForm').addEventListener('submit', function (event) {
+                    event.preventDefault(); // Prevent the form from submitting normally
+    
+                    // Get form data
+                    var formData = new FormData(this);
+                    
+                    // Format date and time
+                    var startDateTime = new Date(formData.get('startDateTime')).toLocaleString();
+                    var endDateTime = new Date(formData.get('endDateTime')).toLocaleString();
 
+                    // Modify form data with formatted dates
+                    formData.set('startDateTime', startDateTime);
+                    formData.set('endDateTime', endDateTime);
 
-        <!-- Include Bootstrap JS (Optional) -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                    // Send form data to backend server using Fetch API
+                    fetch('/create_event', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(function (response) {
+                        if (response.ok) {
+                            // handle success response
+                            console.log('Event created successfully!');
+                        } else {
+                            // handle error response
+                            console.error('Failed to create event');
+                        }
+                    })
+                    .catch(function (error) {
+                        // Handle network errors
+                        console.error('Error:', error);
+                    });
+                });
+            });
+        </script>
+
     </body>
 </html>
