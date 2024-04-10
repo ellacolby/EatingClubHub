@@ -59,24 +59,7 @@ def users():
     print('users:', res)
     return {'users': res}
 
-#-----------------------------------------------------------------------
-@app.route('/', methods=['GET'])
-def index_page():
-    return render_template('pages/index.html')
-
-@app.route('/home', methods=['GET'])
-def home_page():
-    return render_template('pages/home.html')
-
-@app.route('/contact', methods=['GET'])
-def contact_page():
-   return render_template('pages/contact.html')
-
-@app.route('/eventcreation', methods=['GET'])
-def event_creation_page():
-   return render_template('pages/eventcreation.html')
-
-@app.route('/create_event', methods=['POST'])
+@app.route('/api/create_event', methods=['POST'])
 def create_new_event():
     event_name = request.form['eventName']
     location = request.form['location']
@@ -94,6 +77,23 @@ def create_new_event():
     html_code = render_template('pages/eventcreation_success.html')
     response = make_response(html_code)
     return response
+
+#-----------------------------------------------------------------------
+@app.route('/', methods=['GET'])
+def index_page():
+    return render_template('pages/index.html')
+
+@app.route('/home', methods=['GET'])
+def home_page():
+    return render_template('pages/home.html')
+
+@app.route('/contact', methods=['GET'])
+def contact_page():
+   return render_template('pages/contact.html')
+
+@app.route('/eventcreation', methods=['GET'])
+def event_creation_page():
+   return render_template('pages/eventcreation.html')
 
 @app.route('/events', methods=['GET'])
 def events_page():
