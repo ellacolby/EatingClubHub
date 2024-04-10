@@ -4,6 +4,7 @@ from flask import Flask, jsonify, abort, redirect, request, session, render_temp
 
 # internal imports
 import auth
+import alchemydatabase as db
 from datetime import datetime
 from alchemydatabase import (
     create_announcement,
@@ -81,24 +82,25 @@ def create_new_event():
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
 def index_page():
-    return render_template('home.html')
+    return render_template('pages/home.html')
 
 @app.route('/home', methods=['GET'])
 def home_page():
-    # Authenticate the user and get the CAS username
-    username = auth.authenticate()
-    print('username:', username)
+        # Authenticate the user and get the CAS username
+    cas_username = auth.authenticate()
+    print('username:', cas_username)
 
-    # If the user is authenticated, retrieve the username from the session
-    if 'username' in session:
-        cas_username = session['username']
-        print("in if")
-        # Do something with the CAS username, e.g., pass it to a template
-        return render_template('pages/home.html', USER_NAME=cas_username)
-    else:
-        return render_template('pages/home.html')
-        # Handle the case when the user is not authenticated
-     #   return redirect(url_for('login'))
+    # Store authenticated username in session if not already present
+    if 'cas_username' not in session:
+        session['cas_username'] = cas_username
+
+    # Check if the user exists in the database and create if not
+    user_exists = any(user.netid == cas_username for user in db.get_users())
+    if not user_exists:
+        db.create_user(user_id=None, name=None, netid=cas_username, profile_pic=None)
+
+    # Use the username from the session for consistency
+    return render_template('pages/home.html', USER_NAME=session['cas_username'])
 
 @app.route('/contact', methods=['GET'])
 def contact_page():
