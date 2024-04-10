@@ -67,8 +67,6 @@ def create_new_event():
     description = request.form['description']
     start_datetime = request.form['startDateTime']
     end_datetime = request.form['endDateTime']
-    start_datetime = datetime.strptime(start_datetime, '%m/%d/%Y, %I:%M:%S %p')
-    end_datetime = datetime.strptime(end_datetime, '%m/%d/%Y, %I:%M:%S %p')
 
     # Creates new event in database
     eventid = get_records('event')[-1][0]
@@ -81,9 +79,6 @@ def create_new_event():
 
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
-def index_page():
-    return render_template('pages/home.html')
-
 @app.route('/home', methods=['GET'])
 def home_page():
         # Authenticate the user and get the CAS username
@@ -120,7 +115,7 @@ def events_page():
             'start_time': event[4],
             'end_time': event[4]
         }, fetched_events['events']))
-    sunday_event = list(filter(lambda event: "Sun" in event['start_time'], fetched_events))
+    sunday_events = list(filter(lambda event: "Sun" in event['start_time'], fetched_events))
     monday_events = list(filter(lambda event: "Mon" in event['start_time'], fetched_events))
     tuesday_events = list(filter(lambda event: "Tue" in event['start_time'], fetched_events))
     wednesday_events = list(filter(lambda event: "Wed" in event['start_time'], fetched_events))
@@ -133,6 +128,7 @@ def events_page():
 
     return render_template(
         'pages/calendarpage.html',
+        sunday_events=sunday_events,
         monday_events=monday_events,
         tuesday_events=tuesday_events,
         wednesday_events=wednesday_events,

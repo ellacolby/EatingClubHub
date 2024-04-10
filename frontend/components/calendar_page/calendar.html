@@ -14,7 +14,12 @@
         <div class="time-row">4PM</div>
         <div class="time-row">5PM</div>
     </div>
-    <div class="day">Sunday</div>
+    <div class="day">
+        <p>Sunday</p>
+        {% for sunday_event in sunday_events: %}
+            {{ event(sunday_event['name'], sunday_event['location'], sunday_event['description'], sunday_event['start_time'], sunday_event['end_time'])}}
+        {% endfor %}
+    </div>
     <div class="day">
         <p>Monday</p>
         {% for monday_event in monday_events: %}
