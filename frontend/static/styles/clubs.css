@@ -1,11 +1,68 @@
-.cottage-background {
-    background-image: url('cottage.png');
+.cannon-background, .cap-background, .charter-background, 
+.cloister-background, .colo-background, .cottage-background,
+.ivy-background, .quad-background, .terrace-background,
+.ti-background, .tower-background {
     margin: 0;
-    height: 100vh; /* Adjust height as needed to fit the background image */
+    height: 100vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    position: relative; /* Added to position the child elements absolutely relative to this container */
+    position: relative;
+}
+
+.cannon-background {
+    background-image: url('cannon.jpeg');
+}
+
+.cap-background {
+    background-image: url('cap.jpeg');
+}
+
+.charter-background {
+    background-image: url('charter.jpeg');
+}
+
+.cloister-background {
+    background-image: url('charter.jpeg');
+}
+
+.colo-background {
+    background-image: url('colo.jpeg');
+}
+
+.cottage-background {
+    background-image: url('cottage.png');
+}
+
+.ivy-background {
+    background-image: url('ivy.jpeg');
+}
+
+.quad-background {
+    background-image: url('quad.jpeg');
+}
+
+.terrace-background {
+    background-image: url('terrace.jpeg');
+}
+
+.ti-background {
+    background-image: url('ti.jpeg');
+}
+
+.tower-background {
+    background-image: url('tower.jpeg');
+}
+
+.dark-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Control the darkening effect here */
+    pointer-events: none;
 }
 
 .club-description {

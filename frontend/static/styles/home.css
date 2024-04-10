@@ -14,7 +14,7 @@
     float: left;
     color: rgba(251,145,20,1);
     text-align: center;
-    padding: 12px 16px;
+    padding: 12px;
     text-decoration: none;
     font-family: Inter;
     font-weight: Regular;
@@ -38,9 +38,17 @@
 }
   
 .square {
-    size: 200px 100px;
-    padding: 100px 100px;
-    text-align: center;
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    background-position: center;
+    background-size: cover;
+    background: rgba(251,145,20,1);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    opacity: 5;
 }
 .akar-icons--chevron-down {
   display: inline-block;
@@ -84,4 +92,15 @@
 
 .dropdown:hover .dropdown-trigger {
     cursor: pointer;
+}
+.add-announcement {
+    background-color: #cd8321;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+    top: 50%;
+    left: 80%;
 }

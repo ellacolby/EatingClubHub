@@ -12,48 +12,48 @@
     </head>
     <body>
         {% include '/components/nav.html' %}
-        <!-- <div class="container-fluid navbar">
- 
-                <span class="title">EatingClubHub</span>
-
-                <a class="active" href="#home">Home</a>
-                <div class="events">
-                    <a href="#events">Events</a>
-                </div>
-                <div class="clubs">
-                    <a href="#clubs">Clubs</a>
-                </div>
-                <div class="dropdown">
-                    <span class="akar-icons--chevron-down dropdown-trigger"></span>
-                    <div class="dropdown-content">
-                        <a href="#">Cap & Gown</a>
-                        <a href="#">Tiger Inn</a>
-                        <a href="#">Ivy Inn</a>
-                        <a href="#">Cottage Club</a>
-                        <a href="#">Tower Club</a>
-                        <a href="#">Cannon Club</a>
-                        <a href="#">Charter Club</a>
-                        <a href="#">Quadrangle Club</a>
-                        <a href="#">Colonial Club</a>
-                        <a href="#">Terrace F. Club</a>
-                        <a href="#">Cloister Inn</a>
-                    </div>
-                </div>
-                <div class="contact">
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="profile">
-                    <a href="#profile">Profile</a>
-                </div>
-
-        </div> -->
         <div class="background">
-            <p class="container-fluid square">
-                Welcome, {{USER_NAME}} !!
-            </p>
+            <div class="row">
+                <p class="col-3 container-fluid square">
+                    Welcome, {{USER_NAME}} !!
+                </p>
+            </div>
+            {% if is_officer %}
+            <button class="add-announcement">Add Announcement</button>
+            {% endif %}
+        </div>
+        <div class="cannon-club-page">
+            {% include '/pages/cannon.html' %}
+        </div>
+        <div class="cap-club-page">
+            {% include '/pages/cap.html' %}
+        </div>
+        <div class="charter-club-page">
+            {% include '/pages/charter.html' %}
+        </div>
+        <div class="cloister-club-page">
+            {% include '/pages/cloister.html' %}
+        </div>
+        <div class="colo-club-page">
+            {% include '/pages/colo.html' %}
         </div>
         <div class="cottage-club-page">
             {% include '/pages/cottage.html' %}
+        </div>
+        <div class="ivy-club-page">
+            {% include '/pages/ivy.html' %}
+        </div>
+        <div class="quad-club-page">
+            {% include '/pages/quad.html' %}
+        </div>
+        <div class="terrace-club-page">
+            {% include '/pages/terrace.html' %}
+        </div>
+        <div class="ti-club-page">
+            {% include '/pages/ti.html' %}
+        </div>
+        <div class="tower-club-page">
+            {% include '/pages/tower.html' %}
         </div>
 
     </body>
