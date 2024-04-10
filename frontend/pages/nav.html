@@ -12,56 +12,39 @@ rel="stylesheet" />
 </head>
 <body>
     <div class="container-fluid navbar">
-        <div class="container-fluid title">
-            <span class="title">EatingClubHub</span>
+ 
+        <span class="title">EatingClubHub</span>
+
+        <a class="active" href="#home">Home</a>
+        <div class="events">
+            <a href="#events">Events</a>
         </div>
-        <div class="container-fluid buttons">
-            <span id="homeButton"class="home">Home</span>
-            <div class="dropdown">
-                <span class="clubs">Clubs</span>
-                <div class="carrot">
-                    <div class="v31_13">
-                        <div class="v31_14"></div>
-                    </div>
-                </div>
+        <div class="clubs">
+            <a href="#clubs">Clubs</a>
+        </div>
+        <div class="dropdown">
+            <span class="akar-icons--chevron-down dropdown-trigger"></span>
+            <div class="dropdown-content">
+                <a href="#">Cap & Gown</a>
+                <a href="#">Tiger Inn</a>
+                <a href="#">Ivy Inn</a>
+                <a href="#">Cottage Club</a>
+                <a href="#">Tower Club</a>
+                <a href="#">Cannon Club</a>
+                <a href="#">Charter Club</a>
+                <a href="#">Quadrangle Club</a>
+                <a href="#">Colonial Club</a>
+                <a href="#">Terrace F. Club</a>
+                <a href="#">Cloister Inn</a>
             </div>
-            <span id="eventsButton"class="events">Events</span>
-            <span id="contactButton" class="contact">Contact</span>
-            <span id="profileButton"class="profile">Profile</span>
-
-            <script src=
-            "https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
-            </script>
-        
-            <!-- <script src="static/jquery-3.7.1.min.js"></script> -->
-        
-            <script>
-                'use strict';
-
-                function handleHome(){
-                    console.log("home clicked");
-                }
-                function handleEvents(){
-                    console.log("event clicked");
-                }
-                function handleContact(){
-                    newurl('contact.html');
-                }
-                function handleProfile(){
-                    console.log("profile clicker");
-                }
-                function newurl(pageClicked) {
-                    let url = '/' + pageClicked;
-
-                    // Navigate to the new URL
-                    window.location.href = url;       
-                }
-                document.getElementById('homeButton').addEventListener('click', handleHome);
-                document.getElementById('eventsButton').addEventListener('click', handleEvents);
-                document.getElementById('contactButton').addEventListener('click', handleContact);
-                document.getElementById('profileButton').addEventListener('click', handleProfile);
-        </script>
         </div>
+        <div class="contact">
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="profile">
+            <a href="#profile">Profile</a>
+        </div>
+
     </div>
 </body>
 </html>
