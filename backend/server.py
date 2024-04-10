@@ -72,6 +72,10 @@ def home_page():
 def contact_page():
    return render_template('pages/contact.html')
 
+@app.route('/eventcreation', methods=['GET'])
+def event_creation_page():
+   return render_template('pages/eventcreation.html')
+
 @app.route('/events', methods=['GET'])
 def events_page():
     fetched_events = events()
