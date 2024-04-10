@@ -81,7 +81,7 @@ def create_new_event():
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
 def index_page():
-    return render_template('pages/index.html')
+    return render_template('pages/home.html')
 
 @app.route('/home', methods=['GET'])
 def home_page():
