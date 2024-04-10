@@ -97,10 +97,14 @@ def home_page():
     # Check if the user exists in the database and create if not
     user_exists = any(user.netid == cas_username for user in db.get_users())
     if not user_exists:
-        db.create_user(user_id=None, name=None, netid=cas_username, profile_pic=None)
+        db.create_user(user_id=int(cas_username[2:]), name=cas_username[:2], netid=cas_username, profile_pic=None)
+        
+    # check if officer
+    user_id = int(cas_username[2:])
+    is_officer = any(user.user_id == user_id for user in db.get_officers())
 
     # Use the username from the session for consistency
-    return render_template('pages/home.html', USER_NAME=session['cas_username'])
+    return render_template('pages/home.html', USER_NAME=session['cas_username'], is_officer=is_officer)
 
 @app.route('/contact', methods=['GET'])
 def contact_page():
