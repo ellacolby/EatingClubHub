@@ -80,8 +80,7 @@ def authenticate():
     user_exists = any(user.netid == username for user in db.get_users())
     if not user_exists:
         try:
-            userid = db.get_records('user')[-1][0]
-            db.create_user(user_id=userid+1, name=username[:2], netid=username, profile_pic=None)
+            db.create_user(user_id=int(username[2:]), name=username[:2], netid=username, profile_pic=None)
         except IntegrityError:
             print("A user with this ID already exists.")
 
