@@ -10,6 +10,11 @@
             {% include '/components/calendar_page/sidebar.html' %}
             {% include '/components/calendar_page/calendar.html' %}
         </div>
+        {% if is_officer %}
+        <div class="add-event" style="position: absolute; width: 200px; height: 100px; background-position: center; background-size: cover; background: rgba(251,145,20,1); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); top: 50%; left: 10%; transform: translate(-50%, -50%);">
+            <a href="/eventcreation">Add Event</a>
+        </div>
+        {% endif %}
     </body>
 </html>
 

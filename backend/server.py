@@ -81,25 +81,9 @@ def create_new_event():
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
 def home_page():
-        # Authenticate the user and get the CAS username
-    cas_username = auth.authenticate()
-    print('username:', cas_username)
-
-    # Store authenticated username in session if not already present
-    if 'cas_username' not in session:
-        session['cas_username'] = cas_username
-
-    # Check if the user exists in the database and create if not
-    user_exists = any(user.netid == cas_username for user in db.get_users())
-    if not user_exists:
-        db.create_user(user_id=int(cas_username[2:]), name=cas_username[:2], netid=cas_username, profile_pic=None)
-        
-    # check if officer
-    user_id = int(cas_username[2:])
-    is_officer = any(user.user_id == user_id for user in db.get_officers())
-
+    cas_username, is_officer = auth_info()
     # Use the username from the session for consistency
-    return render_template('pages/home.html', USER_NAME=session['cas_username'], is_officer=is_officer)
+    return render_template('pages/home.html', USER_NAME=cas_username, is_officer=is_officer)
 
 @app.route('/contact', methods=['GET'])
 def contact_page():
@@ -107,7 +91,16 @@ def contact_page():
 
 @app.route('/eventcreation', methods=['GET'])
 def event_creation_page():
-   return render_template('pages/eventcreation.html')
+    return render_template('pages/eventcreation.html')
+
+
+def auth_info():
+    cas_username = auth.authenticate()
+
+    # check if officer
+    user_id = int(cas_username[2:])
+    if_officer = any(user.user_id == user_id for user in db.get_officers())
+    return cas_username, if_officer
 
 @app.route('/events', methods=['GET'])
 def events_page():
@@ -129,7 +122,8 @@ def events_page():
 
     print('MONDAY EVENTS',  monday_events)
 
-
+    _, is_officer = auth_info()
+    
     return render_template(
         'pages/calendarpage.html',
         sunday_events=sunday_events,
@@ -138,7 +132,8 @@ def events_page():
         wednesday_events=wednesday_events,
         thursday_events=thursday_events,
         friday_events=friday_events,
-        saturday_events=saturday_events
+        saturday_events=saturday_events,
+        is_officer=is_officer
     )
 
 if __name__ == '__main__':

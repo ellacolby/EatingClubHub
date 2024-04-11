@@ -103,7 +103,6 @@ class User(Base):
     netid = Column(Text)
     profile_pic = Column(Text)
 
-
 def get_records(class_name):
     records = []
     with sqlalchemy.orm.Session(engine) as session:
