@@ -24,6 +24,8 @@
 
 /* Change the color of links on hover */
 .navbar a:hover {
+  width: 100%;
+  text-align: left;
   background-color: rgba(251,145,20,1);
   color: rgb(255, 255, 255);
 }
