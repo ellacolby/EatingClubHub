@@ -70,7 +70,7 @@ def create_new_event():
 
     # Creates new event in database
     eventid = get_records('event')[-1][0]
-    create_event(event_id=eventid, name=event_name, location=location, description=description, start_time=start_datetime, end_time=end_datetime)
+    create_event(event_id=eventid+1, name=event_name, location=location, description=description, start_time=start_datetime, end_time=end_datetime)
 
     html_code = render_template('pages/calendarpage.html')
     response = make_response(html_code)
