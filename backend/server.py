@@ -152,19 +152,21 @@ def events_page():
     friday_events = list(filter(lambda event: "Fri" in event['start_time'], fetched_events))
     saturday_events = list(filter(lambda event: "Sat" in event['start_time'], fetched_events))
 
-    print('MONDAY EVENTS',  monday_events)
-
+    all_events = {
+        'sunday': sunday_events,
+        'monday': monday_events,
+        'tuesday': tuesday_events,
+        'wednesday': wednesday_events,
+        'thursday': thursday_events,
+        'friday': friday_events,
+        'saturday': saturday_events
+    }
     _, is_officer = auth_info()
     
     return render_template(
         'pages/calendarpage.html',
-        sunday_events=sunday_events,
-        monday_events=monday_events,
-        tuesday_events=tuesday_events,
-        wednesday_events=wednesday_events,
-        thursday_events=thursday_events,
-        friday_events=friday_events,
-        saturday_events=saturday_events,
+        events=all_events,
+        list_events=[event for row in list(all_events.values()) for event in row],
         is_officer=is_officer
     )
 
