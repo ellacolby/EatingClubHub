@@ -70,13 +70,25 @@ def create_new_event():
 
     # Creates new event in database
     eventid = get_records('event')[-1][0]
-    create_event(event_id=eventid+1, name=event_name, location=location, description=description, start_time=start_datetime, end_time=end_datetime)
+    create_event(event_id=eventid, name=event_name, location=location, description=description, start_time=start_datetime, end_time=end_datetime)
 
-    # Render the event creation success page directly
-    html_code = render_template('pages/eventcreation_success.html')
+    html_code = render_template('pages/calendarpage.html')
     response = make_response(html_code)
     return response
 
+@app.route('/api/create_announcement', methods=['POST'])
+def create_new_announcement():
+    announcement_title = request.form['announcementTitle']
+    announcement_descrip = request.form['announcementDescription']
+
+    # Creates new announcement in database
+    announcementid = get_records('announcement')[-1][0]
+    create_announcement(announcement_id=announcementid+1, title=announcement_title, description=announcement_descrip)
+
+    html_code = render_template('pages/announcementspage.html')
+    response = make_response(html_code)
+    return response
+    
 #-----------------------------------------------------------------------
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
@@ -97,6 +109,9 @@ def profile_page():
 def event_creation_page():
     return render_template('pages/eventcreation.html')
 
+@app.route('/announcementcreation', methods=['GET'])
+def announcement_creation_page():
+     return render_template('pages/announcementcreation.html')
 
 def auth_info():
     cas_username = auth.authenticate()
@@ -105,6 +120,19 @@ def auth_info():
     user_id = int(cas_username[2:])
     if_officer = any(user.user_id == user_id for user in db.get_officers())
     return cas_username, if_officer
+
+@app.route('/announcements', methods=['GET'])
+def announcements_page():
+    fetched_announcements = announcements()
+    fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
+    print(fetched_announcements)
+    _, is_officer = auth_info()
+
+    return render_template(
+        'pages/announcementspage.html',
+        announcements=fetched_announcements,
+        is_officer=is_officer
+    )
 
 @app.route('/events', methods=['GET'])
 def events_page():
