@@ -1,0 +1,16 @@
+body {
+    padding: 20px;
+}
+.announcement-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.announcement {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.create-button {
+    margin-top: 20px;
+}
