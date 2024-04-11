@@ -16,45 +16,45 @@
     </div>
     <div class="day">
         <p>Sunday</p>
-        {% for sunday_event in sunday_events: %}
+        {% for sunday_event in events['sunday']: %}
             {{ event(sunday_event['name'], sunday_event['location'], sunday_event['description'], sunday_event['start_time'], sunday_event['end_time'])}}
         {% endfor %}
     </div>
     <div class="day">
         <p>Monday</p>
-        {% for monday_event in monday_events: %}
+        {% for monday_event in events['monday']: %}
             {{ event(monday_event['name'], monday_event['location'], monday_event['description'], monday_event['start_time'], monday_event['end_time'])}}
         {% endfor %}
     </div>
     <div class="day">
         <p>Tuesday</p>
-            {% for tuesday_event in tuesday_events: %}
+            {% for tuesday_event in events['tuesday']: %}
                 {{ event(tuesday_event['name'], tuesday_event['location'], tuesday_event['description'], tuesday_event['start_time'],
                 tuesday_event['end_time'])}}
             {% endfor %}
     </div>
     <div class="day">
         <p>Wednesday</p>
-        {% for wednesday_event in wednesday_events: %}
+        {% for wednesday_event in events['wednesday']: %}
             {{ event(wednesday_event['name'], wednesday_event['location'], wednesday_event['description'], wednesday_event['start_time'],
             wednesday_event['end_time'])}}
         {% endfor %}
     </div>
     <div class="day">
         <p>Thursday</p>
-        {% for thursday_event in thursday_events: %}
+        {% for thursday_event in events['thursday']: %}
             {{ event(thursday_event['name'], thursday_event['location'], thursday_event['description'], thursday_event['start_time'], thursday_event['end_time'])}}
         {% endfor %}
     </div>
     <div class="day">
         <p>Friday</p>
-        {% for friday_event in friday_events: %}
+        {% for friday_event in events['friday']: %}
             {{ event(friday_event['name'], friday_event['location'], friday_event['description'], friday_event['start_time'], friday_event['end_time'])}}
         {% endfor %}
     </div>
     <div class="day">
         <p>Saturday</p>
-        {% for saturday_event in saturday_events: %}
+        {% for saturday_event in events['saturday']: %}
             {{ event(saturday_event['name'], saturday_event['location'], saturday_event['description'], saturday_event['start_time'], saturday_event['end_time'])}}
         {% endfor %}
     </div>

@@ -1,4 +1,5 @@
 {% from '/components/calendar_page/toggle_switch.html' import toggle_switch as toggle_switch %}
+{% from '/components/calendar_page/event.html' import event as event %}
 <div class="sidebar">
     {% include '/components/calendar_page/date.html' %}
     {% include '/components/calendar_page/eating_club.html' %}
@@ -12,4 +13,17 @@
             <td>{{ toggle_switch('Charter') }}</td>
         </tr>
     </table>
+    <div>
+        <h3>Upcoming Events</h3>
+        {% for upcoming_event in [event for row in list(events.values()) for event in row]: %}
+            {{ event(
+                upcoming_event['name'], 
+                upcoming_event['location'], 
+                upcoming_event['description'], 
+                upcoming_event['start_time'], 
+                upcoming_event['end_time']
+                )
+            }}
+        {% endfor %}
+    </div>
 </div>
