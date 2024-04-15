@@ -97,7 +97,7 @@ def create_new_announcement():
 def home_page():
     cas_username, is_officer = auth_info()
     # Use the username from the session for consistency
-    return render_template('pages/home.html', USER_NAME=cas_username, is_officer=is_officer)
+    return render_template('pages/home.html', USERNAME=cas_username, is_officer=is_officer)
 
 @app.route('/contact', methods=['GET'])
 def contact_page():

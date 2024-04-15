@@ -8,20 +8,21 @@
         <link href="{{ url_for('static', filename='styles/clubs.css') }}" rel="stylesheet" />
 
         
-        <title>Home Page</title>
+        <title>EatingClubHub</title>
     </head>
     <body>
         {% include '/components/nav.html' %}
+
         <div class="background">
-            <div class="row">
-                <p class="col-3 container-fluid square">
-                    Welcome, {{USER_NAME}} !!
-                </p>
-            </div>
-            {% if is_officer %}
-            <button class="add-announcement">Add Announcement</button>
-            {% endif %}
         </div>
+        <div class="headers">
+            <h1 id="home-header">EatingClubHub</h1>
+            <h2 id="welcome-header">Welcome, {{ USERNAME }}</h2>
+            <a id="icc-website" href="https://icc.princeton.edu">ICC Website</a>
+        </div>
+        {% if is_officer %}
+        <button class="add-announcement">Add Announcement</button>
+        {% endif %}
         <div id="cannon-club-page">
             {% include '/pages/eating_clubs/cannon.html' %}
         </div>
