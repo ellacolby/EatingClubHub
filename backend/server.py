@@ -90,6 +90,8 @@ def create_new_announcement():
     return response
     
 #-----------------------------------------------------------------------
+# Page Renderings
+
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
 def home_page():
@@ -107,11 +109,11 @@ def profile_page():
 
 @app.route('/eventcreation', methods=['GET'])
 def event_creation_page():
-    return render_template('pages/eventcreation.html')
+    return render_template('pages/events/eventcreation.html')
 
 @app.route('/announcementcreation', methods=['GET'])
 def announcement_creation_page():
-     return render_template('pages/announcementcreation.html')
+     return render_template('pages/announcements/announcementcreation.html')
 
 def auth_info():
     cas_username = auth.authenticate()
@@ -129,7 +131,7 @@ def announcements_page():
     _, is_officer = auth_info()
 
     return render_template(
-        'pages/announcementspage.html',
+        'pages/announcements/announcementspage.html',
         announcements=fetched_announcements,
         is_officer=is_officer
     )
@@ -164,7 +166,7 @@ def events_page():
     _, is_officer = auth_info()
     
     return render_template(
-        'pages/calendarpage.html',
+        'pages/events/calendarpage.html',
         events=all_events,
         list_events=[event for row in list(all_events.values()) for event in row],
         is_officer=is_officer
