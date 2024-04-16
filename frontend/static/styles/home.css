@@ -30,6 +30,7 @@
 
 .background {
     background-image: url('homephoto.png');
+    opacity: 0.5;
     margin: 0; /* Removes the default margin around the body */
     height: 100vh; /* Sets the height of the body to fill the whole viewport height */
     background-size: cover; /* Scales the background image to be as large as possible */
@@ -103,4 +104,28 @@
     float: right;
     top: 50%;
     left: 80%;
+}
+
+.headers {
+  position: absolute;
+  bottom: 96px;
+  left: 97px;
+}
+
+#home-header {
+  font-size: 96px;
+  font-weight: 600;
+}
+#welcome-header {
+  font-size: 64px;
+  font-weight: 600;
+}
+
+#icc-website {
+  display: inline-block;
+  background-color: #333333;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 20px 60px;
+  border-radius: 100px;
 }
