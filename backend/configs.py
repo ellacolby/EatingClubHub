@@ -1,14 +1,18 @@
 import requests
 import json
 import base64
+import os
+import dotenv
+
+dotenv.load_dotenv()
 
 class Configs:
     def __init__(self):
-        self.CONSUMER_KEY = "KPYMe2FTDdpk9Lo3Q0FLWPWCjwsa"
-        self.CONSUMER_SECRET = "ONBGvpgskS6EKutumvlTf_kh56Ua"
-        self.BASE_URL="https://api.princeton.edu:443/active-directory/1.0.5"
+        self.CONSUMER_KEY = os.environ['CONSUMER_KEY']
+        self.CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
+        self.BASE_URL= os.environ['BASE_URL']
+        self.REFRESH_TOKEN_URL= os.environ['REFRESH_TOKEN_URL']
         self.USERS = "/users"
-        self.REFRESH_TOKEN_URL="https://api.princeton.edu:443/token"
         self._refreshToken(grant_type="client_credentials")
 
     def _refreshToken(self, **kwargs):
