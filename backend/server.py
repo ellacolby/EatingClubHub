@@ -13,6 +13,7 @@ from alchemydatabase import (
     create_user,
     get_records
 )
+from name import get_name
 
 app = Flask(
     __name__,
@@ -70,7 +71,7 @@ def create_new_event():
 
     # Creates new event in database
     eventid = get_records('event')[-1][0]
-    create_event(event_id=eventid, name=event_name, location=location, description=description, start_time=start_datetime, end_time=end_datetime)
+    create_event(event_id=eventid+1, name=event_name, location=location, description=description, start_time=start_datetime, end_time=end_datetime)
 
     html_code = render_template('pages/calendarpage.html')
     response = make_response(html_code)
@@ -90,12 +91,14 @@ def create_new_announcement():
     return response
     
 #-----------------------------------------------------------------------
+# Page Renderings
+
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
 def home_page():
     cas_username, is_officer = auth_info()
     # Use the username from the session for consistency
-    return render_template('pages/home.html', USER_NAME=cas_username, is_officer=is_officer)
+    return render_template('pages/home.html', USERNAME=cas_username, is_officer=is_officer)
 
 @app.route('/contact', methods=['GET'])
 def contact_page():
@@ -107,19 +110,20 @@ def profile_page():
 
 @app.route('/eventcreation', methods=['GET'])
 def event_creation_page():
-    return render_template('pages/eventcreation.html')
+    return render_template('pages/events/eventcreation.html')
 
 @app.route('/announcementcreation', methods=['GET'])
 def announcement_creation_page():
-     return render_template('pages/announcementcreation.html')
+     return render_template('pages/announcements/announcementcreation.html')
 
 def auth_info():
     cas_username = auth.authenticate()
+    name = get_name(cas_username)
 
     # check if officer
     user_id = int(cas_username[2:])
     if_officer = any(user.user_id == user_id for user in db.get_officers())
-    return cas_username, if_officer
+    return name, if_officer
 
 @app.route('/announcements', methods=['GET'])
 def announcements_page():
@@ -129,7 +133,7 @@ def announcements_page():
     _, is_officer = auth_info()
 
     return render_template(
-        'pages/announcementspage.html',
+        'pages/announcements/announcementspage.html',
         announcements=fetched_announcements,
         is_officer=is_officer
     )
@@ -164,7 +168,7 @@ def events_page():
     _, is_officer = auth_info()
     
     return render_template(
-        'pages/calendarpage.html',
+        'pages/events/calendarpage.html',
         events=all_events,
         list_events=[event for row in list(all_events.values()) for event in row],
         is_officer=is_officer
