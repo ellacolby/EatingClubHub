@@ -13,6 +13,7 @@ from alchemydatabase import (
     create_user,
     get_records
 )
+from name import get_name
 
 app = Flask(
     __name__,
@@ -115,11 +116,12 @@ def announcement_creation_page():
 
 def auth_info():
     cas_username = auth.authenticate()
+    name = get_name(cas_username)
 
     # check if officer
     user_id = int(cas_username[2:])
     if_officer = any(user.user_id == user_id for user in db.get_officers())
-    return cas_username, if_officer
+    return name, if_officer
 
 @app.route('/announcements', methods=['GET'])
 def announcements_page():

@@ -2,6 +2,7 @@ import os
 import sys
 import psycopg2
 import dotenv
+import req_lib
 
 dotenv.load_dotenv()
 DATABASE_URL = os.environ['DATABASE_URL']
