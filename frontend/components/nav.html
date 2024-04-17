@@ -19,6 +19,14 @@ rel="stylesheet" />
         <div class="right-side-links">
             <div class="events">
                 <a href="/events">Upcoming Events</a>
+                {% if is_officer: %}
+                <div class="dropdown">
+                    <span class="akar-icons--chevron-down dropdown-trigger"></span>
+                    <div class="dropdown-content">
+                        <a href="/eventcreation">Create event</a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
             <div class="announcements">
                 <a href="/announcements">Announcements</a>
