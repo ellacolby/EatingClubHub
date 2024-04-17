@@ -3,6 +3,13 @@ body {
     background-color: #f4f4f4;
 }
 
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .eventcreation-container {
     max-width: 500px;
     margin: 50px auto;
@@ -32,7 +39,6 @@ textarea {
 }
 
 input[type="datetime-local"] {
-    width: 48%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -40,8 +46,8 @@ input[type="datetime-local"] {
 }
 
 input[type="submit"] {
-    background-color: #cd8321;
-    color: white;
+    width: 100%;
+    background-color: rgba(251, 145, 20, 1);
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -51,4 +57,19 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #b47221;
+}
+
+.background {
+    background-image: url('homephoto.png');
+    opacity: 0.5;
+    margin: 0;
+    /* Removes the default margin around the body */
+    height: 100vh;
+    /* Sets the height of the body to fill the whole viewport height */
+    background-size: cover;
+    /* Scales the background image to be as large as possible */
+    background-position: center;
+    /* Centers the background image */
+    background-repeat: no-repeat;
+    /* Ensures the image does not repeat */
 }
