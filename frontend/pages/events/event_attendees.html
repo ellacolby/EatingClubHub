@@ -1,0 +1,23 @@
+<table class="table table-striped" id="overviewsTable">
+    <tr>
+       <td><strong>NetId</strong></td>
+       <td><strong>Name</strong></td>
+       <td><strong>Profile</strong></td>
+    </tr>
+
+    {% if courses|length != 0: %}
+        {% for course in courses: %}
+            <tr>
+                <td>
+                    <a target="childWindow" 
+                    href="/coursedetails?classid={{course[0]}}"
+                    {{course[0]}}>{{course[0]}}</a>
+                </td>
+                <td>{{course[1]}}</td>
+                <td>{{course[2]}}</td>
+                <td>{{course[3]}}</td>
+                <td>{{course[4]}}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>

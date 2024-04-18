@@ -129,9 +129,9 @@ def get_records(class_name):
 #     with sqlalchemy.orm.Session(engine) as session:
 #         return session.query(Club).all()
 
-# def get_event_attendees():
-#     with sqlalchemy.orm.Session(engine) as session:
-#         return session.query(EventAttendee).all() 
+def get_event_attendees():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(EventAttendee).all() 
     
 # def get_events():
 #     with sqlalchemy.orm.Session(engine) as session:

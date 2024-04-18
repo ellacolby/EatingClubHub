@@ -11,6 +11,7 @@ from alchemydatabase import (
     create_club,
     create_event,
     create_user,
+    get_event_attendees,
     get_records
 )
 from name import get_name
@@ -60,6 +61,65 @@ def users():
     res = get_records('user')
     print('users:', res)
     return {'users': res}
+
+# TODO: Note need to switch this to edit if user already exists
+@app.route('/api/create_user', methods=['POST'])
+def create_new_user():
+    pref_name = request.form['user-name']
+    pronouns = request.form['pronouns']
+    about = request.form['about']
+    netid = request.form['netid']
+
+
+    # TODO: add import for create_user and fix in alchemyDB
+    create_user(user_id=netid, name=pref_name, pronouns=pronouns, about_me=about)
+
+    # Render the event creation success page directly
+    html_code = render_template('pages/new_user_success.html')
+    response = make_response(html_code)
+    return response
+
+
+@app.route('/coursedetails', methods=['GET'])
+def coursedetails():
+    try:
+        netid = request.args.get('netid')
+        if not netid:
+            error = "Missing netid!"
+            html_code = render_template('errors.html',
+                                                error_message = error)
+            response = make_response(html_code)
+            return response
+        
+        # TODO: call this with netid
+        res = get_event_attendees()
+
+        # if classid not found
+        if len(res) == 0:
+            error = "No user with netid " + netid + " exists here!"
+            html_code = render_template('errors.html',
+                                            error_message = error)
+            response = make_response(html_code)
+            return response
+
+        # html rendering, passing appropriate arguments
+        # TODO: fill variables
+        html_code = render_template('user_profile.html', netid=netid,
+                                    pref_name='temp',
+                                    pronouns='temp',
+                                    about='This is a temp line about me')
+
+        response = make_response(html_code)
+        return response
+    
+    except Exception:
+        error = "A server error occurred. Please contact the system "
+        error += "administrator."
+        html_code = render_template('errors.html',
+                                            error_message = error)
+        response = make_response(html_code)
+        return response
+
 
 @app.route('/api/create_event', methods=['POST'])
 def create_new_event():
