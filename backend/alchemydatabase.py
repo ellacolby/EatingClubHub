@@ -16,7 +16,7 @@ Base = declarative_base()
 class Announcement(Base):
     __tablename__ = 'announcements'
 
-    announcement_id = Column(Integer, primary_key=True)
+    announcement_id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(Text)
     description = Column(Text)
     image = Column(Text)
@@ -24,7 +24,7 @@ class Announcement(Base):
 class ClubAnnouncement(Base):
     __tablename__ = 'club_announcements'
 
-    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    user_id = Column(Text, ForeignKey('users.user_id'), primary_key=True)
     announcement_id = Column(Integer, ForeignKey('announcements.announcement_id'), primary_key=True)
 
     user = relationship('User', backref='club_announcements')
@@ -43,7 +43,7 @@ class ClubEvent(Base):
 class Club(Base):
     __tablename__ = 'clubs'
 
-    club_id = Column(Integer, primary_key = True)
+    club_id = Column(Integer, primary_key = True, autoincrement=True)
     name = Column(Text)
     description = Column(Text)
     image = Column(Text)
@@ -53,7 +53,7 @@ class EventAttendee(Base):
     __tablename__ = 'event_attendees'
 
     event_id = Column(Integer, ForeignKey('events.event_id'), primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    user_id = Column(Text, ForeignKey('users.user_id'), primary_key=True)
 
     event = relationship('Event', backref='event_attendees')
     user = relationship('User', backref='event_attendees')
@@ -61,7 +61,7 @@ class EventAttendee(Base):
 class Event(Base):
     __tablename__ = 'events'
 
-    event_id = Column(Integer, primary_key = True)
+    event_id = Column(Integer, primary_key = True, autoincrement=True)
     name = Column(Text)
     location = Column(Text)
     description = Column(Text)
@@ -71,7 +71,7 @@ class Event(Base):
 class FavoriteClub(Base):
     __tablename__ = 'favorite_clubs'
 
-    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    user_id = Column(Text, ForeignKey('users.user_id'), primary_key=True)
     club_id = Column(Integer, ForeignKey('clubs.club_id'), primary_key=True)
 
     user = relationship('User', backref='favorite_clubs')
@@ -80,7 +80,7 @@ class FavoriteClub(Base):
 class Officer(Base):
     __tablename__ = 'officers'
 
-    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    user_id = Column(Text, ForeignKey('users.user_id'), primary_key=True)
     club_id = Column(Integer, ForeignKey('clubs.club_id'), primary_key=True)
 
     user = relationship('User', backref='officers')
@@ -89,7 +89,7 @@ class Officer(Base):
 class UserEvent(Base):
     __tablename__ = 'user_events'
 
-    user_id = Column(Integer, ForeignKey('users.user_id'), primary_key=True)
+    user_id = Column(Text, ForeignKey('users.user_id'), primary_key=True)
     event_id = Column(Integer, ForeignKey('events.event_id'), primary_key=True)
 
     user = relationship('User', backref='user_events')
@@ -98,10 +98,12 @@ class UserEvent(Base):
 class User(Base):
     __tablename__ = 'users'
 
-    user_id = Column(Integer, primary_key=True)
+    user_id = Column(Text, primary_key=True)
     name = Column(Text)
     netid = Column(Text)
     profile_pic = Column(Text)
+    pronouns = Column(Text)
+    about_me = Column(Text)
 
 def get_records(class_name):
     records = []
@@ -113,6 +115,8 @@ def get_records(class_name):
             records.append(record_tuple)
     return records
 
+
+# .order_by(User.user_id)
 # def get_announcements():
 #     with sqlalchemy.orm.Session(engine) as session:
 #         return session.query(Announcement).all() 
@@ -207,12 +211,17 @@ def create_user_event(user_id=None, event_id=None):
         session.add(new_user_event)
         session.commit()
 
-def create_user(user_id=None, name=None, netid=None, profile_pic=None):
+# def create_user(user_id=None, name=None, netid=None, profile_pic=None):
+#     with sqlalchemy.orm.Session(engine) as session:
+#         new_user = User(user_id=user_id, name=name, netid=netid, profile_pic=profile_pic)
+#         session.add(new_user)
+#         session.commit()
+
+def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=None, about_me=None):
     with sqlalchemy.orm.Session(engine) as session:
-        new_user = User(user_id=user_id, name=name, netid=netid, profile_pic=profile_pic)
+        new_user = User(user_id=user_id, name=name, netid=netid, profile_pic=profile_pic, pronouns=pronouns, about_me=about_me)
         session.add(new_user)
         session.commit()
-
 
 def main():
     if len(sys.argv) != 1:
@@ -221,14 +230,12 @@ def main():
 
     try:
         Base.metadata.create_all(engine)
+        # create_user(user_id="test", name="test")
+        create_event(name="test", location="TigerINN")
+        events = get_records('event')
+        for event in events:
+            print(event)
         
-        clubs = get_records('club')
-        for club in clubs:
-            print(club)
-        
-        announcements = get_records('announcement')
-        for announcement in announcements:
-            print(announcement)
             
     except Exception as ex:
         print(ex, file=sys.stderr)
