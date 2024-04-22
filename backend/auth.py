@@ -11,6 +11,7 @@ import re
 import flask
 import alchemydatabase as db
 from sqlalchemy.exc import IntegrityError
+from name import get_name
 
 #-----------------------------------------------------------------------
 
@@ -75,18 +76,22 @@ def authenticate():
         login_url = (_CAS_URL + 'login?service='
             + urllib.parse.quote(strip_ticket(flask.request.url)))
         flask.abort(flask.redirect(login_url))
-        
+
+    username = username.strip()
     # Check if the user exists in the database and create if not
-    user_exists = any(user.netid == username for user in db.get_users())
+    user_exists = any(user.user_id == username for user in db.get_users())
     if not user_exists:
         try:
-            db.create_user(user_id=int(username[2:]), name=username[:2], netid=username, profile_pic=None)
+            try:
+                name = get_name(username)
+            except ValueError:
+                print("Not a Princeton student")
+            db.create_user(user_id=username, name=name, netid=username, profile_pic=None)
         except IntegrityError:
             print("A user with this ID already exists.")
 
     # The user is authenticated, so store the username in
     # the session.
-    username = username.strip()
     flask.session['username'] = username
     return username
 

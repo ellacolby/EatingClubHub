@@ -119,7 +119,7 @@ def auth_info():
     name = get_name(cas_username)
 
     # check if officer
-    user_id = int(cas_username[2:])
+    user_id = cas_username
     if_officer = any(user.user_id == user_id for user in db.get_officers())
     return name, if_officer
 
