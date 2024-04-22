@@ -12,6 +12,11 @@
         <div class="calendar-page">
             {% include '/components/calendar_page/sidebar.html' %}
             <div id='calendar'></div>
+            {% if double_clicked: %}
+                <div class="popup" onclick="displayDetails()">Click me!
+                    <span class="popuptext" id="myPopup">Popup text...</span>
+                </div>
+            {% endif %}
         </div>
         <script>
             const fetchEvents = async () => {
@@ -35,7 +40,8 @@
                     const endTime = event[5];
 
                     return {
-                        title: `${event[2]} - ${event[1]} - ${event[3]}`,
+                        title: `${event[2]} - ${event[1]}`,
+                        description: `${event[3]}`,
                         club: event[2],
                         start: event[4],
                         end: event[5],
@@ -43,6 +49,14 @@
                     };
                 });
             };
+
+            function handleEventDoubleClick(eventInfo) {
+                title = eventInfo.event.title;
+                start = eventInfo.event.startStr;
+                end = eventInfo.event.endStr;
+                description = eventInfo.event.description;
+                console.log(description)
+            }
 
             function color(clubname) {
                 if (clubname === "Cannon Club")
@@ -87,6 +101,10 @@
                         view = dateInfo.view.type;
                     },
                     events: events,
+                    eventClick: (eventInfo) => {
+                        console.log(eventInfo);
+                        handleEventDoubleClick(eventInfo);
+                    }
                 });
 
                 calendar.render();
