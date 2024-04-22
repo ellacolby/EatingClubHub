@@ -8,16 +8,40 @@
                 const res = await fetch('/api/events');
                 const { events } = await res.json();
 
-
-
                 return events.map(event => {
                     return {
                         title: `${event[2]} - ${event[1]} - ${event[3]}`,
+                        club: event[2],
                         start: event[4],
                         end: event[5],
-                        color: '#378006'
+                        color: color(event[2])
                     };
                 });
+            };
+
+            function color(clubname) {
+                if (clubname === "Cannon Club")
+                    return '#C8E117'
+                if (clubname === "Cap & Gown")
+                    return '#E13917'
+                if (clubname === "Charter Club")
+                    return '#E18217'
+                if (clubname === "Cloister Inn")
+                    return '#1751E1'
+                if (clubname === "Colonial Club")
+                    return '#E117A4'
+                if (clubname === "Cottage Club")
+                    return '#000000'
+                if (clubname === "Ivy Club")
+                    return '#007620'
+                if (clubname === "Quadrangle Club")
+                    return '#734400'
+                if (clubname === "Terrace F. Club")
+                    return '#6E13B9'
+                if (clubname === "Tiger Inn")
+                    return '#378006'
+                if (clubname === "Tower Club")
+                    return '#5E6600'
             };
 
             document.addEventListener('DOMContentLoaded', async function () {
