@@ -28,16 +28,12 @@
                     return toggle && toggle.checked;
                 });
 
-                console.log(selectedClubs);
-
                 return events.filter(event => selectedClubs.includes(event[2])).map(event => {
                     const eventName = event[1];
                     const clubName = event[2];
                     const startTime = event[4];
                     const endTime = event[5];
-                    // if (!selectedClubs.includes(event[2])) {
 
-                    // }
                     return {
                         title: `${event[2]} - ${event[1]} - ${event[3]}`,
                         club: event[2],
@@ -73,18 +69,22 @@
                     return '#5E6600'
             };
 
+            let view = 'dayGridMonth';
             const renderCalendar = async () => {
                 const events = await fetchEvents();
 
                 var calendarEl = document.getElementById('calendar');
 
                 var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
+                    initialView: view,
                     initialDate: new Date().toISOString().slice(0, 10),
                     headerToolbar: {
                         left: 'prev,next today',
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    datesSet: (dateInfo) => {
+                        view = dateInfo.view.type;
                     },
                     events: events,
                 });
@@ -94,10 +94,8 @@
 
             document.addEventListener('DOMContentLoaded', renderCalendar);
 
-            document.querySelectorAll('input').forEach(input => {
-                console.log(input)
+            document.querySelectorAll('.checkbox').forEach(input => {
                 input.onchange = async () => {
-                    console.log('hi');
                     await renderCalendar();
                 };
             })
