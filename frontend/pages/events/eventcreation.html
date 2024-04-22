@@ -77,12 +77,17 @@
                     const formData = new FormData(this);
                     
                     // Format date and time
-                    const startDateTime = new Date(formData.get('startDateTime')).toISOString();
-                    const endDateTime = new Date(formData.get('endDateTime')).toISOString();
+                    const startDateTime = new Date(formData.get('startDateTime'));
+                    const endDateTime = new Date(formData.get('endDateTime'));
+
+                    if (endDateTime <= startDateTime) {
+                        alert('The end date must be after the start date');
+                        return;
+                    }
 
                     // Modify form data with formatted dates
-                    formData.set('startDateTime', startDateTime);
-                    formData.set('endDateTime', endDateTime);
+                    formData.set('startDateTime', startDateTime.toISOString());
+                    formData.set('endDateTime', endDateTime.toISOString());
 
                     // Send form data to backend server using Fetch API
                     fetch('/api/create_event', {
