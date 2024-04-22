@@ -1,6 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
     <head>
+        <meta charset='utf-8' />
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+        <script>
+            const fetchEvents = async () => {
+                const res = await fetch('/api/events');
+                const { events } = await res.json();
+
+
+
+                return events.map(event => {
+                    return {
+                        title: `${event[2]} - ${event[1]} - ${event[3]}`,
+                        start: event[4],
+                        end: event[5],
+                        color: '#378006'
+                    };
+                });
+            };
+
+            document.addEventListener('DOMContentLoaded', async function () {
+                const events = await fetchEvents();
+
+                var calendarEl = document.getElementById('calendar');
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    initialDate: new Date().toISOString().slice(0, 10),
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    events: events,
+                });
+
+                calendar.render();
+            });
+        </script>
         <link href="{{ url_for('static', filename='styles/calendar_page.css')}}" rel="stylesheet" />
         <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
         <title>Events</title>
@@ -9,14 +47,7 @@
         {% include '/components/nav.html' %}
         <div class="calendar-page">
             {% include '/components/calendar_page/sidebar.html' %}
-            {% include '/components/calendar_page/calendar.html' %}
+            <div id='calendar'></div>
         </div>
-        {% if is_officer %}
-        <div class="add-event" style="position: absolute; width: 200px; height: 100px; background-position: center; background-size: cover; background: rgba(251,145,20,1); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); top: 50%; left: 10%; transform: translate(-50%, -50%);">
-            <a href="/eventcreation">Add Event</a>
-        </div>
-        {% endif %}
     </body>
 </html>
-
-

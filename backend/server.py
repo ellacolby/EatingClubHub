@@ -70,8 +70,7 @@ def create_new_event():
     end_datetime = request.form['endDateTime']
 
     # Creates new event in database
-    eventid = get_records('event')[-1][0]
-    create_event(event_id=eventid+1, name=event_name, location=location, description=description, start_time=start_datetime, end_time=end_datetime)
+    create_event(name=event_name, location=location, description=description, start_time=start_datetime, end_time=end_datetime)
 
     html_code = render_template('pages/calendarpage.html')
     response = make_response(html_code)
@@ -83,8 +82,7 @@ def create_new_announcement():
     announcement_descrip = request.form['announcementDescription']
 
     # Creates new announcement in database
-    announcementid = get_records('announcement')[-1][0]
-    create_announcement(announcement_id=announcementid+1, title=announcement_title, description=announcement_descrip)
+    create_announcement(title=announcement_title, description=announcement_descrip)
 
     html_code = render_template('pages/announcementspage.html')
     response = make_response(html_code)

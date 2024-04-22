@@ -74,11 +74,11 @@
                     event.preventDefault(); // Prevent the form from submitting normally
     
                     // Get form data
-                    var formData = new FormData(this);
+                    const formData = new FormData(this);
                     
                     // Format date and time
-                    var startDateTime = new Date(formData.get('startDateTime')).toString();
-                    var endDateTime = new Date(formData.get('endDateTime')).toString();
+                    const startDateTime = new Date(formData.get('startDateTime')).toISOString();
+                    const endDateTime = new Date(formData.get('endDateTime')).toISOString();
 
                     // Modify form data with formatted dates
                     formData.set('startDateTime', startDateTime);

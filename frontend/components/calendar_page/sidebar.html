@@ -1,29 +1,10 @@
 {% from '/components/calendar_page/toggle_switch.html' import toggle_switch as toggle_switch %}
 {% from '/components/calendar_page/event.html' import event as event %}
 <div class="sidebar">
-    {% include '/components/calendar_page/date.html' %}
     {% include '/components/calendar_page/eating_club.html' %}
-    <table>
-        <tr class="toggles-row">
-            <td>{{ toggle_switch('Cottage') }}</td>
-            <td>{{ toggle_switch('Cannon') }}</td>
-        </tr>
-        <tr class="toggles-row">
-            <td>{{ toggle_switch('Ivy') }}</td>
-            <td>{{ toggle_switch('Charter') }}</td>
-        </tr>
-    </table>
-    <div>
-        <h3 style="color: white;">Upcoming Events</h3>
-        {% for upcoming_event in list_events: %}
-            {{ event(
-                upcoming_event['name'], 
-                upcoming_event['location'], 
-                upcoming_event['description'], 
-                upcoming_event['start_time'], 
-                upcoming_event['end_time']
-                )
-            }}
-        {% endfor %}
-    </div>
+    {{ toggle_switch('Cannon') }}
+    {{ toggle_switch('Charter') }}
+    {{ toggle_switch('Cottage') }}  
+    {{ toggle_switch('Ivy') }}
+
 </div>
