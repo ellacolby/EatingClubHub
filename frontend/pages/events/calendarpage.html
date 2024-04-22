@@ -3,12 +3,41 @@
     <head>
         <meta charset='utf-8' />
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+        <link href="{{ url_for('static', filename='styles/calendar_page.css')}}" rel="stylesheet" />
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+        <title>Events</title>
+    </head>
+    <body>
+        {% include '/components/nav.html' %}
+        <div class="calendar-page">
+            {% include '/components/calendar_page/sidebar.html' %}
+            <div id='calendar'></div>
+        </div>
         <script>
             const fetchEvents = async () => {
-                const res = await fetch('/api/events');
-                const { events } = await res.json();
+                const eventRes = await fetch('/api/events');
+                const { events } = await eventRes.json();
 
-                return events.map(event => {
+                const clubRes = await fetch('/api/clubs');
+                const clubs = (await clubRes.json()).clubs.map(clubEntry => {
+                    return clubEntry[1];
+                });
+
+                const selectedClubs = clubs.filter(club => {
+                    const toggle = document.querySelector(`#${club}`);
+                    return toggle && toggle.checked;
+                });
+
+                console.log(selectedClubs);
+
+                return events.filter(event => selectedClubs.includes(event[2])).map(event => {
+                    const eventName = event[1];
+                    const clubName = event[2];
+                    const startTime = event[4];
+                    const endTime = event[5];
+                    // if (!selectedClubs.includes(event[2])) {
+
+                    // }
                     return {
                         title: `${event[2]} - ${event[1]} - ${event[3]}`,
                         club: event[2],
@@ -44,7 +73,7 @@
                     return '#5E6600'
             };
 
-            document.addEventListener('DOMContentLoaded', async function () {
+            const renderCalendar = async () => {
                 const events = await fetchEvents();
 
                 var calendarEl = document.getElementById('calendar');
@@ -61,17 +90,17 @@
                 });
 
                 calendar.render();
-            });
+            };
+
+            document.addEventListener('DOMContentLoaded', renderCalendar);
+
+            document.querySelectorAll('input').forEach(input => {
+                console.log(input)
+                input.onchange = async () => {
+                    console.log('hi');
+                    await renderCalendar();
+                };
+            })
         </script>
-        <link href="{{ url_for('static', filename='styles/calendar_page.css')}}" rel="stylesheet" />
-        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-        <title>Events</title>
-    </head>
-    <body>
-        {% include '/components/nav.html' %}
-        <div class="calendar-page">
-            {% include '/components/calendar_page/sidebar.html' %}
-            <div id='calendar'></div>
-        </div>
     </body>
 </html>
