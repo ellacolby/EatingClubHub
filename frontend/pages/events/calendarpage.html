@@ -1,3 +1,4 @@
+{% from '/pages/events/eventdetails.html' import event_details as event_details %}
 <!DOCTYPE html>
 <html lang='en'>
     <head>
@@ -12,11 +13,48 @@
         <div class="calendar-page">
             {% include '/components/calendar_page/sidebar.html' %}
             <div id='calendar'></div>
-            {% if double_clicked: %}
-                <div class="popup" onclick="displayDetails()">Click me!
-                    <span class="popuptext" id="myPopup">Popup text...</span>
+            <div class="container" hidden>
+                <div class="eventdetails-container">
+                    <h2>Event Details</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="eventName">Event Name:</label>
+                                    <p class="event-name"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="location">Location:</label>
+                                    <p class="location"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <p class="description"></p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="startDateTime">Start Date and Time:</label>
+                                    <p class="startDateTime"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="endDateTime">End Date and Time:</label>
+                                    <p class="endDateTime"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <div class="submit btn btn-primary">
+                                <a href="/events">Back</a>
+                            </div>
+                        </div> -->
                 </div>
-            {% endif %}
+            </div>
         </div>
         <script>
             const fetchEvents = async () => {
@@ -33,29 +71,41 @@
                     return toggle && toggle.checked;
                 });
 
-                return events.filter(event => selectedClubs.includes(event[2])).map(event => {
-                    const eventName = event[1];
-                    const clubName = event[2];
-                    const startTime = event[4];
-                    const endTime = event[5];
+                return events.filter(event => selectedClubs.includes(event[2])).map(eventInfo => {
+                    const [eventId, event, club, description, start, end] = eventInfo;
+
+                    console.log(start, end);
 
                     return {
-                        title: `${event[2]} - ${event[1]}`,
-                        description: `${event[3]}`,
-                        club: event[2],
-                        start: event[4],
-                        end: event[5],
-                        color: color(event[2])
+                        title: `${club} - ${event}`,
+                        extendedProps: {
+                            club,
+                            description
+                        },
+                        start,
+                        end,
+                        color: color(club)
                     };
                 });
             };
 
             function handleEventDoubleClick(eventInfo) {
-                title = eventInfo.event.title;
-                start = eventInfo.event.startStr;
-                end = eventInfo.event.endStr;
-                description = eventInfo.event.description;
-                console.log(description)
+                const {
+                    title,
+                    start,
+                    end,
+                    extendedProps
+                } = eventInfo.event;
+                const {description, club} = extendedProps;
+
+                console.log(club, description);
+                document.querySelector('.container').hidden = false;
+
+                document.querySelector('.event-name').innerText = title;
+                document.querySelector('.location').innerText = club;
+                document.querySelector('.description').innerText = description;
+                documetn.querySelector('.startDateTime').innerText = start;
+                document.querySelector('.endDateTime').innerText = end;
             }
 
             function color(clubname) {
