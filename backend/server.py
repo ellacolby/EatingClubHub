@@ -113,7 +113,10 @@ def contact_page():
 
 @app.route('/profile', methods=['GET'])
 def profile_page():
-   return render_template('pages/profile.html')
+   _, is_officer = auth_info()
+   return render_template(
+       'pages/profile.html',
+       is_officer=is_officer)
 
 @app.route('/eventcreation', methods=['GET'])
 def event_creation_page():
