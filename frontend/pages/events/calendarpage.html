@@ -5,6 +5,7 @@
         <meta charset='utf-8' />
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
         <link href="{{ url_for('static', filename='styles/calendar_page.css')}}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='styles/eventdetails.css')}}" rel="stylesheet" />
         <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
         <title>Events</title>
     </head>
@@ -13,8 +14,8 @@
         <div class="calendar-page">
             {% include '/components/calendar_page/sidebar.html' %}
             <div id='calendar'></div>
-            <div class="container" hidden>
-                <div class="eventdetails-container">
+            <div class="container">
+                <div class="eventdetails-container" hidden>
                     <h2>Event Details</h2>
                         <div class="row">
                             <div class="col-md-6">
@@ -48,6 +49,9 @@
                                 </div>
                             </div>
                         </div>
+                        <header style="background-color:#000;color:#fff;">
+                            <span onclick=handleExit() class="close-button topright">&times;</span>
+                        </header>
                         <!-- <div class="form-group">
                             <div class="submit btn btn-primary">
                                 <a href="/events">Back</a>
@@ -75,6 +79,8 @@
                     const [eventId, event, club, description, start, end] = eventInfo;
 
                     console.log(start, end);
+                    console.log("club", club);
+                    console.log("color:", color(club));
 
                     return {
                         title: `${club} - ${event}`,
@@ -98,7 +104,7 @@
                 } = eventInfo.event;
                 const {description, club} = extendedProps;
 
-                document.querySelector('.container').hidden = false;
+                document.querySelector('.eventdetails-container').hidden = false;
                 document.querySelector('.event-name').innerText = title;
                 document.querySelector('.location').innerText = club;
                 document.querySelector('.description').innerText = description;
@@ -106,28 +112,34 @@
                 document.querySelector('.endDateTime').innerText = end;
             }
 
+            function handleExit() {
+
+                document.querySelector('.container').hidden = true;
+
+            }
+
             function color(clubname) {
-                if (clubname === "Cannon Club")
+                if (clubname === "Cannon")
                     return '#C8E117'
-                if (clubname === "Cap & Gown")
+                if (clubname === "Cap")
                     return '#E13917'
-                if (clubname === "Charter Club")
+                if (clubname === "Charter")
                     return '#E18217'
-                if (clubname === "Cloister Inn")
+                if (clubname === "Cloister")
                     return '#1751E1'
-                if (clubname === "Colonial Club")
+                if (clubname === "Colonial")
                     return '#E117A4'
-                if (clubname === "Cottage Club")
+                if (clubname === "Cottage")
                     return '#000000'
-                if (clubname === "Ivy Club")
+                if (clubname === "Ivy")
                     return '#007620'
-                if (clubname === "Quadrangle Club")
+                if (clubname === "Quadrangle")
                     return '#734400'
-                if (clubname === "Terrace F. Club")
+                if (clubname === "Terrace")
                     return '#6E13B9'
-                if (clubname === "Tiger Inn")
+                if (clubname === "TigerInn")
                     return '#378006'
-                if (clubname === "Tower Club")
+                if (clubname === "Tower")
                     return '#5E6600'
             };
 
