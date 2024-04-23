@@ -52,6 +52,7 @@ p {
 }
 
 .container {
+    z-index: 3;
     background-color: #ffffff;
     position: absolute;
     top: 50%;

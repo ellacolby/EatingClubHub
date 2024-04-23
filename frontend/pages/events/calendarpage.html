@@ -98,13 +98,11 @@
                 } = eventInfo.event;
                 const {description, club} = extendedProps;
 
-                console.log(club, description);
                 document.querySelector('.container').hidden = false;
-
                 document.querySelector('.event-name').innerText = title;
                 document.querySelector('.location').innerText = club;
                 document.querySelector('.description').innerText = description;
-                documetn.querySelector('.startDateTime').innerText = start;
+                document.querySelector('.startDateTime').innerText = start;
                 document.querySelector('.endDateTime').innerText = end;
             }
 
