@@ -8,9 +8,7 @@ import alchemydatabase as db
 from datetime import datetime
 from alchemydatabase import (
     create_announcement,
-    create_club,
     create_event,
-    create_user,
     get_records
 )
 from name import get_name
@@ -45,7 +43,6 @@ def announcements():
 @app.route('/api/clubs')
 def clubs():
     res = get_records('club')
-    # res = get_clubs()
     print('clubs', res)
     return {'clubs': res}
 
@@ -103,7 +100,7 @@ def create_new_announcement():
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
 def home_page():
-    cas_username, is_officer = auth_info()
+    cas_username, is_officer, _, _ = auth_info()
     # Use the username from the session for consistency
     return render_template('pages/home.html', USERNAME=cas_username, is_officer=is_officer)
 
@@ -113,7 +110,7 @@ def contact_page():
 
 @app.route('/profile', methods=['GET'])
 def profile_page():
-   _, is_officer = auth_info()
+   _, is_officer, _, _ = auth_info()
    return render_template(
        'pages/profile.html',
        is_officer=is_officer)
@@ -132,15 +129,17 @@ def auth_info():
 
     # check if officer
     user_id = cas_username
-    if_officer = any(user.user_id == user_id for user in db.get_officers())
-    return name, if_officer
+    is_officer = any(user.user_id == user_id for user in db.get_officers())
+    if is_officer:
+        club_id, club_name = db.get_officer_club_info(user_id)
+    return name, is_officer, club_id, club_name
 
 @app.route('/announcements', methods=['GET'])
 def announcements_page():
     fetched_announcements = announcements()
     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
     print(fetched_announcements)
-    _, is_officer = auth_info()
+    _, is_officer, _, _ = auth_info()
 
     return render_template(
         'pages/announcements/announcementspage.html',
@@ -175,7 +174,7 @@ def events_page():
         'friday': friday_events,
         'saturday': saturday_events
     }
-    _, is_officer = auth_info()
+    _, is_officer, _, _ = auth_info()
     
     return render_template(
         'pages/events/calendarpage.html',
