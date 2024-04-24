@@ -196,37 +196,10 @@ def announcements_page():
 
 @app.route('/events', methods=['GET'])
 def events_page():
-    fetched_events = events()
-    fetched_events = list(map(lambda event: {
-            'name': event[1], 
-            'location': event[2],
-            'description': event[3], 
-            'start_time': event[4],
-            'end_time': event[4]
-        }, fetched_events['events']))
-    sunday_events = list(filter(lambda event: "Sun" in event['start_time'], fetched_events))
-    monday_events = list(filter(lambda event: "Mon" in event['start_time'], fetched_events))
-    tuesday_events = list(filter(lambda event: "Tue" in event['start_time'], fetched_events))
-    wednesday_events = list(filter(lambda event: "Wed" in event['start_time'], fetched_events))
-    thursday_events = list(filter(lambda event: "Thu" in event['start_time'], fetched_events))
-    friday_events = list(filter(lambda event: "Fri" in event['start_time'], fetched_events))
-    saturday_events = list(filter(lambda event: "Sat" in event['start_time'], fetched_events))
-
-    all_events = {
-        'sunday': sunday_events,
-        'monday': monday_events,
-        'tuesday': tuesday_events,
-        'wednesday': wednesday_events,
-        'thursday': thursday_events,
-        'friday': friday_events,
-        'saturday': saturday_events
-    }
-    _, is_officer, _, _ = auth_info()
+    _, is_officer = auth_info()
     
     return render_template(
         'pages/events/calendarpage.html',
-        events=all_events,
-        list_events=[event for row in list(all_events.values()) for event in row],
         is_officer=is_officer
     )
 
