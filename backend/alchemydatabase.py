@@ -232,6 +232,13 @@ def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=
         session.add(new_user)
         session.commit()
 
+def edit_user_field(user_id, field, value):
+    with sqlalchemy.orm.Session(engine) as session:
+        user = session.query(User).filter_by(user_id=user_id).first()
+        if user:
+            setattr(user, field, value)
+            session.commit()
+
 def main():
     if len(sys.argv) != 1:
         print('Usage: python ' + sys.argv[0], file=sys.stderr)
@@ -241,7 +248,7 @@ def main():
         Base.metadata.create_all(engine)
         # create_user(user_id="test", name="test")
         # create_event(name="test", location="TigerINN")
-        print(get_officer_club_info('hello'))
+        edit_user_field('mz1231', 'pronouns', 'he/him')
         # events = get_records('event')
         # for event in events:
         #     print(event)
