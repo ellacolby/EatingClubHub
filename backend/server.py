@@ -26,6 +26,17 @@ app.secret_key = os.environ['APP_SECRET_KEY']
 def authenticate():
     auth.authenticate()
 
+def auth_info():
+    cas_username = auth.authenticate()
+    name = get_name(cas_username)
+
+    # check if officer
+    user_id = cas_username
+    is_officer = any(user.user_id == user_id for user in db.get_officers())
+    if is_officer:
+        club_id, club_name = db.get_officer_club_info(user_id)
+    return name, is_officer, club_id, club_name
+
 #-----------------------------------------------------------------------
 
 @app.route('/logout')
@@ -130,17 +141,6 @@ def event_creation_page():
 @app.route('/announcementcreation', methods=['GET'])
 def announcement_creation_page():
     return render_template('pages/announcements/announcementcreation.html')
-
-def auth_info():
-    cas_username = auth.authenticate()
-    name = get_name(cas_username)
-
-    # check if officer
-    user_id = cas_username
-    is_officer = any(user.user_id == user_id for user in db.get_officers())
-    if is_officer:
-        club_id, club_name = db.get_officer_club_info(user_id)
-    return name, is_officer, club_id, club_name
 
 @app.route('/announcements', methods=['GET'])
 def announcements_page():
