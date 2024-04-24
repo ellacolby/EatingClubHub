@@ -7,8 +7,6 @@ import auth
 import alchemydatabase as db
 from datetime import datetime
 from alchemydatabase import (
-    create_announcement,
-    create_event,
     get_records
 )
 from name import get_name
@@ -137,7 +135,7 @@ def create_new_announcement():
     announcement_descrip = request.form['announcementDescription']
 
     # Creates new announcement in database
-    create_announcement(
+    db.create_announcement(
         title=announcement_title, 
         description=announcement_descrip
     )
