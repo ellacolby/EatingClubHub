@@ -69,8 +69,15 @@ p {
 }
 
 /* Toggle Switch */
-.toggleswitch-container {
-    text-align: right;
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+td {
+    flex: 1;
+}
+.toggle-switch-div {
+    text-align: center;
 }
 
 .toggle-switch {
@@ -152,16 +159,62 @@ p {
     background-color: rgba(14, 165, 233, .5);
 }
 
+#Cannon-checkbox:checked+#Cannon-label .inner::before,
+#Cannon-checkbox:checked+#Cannon-label .inner::after {
+    background-color: rgba(200, 225, 23, .5);
+}
+
+#Cap-checkbox:checked+#Cap-label .inner::before,
+#Cap-checkbox:checked+#Cap-label .inner::after {
+    background-color: rgba(200, 57, 23, .5);
+}
+
+#Charter-checkbox:checked+#Charter-label .inner::before,
+#Charter-checkbox:checked+#Charter-label .inner::after {
+    background-color: rgba(200, 130, 23, .5);
+}
+
+#Cloister-checkbox:checked+#Cloister-label .inner::before,
+#Cloister-checkbox:checked+#Cloister-label .inner::after {
+    background-color: rgba(23, 81, 225, .5);
+}
+
+#Colonial-checkbox:checked+#Colonial-label .inner::before,
+#Colonial-checkbox:checked+#Colonial-label .inner::after {
+    background-color: rgba(225, 23, 164, .5);
+}
+
+#Cottage-checkbox:checked+#Cottage-label .inner::before,
+#Cottage-checkbox:checked+#Cottage-label .inner::after {
+    background-color: rgba(00, 00, 00, .5);
+}
+
+#Ivy-checkbox:checked+#Ivy-label .inner::before,
+#Ivy-checkbox:checked+#Ivy-label .inner::after {
+    background-color: rgba(00, 118, 32, .5);
+}
+
+#Quadrangle-checkbox:checked+#Quadrangle-label .inner::before,
+#Quadrangle-checkbox:checked+#Quadrangle-label .inner::after {
+    background-color: rgba(115, 68, 00, .5);
+}
+
+#Terrace-checkbox:checked+#Terrace-label .inner::before,
+#Terrace-checkbox:checked+#Terrace-label .inner::after {
+    background-color: rgba(110, 19, 185, .5);
+}
+
+#TigerInn-checkbox:checked+#TigerInn-label .inner::before,
+#TigerInn-checkbox:checked+#TigerInn-label .inner::after {
+    background-color: rgba(55, 128, 06, .5);
+}
+
+#Tower-checkbox:checked+#Tower-label .inner::before,
+#Tower-checkbox:checked+#Tower-label .inner::after {
+    background-color: rgba(94, 102, 00, .5);
+}
+
 .checkbox:checked+.label .switch {
     right: 0px;
 }
 /* End toggle switch */
-/* Start Event */
-.event {
-    position: relative;
-    background-color: #2196F3;
-    border-radius: 15px;
-    padding: 10px;
-    margin: 12px 0;
-}
-/* End Event */

@@ -54,11 +54,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="form-group">
-                        <div class="submit btn btn-primary">
-                            <a href="/events">Back</a>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -73,7 +68,7 @@
                 });
 
                 const selectedClubs = clubs.filter(club => {
-                    const toggle = document.querySelector(`#${club}`);
+                    const toggle = document.querySelector(`#${club}-checkbox`);
                     return toggle && toggle.checked;
                 });
 
@@ -158,9 +153,10 @@
                     },
                     events: events,
                     eventClick: (eventInfo) => {
-                        console.log(eventInfo);
                         handleEventDoubleClick(eventInfo);
-                    }
+                    },
+                    slotMinTime: '10:00:00',
+                    allDaySlot: false,
                 });
 
                 calendar.render();
