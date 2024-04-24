@@ -196,7 +196,7 @@ def announcements_page():
 
 @app.route('/events', methods=['GET'])
 def events_page():
-    _, is_officer = auth_info()
+    _, is_officer, _, _ = auth_info()
     
     return render_template(
         'pages/events/calendarpage.html',

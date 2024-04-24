@@ -53,11 +53,19 @@ p {
 
 .container {
     z-index: 3;
-    background-color: #ffffff;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+.eventdetails-container {
+    background-color: #ffffff;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 /* Toggle Switch */

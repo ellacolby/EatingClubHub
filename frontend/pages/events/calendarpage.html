@@ -16,47 +16,49 @@
             <div id='calendar'></div>
             <div class="container">
                 <div class="eventdetails-container" hidden>
-                    <h2>Event Details</h2>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="eventName">Event Name:</label>
-                                    <p class="event-name"></p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="location">Location:</label>
-                                    <p class="location"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Description:</label>
-                            <p class="description"></p>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="startDateTime">Start Date and Time:</label>
-                                    <p class="startDateTime"></p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="endDateTime">End Date and Time:</label>
-                                    <p class="endDateTime"></p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="header">
+                        <h2>Event Details</h2>
                         <header style="background-color:#000;color:#fff;">
-                            <span onclick=handleExit() class="close-button topright">&times;</span>
+                            <span onclick=handleExit() class="close-button">&times;</span>
                         </header>
-                        <!-- <div class="form-group">
-                            <div class="submit btn btn-primary">
-                                <a href="/events">Back</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="eventName">Event Name:</label>
+                                <p class="event-name"></p>
                             </div>
-                        </div> -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="location">Location:</label>
+                                <p class="location"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <p class="description"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="startDateTime">Start Date and Time:</label>
+                                <p class="startDateTime"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="endDateTime">End Date and Time:</label>
+                                <p class="endDateTime"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <div class="submit btn btn-primary">
+                            <a href="/events">Back</a>
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -77,10 +79,6 @@
 
                 return events.filter(event => selectedClubs.includes(event[2])).map(eventInfo => {
                     const [eventId, event, club, description, start, end] = eventInfo;
-
-                    console.log(start, end);
-                    console.log("club", club);
-                    console.log("color:", color(club));
 
                     return {
                         title: `${club} - ${event}`,
@@ -113,9 +111,7 @@
             }
 
             function handleExit() {
-
-                document.querySelector('.container').hidden = true;
-
+                document.querySelector('.eventdetails-container').hidden = true;
             }
 
             function color(clubname) {
