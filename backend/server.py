@@ -33,6 +33,7 @@ def auth_info():
     # check if officer
     user_id = cas_username
     is_officer = any(user.user_id == user_id for user in db.get_officers())
+    club_id, club_name = None, None
     if is_officer:
         club_id, club_name = db.get_officer_club_info(user_id)
     return name, is_officer, club_id, club_name
@@ -69,6 +70,22 @@ def users():
     print('users:', res)
     return {'users': res}
 
+@app.route('/api/make_new_officer', methods=['POST'])
+def make_new_officer():
+    user_id = request.form['netid']
+    _, is_officer, club_id, club_name = auth_info()
+
+    db.create_officer(user_id=user_id, club_id=club_id)
+
+    html_code = render_template(
+       'pages/profile.html',
+       is_officer=is_officer,
+       club_name=club_name
+    )
+    response = make_response(html_code)
+    return response
+
+    
 @app.route('/api/create_event', methods=['POST'])
 def create_new_event():
     event_name = request.form['eventName']
@@ -129,10 +146,12 @@ def contact_page():
 
 @app.route('/profile', methods=['GET'])
 def profile_page():
-   _, is_officer, _, _ = auth_info()
+   _, is_officer, club_id, club_name = auth_info()
+
    return render_template(
        'pages/profile.html',
-       is_officer=is_officer)
+       is_officer=is_officer,
+       club_name=club_name)
 
 @app.route('/eventcreation', methods=['GET'])
 def event_creation_page():
