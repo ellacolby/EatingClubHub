@@ -108,22 +108,26 @@ def edit_profile():
     
 @app.route('/api/create_event', methods=['POST'])
 def create_new_event():
+    _, is_officer, club_id, club_name = auth_info()
     event_name = request.form['eventName']
-    location = request.form['location']
+    location = club_name
     description = request.form['description']
     start_datetime = request.form['startDateTime']
     end_datetime = request.form['endDateTime']
 
     # Creates new event in database
-    create_event(
+    db.create_event(
         name=event_name, 
         location=location, 
         description=description, 
         start_time=start_datetime, 
         end_time=end_datetime
     )
-
-    html_code = render_template('pages/calendarpage.html')
+    
+    html_code = render_template(
+        'pages/events/calendarpage.html',
+        is_officer=is_officer
+    )
     response = make_response(html_code)
     return response
 
