@@ -68,6 +68,10 @@ p {
     justify-content: space-between;
 }
 
+.fc-event {
+    cursor: pointer;
+}
+
 /* Toggle Switch */
 table {
     table-layout: fixed;
