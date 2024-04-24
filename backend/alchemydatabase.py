@@ -115,8 +115,6 @@ def get_records(class_name):
             records.append(record_tuple)
     return records
 
-
-# .order_by(User.user_id)
 # def get_announcements():
 #     with sqlalchemy.orm.Session(engine) as session:
 #         return session.query(Announcement).all() 
@@ -144,6 +142,17 @@ def get_records(class_name):
 # def get_favorite_clubs():
 #     with sqlalchemy.orm.Session(engine) as session:
 #         return session.query(FavoriteClub).all() 
+
+def get_officer_club_info(user_id):
+    with sqlalchemy.orm.Session(engine) as session:
+        club_id = session.query(Officer).filter(Officer.user_id == user_id).first()
+        if club_id:
+            club_id = club_id.club_id
+        else:
+            return None
+        club_name = session.query(Club).filter(Club.club_id == club_id).first().name
+
+        return club_id, club_name
 
 def get_officers():
     with sqlalchemy.orm.Session(engine) as session:
@@ -231,10 +240,11 @@ def main():
     try:
         Base.metadata.create_all(engine)
         # create_user(user_id="test", name="test")
-        create_event(name="test", location="TigerINN")
-        events = get_records('event')
-        for event in events:
-            print(event)
+        # create_event(name="test", location="TigerINN")
+        print(get_officer_club_info('hello'))
+        # events = get_records('event')
+        # for event in events:
+        #     print(event)
         
             
     except Exception as ex:
