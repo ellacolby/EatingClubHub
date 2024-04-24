@@ -80,7 +80,27 @@ def make_new_officer():
     html_code = render_template(
        'pages/profile.html',
        is_officer=is_officer,
-       club_name=club_name
+       club_name=club_name,
+    )
+    response = make_response(html_code)
+    return response
+
+@app.route('/api/edit_profile', methods=['POST'])
+def edit_profile():
+    user_id = auth.authenticate()
+    pronouns = request.form['pronouns']
+    about_me = request.form['about_me']
+    _, is_officer, club_id, club_name = auth_info()
+
+    if pronouns:
+        db.edit_user_field(user_id, 'pronouns', pronouns)
+    if about_me:
+        db.edit_user_field(user_id, 'about_me', about_me)
+
+    html_code = render_template(
+       'pages/profile.html',
+       is_officer=is_officer,
+       club_name=club_name,
     )
     response = make_response(html_code)
     return response
@@ -146,12 +166,12 @@ def contact_page():
 
 @app.route('/profile', methods=['GET'])
 def profile_page():
-   _, is_officer, club_id, club_name = auth_info()
-
-   return render_template(
-       'pages/profile.html',
-       is_officer=is_officer,
-       club_name=club_name)
+    _, is_officer, club_id, club_name = auth_info()
+    return render_template(
+        'pages/profile.html',
+        is_officer=is_officer,
+        club_name=club_name,
+        )
 
 @app.route('/eventcreation', methods=['GET'])
 def event_creation_page():
