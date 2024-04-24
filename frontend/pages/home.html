@@ -20,9 +20,6 @@
             <h2 id="welcome-header">Welcome, {{ USERNAME }}</h2>
             <a id="icc-website" href="https://icc.princeton.edu">ICC Website</a>
         </div>
-        {% if is_officer %}
-        <button class="add-announcement">Add Announcement</button>
-        {% endif %}
         <div id="cannon-club-page">
             {% include '/pages/eating_clubs/cannon.html' %}
         </div>
@@ -56,6 +53,5 @@
         <div id="tower-club-page">
             {% include '/pages/eating_clubs/tower.html' %}
         </div>
-
     </body>
 </html>

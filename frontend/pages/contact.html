@@ -12,43 +12,34 @@
     <body>
         {% include '/components/nav.html' %}
         <div class="contact-container">
-            <h2>Contact Us</h2>
+            <h2>Contact A Club</h2>
             <form action="submit_form.php" method="POST">
                 <div class="form-input">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="location">Location</label>
+                    <select id="location" name="location" class="form-control" required>
+                        <option value="">Select a location</option>
+                        <option value="Cannon Club">Cannon Club</option>
+                        <option value="Cap and Gown">Cap & Gown</option>
+                        <option value="Charter Club">Charter Club</option>
+                        <option value="Cloister Inn">Cloister Inn</option>
+                        <option value="Colonial Club">Colonial Club</option>
+                        <option value="Cottage Club">Cottage Club</option>
+                        <option value="Ivy Club">Ivy Club</option>
+                        <option value="Quadrangle Club">Quadrangle Club</option>
+                        <option value="Terrace F. Club">Terrace F. Club</option>
+                        <option value="Tiger Inn">Tiger Inn</option>
+                        <option value="Tower Club">Tower Club</option>
+                    </select>
                 </div>
-
-                <div class="form-input">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <div class="dropdown">
-                    <button class="dropbtn">Dropdown</button>
-                    <div class="dropdown-content">
-                      <a href="#">Cap & Gown</a>
-                      <a href="#">Tiger Inn</a>
-                      <a href="#">Ivy Inn</a>
-                      <a href="#">Cottage Club</a>
-                      <a href="#">Tower Club</a>
-                      <a href="#">Cannon Club</a>
-                      <a href="#">Charter Club</a>
-                      <a href="#">Quadrangle Club</a>
-                      <a href="#">Colonial Club</a>
-                      <a href="#">Terrace F. Club</a>
-                      <a href="#">Cloister Inn</a>
-                    </div>
-                  </div>
-
+                
                 <div class="form-input">
                     <label for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject" required>
+                    <input type="text" id="subject" name="subject" placeholder="Subject" required>
                 </div>
 
                 <div class="form-input">
                     <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
+                    <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea>
                 </div>
                 <button type="submit">Submit</button>
             </form>
