@@ -14,9 +14,8 @@
         <div class="container">
             <div class="eventcreation-container">
                 <h2>Edit Profile</h2>
-                <form id="eventForm" method="post" action="/api/create_event">
+                <form id="profileForm" method="post" action="/api/edit_profile">
                     <div class="row">
-                        <img src="profile_image_ECH.jpg" alt="Profile Image" class="profile-image">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="userName">Preferred Name ({{netid}}):</label>
@@ -37,8 +36,8 @@
                     </div>
                 </form>
                 {% if is_officer %}
-                    <h2>Appoint New Officers</h2>
-                    <form id="givePermissionsForm" method="post" action="/api/give_permissions">
+                    <h2>Appoint New Officers for {{ club_name }}</h2>
+                    <form id="officerPermissionsForm" method="post" action="/api/make_new_officer">
                         <div class="form-group">
                             <label for="netid">Enter the netid of the user to give officer permissions to:</label>
                             <input type="text" id="netid" name="netid" class="form-control" required>
@@ -53,28 +52,50 @@
         
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                document.getElementById('eventForm').addEventListener('submit', function (event) {
+
+                document.getElementById('profileForm').addEventListener('submit', function (event) {
                     event.preventDefault(); // Prevent the form from submitting empty
     
                     // Get form data
                     var formData = new FormData(this);
 
                     // Send form data to backend server using Fetch API
-                    fetch('/api/create_user', {
+                    fetch('/api/edit_profile', {
                         method: 'POST',
                         body: formData
                     })
                     .then(function (response) {
                         if (response.ok) {
                             // handle success response
-                            console.log('Event created successfully!');
+                            console.log('Profile Updated Sucessfully!');
                         } else {
                             // handle error response
-                            console.error('Failed to update user');
+                            console.error('Failed to update User Profile');
                         }
                     })
                     .catch(function (error) {
                         // Handle network errors
+                        console.error('Error:', error);
+                    });
+                });
+
+                document.getElementById('officerPermissionsForm').addEventListener('submit', function (event) { // Permissions form
+                    event.preventDefault(); // Prevent the form from submitting empty
+
+                    var formData = new FormData(this);
+
+                    fetch('/api/make_new_officer', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(function (response) {
+                        if (response.ok) {
+                            console.log('Permissions given successfully!');
+                        } else {
+                            console.error('Failed to give permissions');
+                        }
+                    })
+                    .catch(function (error) {
                         console.error('Error:', error);
                     });
                 });
