@@ -89,8 +89,16 @@ def create_new_announcement():
         title=announcement_title, 
         description=announcement_descrip
     )
+    fetched_announcements = announcements()
+    fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
+    
+    _, is_officer, _, _ = auth_info()
 
-    html_code = render_template('pages/announcementspage.html')
+    html_code = render_template(
+        'pages/announcements/announcementspage.html',
+        announcements=fetched_announcements,
+        is_officer=is_officer
+    )
     response = make_response(html_code)
     return response
     
@@ -121,7 +129,7 @@ def event_creation_page():
 
 @app.route('/announcementcreation', methods=['GET'])
 def announcement_creation_page():
-     return render_template('pages/announcements/announcementcreation.html')
+    return render_template('pages/announcements/announcementcreation.html')
 
 def auth_info():
     cas_username = auth.authenticate()
