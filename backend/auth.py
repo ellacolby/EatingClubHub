@@ -107,6 +107,7 @@ def authenticate():
 def logout():
     # Log out of the CAS session, and then the application.
     flask.session.clear()
-    logout_url = (_CAS_URL + 'logout?service='
-        + urllib.parse.quote("http://localhost:8080"))
+    #logout_url = (_CAS_URL + 'logout?service='
+    #    + urllib.parse.quote("http://localhost:8080"))
+    logout_url = ('/')
     flask.abort(flask.redirect(logout_url))
