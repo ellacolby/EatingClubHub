@@ -21,7 +21,7 @@
 .navbar a {
   float: left;
   color: rgba(251,145,20,1);
-  text-align: center;
+  text-align: left;
   padding: 12px 24px;
   text-decoration: none;
   font-family: Inter;
@@ -33,7 +33,6 @@
 /* Change the color of links on hover */
 .navbar a:hover {
   width: 100%;
-  text-align: left;
   background-color: rgba(251,145,20,1);
   color: rgb(255, 255, 255);
 }
@@ -69,12 +68,11 @@ mask-size: 100% 100%;
 }
 .dropdown {
   position: relative;
-  display: inline-block;
 }
 
 .dropdown-content {
-  display: none;
   position: absolute;
+  right: 0px;
   background-color: #f9f9f9;
   min-width: 170px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -83,19 +81,13 @@ mask-size: 100% 100%;
 
 .dropdown-content a {
   color: rgba(251,145,20,1);
-  padding: 12px 16px;
-  text-decoration: none;
   display: block;
 }
+
 
 .dropdown-content a:hover {
   color: rgb(255, 255, 255);
-  position: absolute;
   background-color: rgba(251,145,20,1);
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
 }
 
 .dropdown:hover .dropdown-trigger {
