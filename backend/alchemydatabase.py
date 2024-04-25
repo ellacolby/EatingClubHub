@@ -271,6 +271,9 @@ def delete_event(event_id):
             session.query(ClubEvent).filter(ClubEvent.event_id == event_id).delete()
             session.query(Event).filter(Event.event_id == event_id).delete()
             session.commit()
+            return True
+        else:
+            return False
 
 def delete_announcement(announcement_id):
     with sqlalchemy.orm.Session(engine) as session:
