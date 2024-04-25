@@ -207,21 +207,22 @@ def create_new_announcement():
     response = make_response(html_code)
     return response
 
-# @app.route('/api/delete_announcement', methods=['POST'])
-# def delete_announcement():
-#     db.delete_announcement()
+@app.route('/api/delete_announcement', methods=['POST'])
+def delete_announcement():
+    announcement_id = int(request.data.decode('utf-8'))
+    db.delete_announcement(announcement_id=announcement_id)
 
-#     _, is_officer, _, _ = auth_info()
-#     fetched_announcements = announcements()
-#     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
+    _, is_officer, _, _ = auth_info()
+    fetched_announcements = announcements()
+    fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
 
-#     html_code = render_template(
-#         'pages/announcements/announcementspage.html',
-#         announcements=fetched_announcements,
-#         is_officer=is_officer
-#     )
-#     response = make_response(html_code)
-#     return response
+    html_code = render_template(
+        'pages/announcements/announcementspage.html',
+        announcements=fetched_announcements,
+        is_officer=is_officer
+    )
+    response = make_response(html_code)
+    return response
 
 # @app.route('/api/edit_announcement', methods=['POST'])
 # def delete_announcement():
