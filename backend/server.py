@@ -27,6 +27,9 @@ app.secret_key = os.environ['APP_SECRET_KEY']
 def auth_info():
     _, cas_username = auth.authenticate()
     
+    if cas_username is None:
+        return None, None, None, None
+    
     name = get_name(cas_username)
 
     # check if officer
@@ -262,6 +265,8 @@ def splash_page():
 @app.route('/home', methods=['GET'])
 def home_page():
     cas_username, is_officer, _, _ = auth_info()
+    if cas_username is None:
+        return splash_page()
     images = ['styles/cap.jpeg', 'styles/colo.jpeg', 'styles/cannon.jpeg']
     
     fetched_announcements = announcements()
@@ -296,12 +301,16 @@ def home_page():
 
 @app.route('/contact', methods=['GET'])
 def contact_page():
-    _, is_officer, _, _ = auth_info()
+    cas_username, is_officer, _, _ = auth_info()
+    if cas_username is None:
+        return splash_page()
     return render_template('pages/contact.html', is_officer=is_officer)
 
 @app.route('/profile', methods=['GET'])
 def profile_page():
-    _, is_officer, club_id, club_name = auth_info()
+    cas_username, is_officer, club_id, club_name = auth_info()
+    if cas_username is None:
+        return splash_page()
     return render_template(
         'pages/profile.html',
         is_officer=is_officer,
@@ -310,12 +319,16 @@ def profile_page():
 
 @app.route('/eventcreation', methods=['GET'])
 def event_creation_page():
-    _, is_officer, _, _ = auth_info()
+    cas_username, is_officer, _, _ = auth_info()
+    if cas_username is None:
+        return splash_page()
     return render_template('pages/events/eventcreation.html', is_officer=is_officer)
 
 @app.route('/announcementcreation', methods=['GET'])
 def announcement_creation_page():
-    _, is_officer, _, _ = auth_info()
+    cas_username, is_officer, _, _ = auth_info()
+    if cas_username is None:
+        return splash_page()
     return render_template('pages/announcements/announcementcreation.html', is_officer=is_officer)
 
 @app.route('/announcements', methods=['GET'])
@@ -323,7 +336,10 @@ def announcements_page():
     fetched_announcements = announcements()
     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
     print(fetched_announcements)
-    _, is_officer, club_id, _ = auth_info()
+    cas_username, is_officer, club_id, _ = auth_info()
+    
+    if cas_username is None:
+        return splash_page()
 
     return render_template(
         'pages/announcements/announcementspage.html',
@@ -334,7 +350,10 @@ def announcements_page():
 
 @app.route('/events', methods=['GET'])
 def events_page():
-    _, is_officer, _, _ = auth_info()
+    cas_username, is_officer, _, _ = auth_info()
+    
+    if cas_username is None:
+        return splash_page()
     
     return render_template(
         'pages/events/calendarpage.html',
