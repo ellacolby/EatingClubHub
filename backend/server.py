@@ -170,7 +170,8 @@ def home_page():
 
 @app.route('/contact', methods=['GET'])
 def contact_page():
-   return render_template('pages/contact.html')
+    _, is_officer, _, _ = auth_info()
+    return render_template('pages/contact.html', is_officer=is_officer)
 
 @app.route('/profile', methods=['GET'])
 def profile_page():
@@ -183,11 +184,13 @@ def profile_page():
 
 @app.route('/eventcreation', methods=['GET'])
 def event_creation_page():
-    return render_template('pages/events/eventcreation.html')
+    _, is_officer, _, _ = auth_info()
+    return render_template('pages/events/eventcreation.html', is_officer=is_officer)
 
 @app.route('/announcementcreation', methods=['GET'])
 def announcement_creation_page():
-    return render_template('pages/announcements/announcementcreation.html')
+    _, is_officer, _, _ = auth_info()
+    return render_template('pages/announcements/announcementcreation.html', is_officer=is_officer)
 
 @app.route('/announcements', methods=['GET'])
 def announcements_page():
