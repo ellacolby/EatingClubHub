@@ -158,7 +158,7 @@ def create_new_announcement():
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
 def home_page():
-    cas_username, is_officer = auth_info()
+    cas_username, is_officer, _, _ = auth_info()
     images = ['styles/cap.jpeg', 'styles/colo.jpeg', 'styles/cannon.jpeg']
     
     fetched_announcements = announcements()
