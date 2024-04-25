@@ -20,12 +20,13 @@ app = Flask(
 app.secret_key = os.environ['APP_SECRET_KEY']
 
 # Middleware  for Auth
-@app.before_request
-def authenticate():
-    auth.authenticate()
+# @app.before_request
+# def authenticate():
+#     auth.authenticate()
 
 def auth_info():
-    cas_username = auth.authenticate()
+    _, cas_username = auth.authenticate()
+    
     name = get_name(cas_username)
 
     # check if officer
@@ -221,6 +222,19 @@ def create_new_announcement():
 # Page Renderings
 
 @app.route('/', methods=['GET'])
+@app.route('/splash', methods=['GET'])
+def splash_page():
+    ticket = request.args.get('ticket')
+    url, name = auth.authenticate()
+    
+    if name is not None:
+        return home_page()
+    if ticket is None:
+        images = ['styles/cap.jpeg', 'styles/colo.jpeg', 'styles/cannon.jpeg']
+        return render_template('pages/splash.html', images=images, CAS_LOGIN_URL=url)
+    return home_page()
+        
+
 @app.route('/home', methods=['GET'])
 def home_page():
     cas_username, is_officer, _, _ = auth_info()

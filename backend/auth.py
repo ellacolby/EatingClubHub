@@ -55,11 +55,16 @@ def validate(ticket):
 # Do not return unless the user is successfully authenticated.
 
 def authenticate():
+    login_url = (_CAS_URL + 'login?service=' +
+            urllib.parse.quote(flask.request.url))
 
     # If the username is in the session, then the user was
     # authenticated previously.  So return the username.
     if 'username' in flask.session:
-        return flask.session.get('username')
+        return login_url, flask.session.get('username')
+    
+    # [already logged in, username]
+    # [first log in, ]
 
     # If the request does not contain a login ticket, then redirect
     # the browser to the login page to get one.
@@ -67,7 +72,9 @@ def authenticate():
     if ticket is None:
         login_url = (_CAS_URL + 'login?service=' +
             urllib.parse.quote(flask.request.url))
+        return login_url, None
         flask.abort(flask.redirect(login_url))
+
 
     # If the login ticket is invalid, then redirect the browser
     # to the login page to get a new one.
@@ -93,7 +100,7 @@ def authenticate():
     # The user is authenticated, so store the username in
     # the session.
     flask.session['username'] = username
-    return username
+    return None, username
 
 #-----------------------------------------------------------------------
 
