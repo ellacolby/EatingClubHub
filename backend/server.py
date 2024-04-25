@@ -132,7 +132,11 @@ def create_new_event():
 
 # @app.route('/api/delete_event', methods=['POST'])
 # def delete_event():
-#     db.delete_event()
+#     event_id = request.args.get('eventId')
+#     
+#    success = db.delete_event(event_id)
+
+    #  return {'success': success}
 
 #     _, is_officer, club_id, club_name = auth_info()
 #     html_code = render_template(
@@ -163,18 +167,19 @@ def create_new_event():
 
 @app.route('/api/create_announcement', methods=['POST'])
 def create_new_announcement():
+    _, is_officer, club_id, _ = auth_info()
     announcement_title = request.form['announcementTitle']
     announcement_descrip = request.form['announcementDescription']
 
     # Creates new announcement in database
     db.create_announcement(
         title=announcement_title, 
-        description=announcement_descrip
+        description=announcement_descrip,
+        club_id=club_id
     )
     fetched_announcements = announcements()
     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
     
-    _, is_officer, _, _ = auth_info()
 
     html_code = render_template(
         'pages/announcements/announcementspage.html',
