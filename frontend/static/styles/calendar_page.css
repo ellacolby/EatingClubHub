@@ -2,7 +2,7 @@
     width: 300px;
     padding: 16px;
     min-height: 100%;
-    background-color: rgba(0, 0, 0, .9);
+    background-color: white;
 }
 .calendar {
     display: flex;
@@ -48,7 +48,8 @@ p {
     color: #F44336;
 }
 #eating-club-header {
-    color: #2196F3;
+    color: rgba(251,145,20,1);
+    text-align: center;
 }
 
 .container {
@@ -93,7 +94,7 @@ td {
 }
 
 .toggle-label {
-    color: #ffffff;
+    color: black;
     display: inline;
     margin-right: 4px;
     font-size: 12px;
@@ -220,5 +221,14 @@ td {
 
 .checkbox:checked+.label .switch {
     right: 0px;
+}
+.fc .fc-button-primary { 
+    color: #ffffff; 
+    background-color:rgba(251,145,20,1) !important; 
+    border-color: #FFFFFF !important; 
+}
+
+.fc-event, .fc-event-dot, .fc-title, .fc-list-item-title, .fc-daygrid-day-number, .fc-day-number, .fc-col-header-cell-cushion {
+    color: black !important;
 }
 /* End toggle switch */
