@@ -74,10 +74,14 @@ def users():
 
 @app.route('/api/make_new_officer', methods=['POST'])
 def make_new_officer():
-    user_id = request.form['netid']
-    _, is_officer, club_id, club_name = auth_info()
+    cas_username, is_officer, club_id, club_name = auth_info()
+    
+    if cas_username is None:
+        return splash_page()
+    if is_officer is False:
+        return error404()
 
-    db.create_officer(user_id=user_id, club_id=club_id)
+    db.create_officer(user_id=cas_username, club_id=club_id)
 
     html_code = render_template(
        'pages/profile.html',
@@ -89,15 +93,17 @@ def make_new_officer():
 
 @app.route('/api/edit_profile', methods=['POST'])
 def edit_profile():
-    user_id = auth.authenticate()
+    cas_username, is_officer, _, club_name = auth_info()
+    if cas_username is None:
+        return splash_page()
+    
     pronouns = request.form['pronouns']
     about_me = request.form['about_me']
-    _, is_officer, club_id, club_name = auth_info()
 
     if pronouns:
-        db.edit_user_field(user_id, 'pronouns', pronouns)
+        db.edit_user_field(cas_username, 'pronouns', pronouns)
     if about_me:
-        db.edit_user_field(user_id, 'about_me', about_me)
+        db.edit_user_field(cas_username, 'about_me', about_me)
 
     html_code = render_template(
        'pages/profile.html',
@@ -110,7 +116,14 @@ def edit_profile():
     
 @app.route('/api/create_event', methods=['POST'])
 def create_new_event():
-    _, is_officer, club_id, club_name = auth_info()
+    cas_username, is_officer, club_id, club_name = auth_info()
+    
+    if cas_username is None:
+        return splash_page()
+    if is_officer is False:
+        print("reached is officer false")
+        return error404()
+    
     event_name = request.form['eventName']
     location = club_name
     description = request.form['description']
@@ -135,13 +148,17 @@ def create_new_event():
 
 @app.route('/api/attend_event', methods=['POST'])
 def attend_event():
-    user_id, is_officer, _, _ = auth_info()
+    cas_username, is_officer, _, _ = auth_info()
+    
+    if cas_username is None:
+        return splash_page()
+    
     event_id = 0
 
     # Creates new event in database
     db.create_event_attendee(
         event_id = event_id,
-        user_id = user_id
+        user_id = cas_username
     )
     
     html_code = render_template(
@@ -153,6 +170,13 @@ def attend_event():
 
 @app.route('/api/delete_event', methods=['POST'])
 def delete_event():
+    cas_username, is_officer, _, _ = auth_info()
+    
+    if cas_username is None:
+        return splash_page()
+    if is_officer is False:
+        return error404()
+    
     event_id = request.args.get('eventId')
     print('event_id:', event_id)
     success = db.delete_event(event_id)
@@ -179,7 +203,13 @@ def delete_event():
 
 @app.route('/api/create_announcement', methods=['POST'])
 def create_new_announcement():
-    _, is_officer, club_id, _ = auth_info()
+    cas_username, is_officer, club_id, _ = auth_info()
+    
+    if cas_username is None:
+        return splash_page()
+    if is_officer is False:
+        return error404()
+    
     announcement_title = request.form['announcementTitle']
     announcement_descrip = request.form['announcementDescription']
 
@@ -203,10 +233,16 @@ def create_new_announcement():
 
 @app.route('/api/delete_announcement', methods=['POST'])
 def delete_announcement():
+    cas_username, is_officer, _, _ = auth_info()
+    
+    if cas_username is None:
+        return splash_page()
+    if is_officer is False:
+        return error404()
+    
     announcement_id = int(request.data.decode('utf-8'))
     db.delete_announcement(announcement_id=announcement_id)
 
-    _, is_officer, _, _ = auth_info()
     fetched_announcements = announcements()
     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
 
@@ -297,6 +333,11 @@ def contact_page():
         return splash_page()
     return render_template('pages/contact.html', is_officer=is_officer)
 
+@app.route('/error404', methods=['GET'])
+def error404():
+    images = ['styles/cap.jpeg', 'styles/colo.jpeg', 'styles/cannon.jpeg']
+    return render_template('pages/error404.html', images=images)
+
 @app.route('/profile', methods=['GET'])
 def profile_page():
     cas_username, is_officer, club_id, club_name = auth_info()
@@ -313,6 +354,8 @@ def event_creation_page():
     cas_username, is_officer, _, _ = auth_info()
     if cas_username is None:
         return splash_page()
+    if is_officer is False:
+        return error404()
     return render_template('pages/events/eventcreation.html', is_officer=is_officer)
 
 @app.route('/announcementcreation', methods=['GET'])
@@ -320,6 +363,8 @@ def announcement_creation_page():
     cas_username, is_officer, _, _ = auth_info()
     if cas_username is None:
         return splash_page()
+    if is_officer is False:
+        return error404()
     return render_template('pages/announcements/announcementcreation.html', is_officer=is_officer)
 
 @app.route('/announcements', methods=['GET'])
