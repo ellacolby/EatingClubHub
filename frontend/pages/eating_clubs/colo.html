@@ -11,6 +11,18 @@
                 A club that is “wildly enthusiastic on weekends and rarely tweedy,” Cannon Dial Elm Club dons the names of four eating clubs: Cannon Club, Dial Lodge,  Elm Club, and DEC. Reopened in 2011 and tracing its roots back to 1896, the club has quickly cemented itself on the Street once more.
             </p>
         </div>
-        
+        <div class="row">
+            <div class="col-12 event-handle">
+                <div class="outer-layer">
+                    <span class="upcoming-events">Upcoming Events</span>
+                    <div class="inner-layer">
+                        <div class="announcements_carousel">
+                            {% from 'components/macro.html' import announcements_carousel %}
+                            {{ announcements_carousel(announcements[5]) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

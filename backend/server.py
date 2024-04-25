@@ -266,10 +266,33 @@ def home_page():
     
     fetched_announcements = announcements()
     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
+    
+    announcements_dict = {
+        1: [],
+        2: [],
+        3: [],
+        4: [],
+        5: [],
+        6: [],
+        7: [],
+        8: [],
+        9: [],
+        10: [],
+        11: []
+    }
+    
+    for i in range(1, 12):
+        for announcement in fetched_announcements:
+            if announcement[4] == i:
+                prev = announcements_dict[i]
+                prev.append(announcement)
+                announcements_dict[i] = prev
+    
     print(fetched_announcements)
+    print(announcements_dict)
     
     # Use the username from the session for consistency
-    return render_template('pages/home.html', USERNAME=cas_username, is_officer=is_officer, images=images, announcements=fetched_announcements)
+    return render_template('pages/home.html', USERNAME=cas_username, is_officer=is_officer, images=images, announcements=announcements_dict)
 
 @app.route('/contact', methods=['GET'])
 def contact_page():

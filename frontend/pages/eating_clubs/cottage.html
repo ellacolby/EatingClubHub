@@ -11,6 +11,19 @@
                     In 1884, a group of freshman, members of the Class of 1888 chose to eat in a private room on the second floor of Dohm’s Restaurant on Nassau Street across from the campus. In time, this group named themselves “The Seven Wise Men of Grease,” a reflection of the meals they endured.
             </p>
         </div>
+        <div class="row">
+            <div class="col-12 event-handle">
+                <div class="outer-layer">
+                    <span class="upcoming-events">Upcoming Events</span>
+                    <div class="inner-layer">
+                        <div class="announcements_carousel">
+                            {% from 'components/macro.html' import announcements_carousel %}
+                            {{ announcements_carousel(announcements[6]) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
     </div>
 </div>
