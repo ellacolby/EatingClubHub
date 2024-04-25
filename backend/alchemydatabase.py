@@ -220,12 +220,6 @@ def create_user_event(user_id=None, event_id=None):
         session.add(new_user_event)
         session.commit()
 
-# def create_user(user_id=None, name=None, netid=None, profile_pic=None):
-#     with sqlalchemy.orm.Session(engine) as session:
-#         new_user = User(user_id=user_id, name=name, netid=netid, profile_pic=profile_pic)
-#         session.add(new_user)
-#         session.commit()
-
 def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=None, about_me=None):
     with sqlalchemy.orm.Session(engine) as session:
         new_user = User(user_id=user_id, name=name, netid=netid, profile_pic=profile_pic, pronouns=pronouns, about_me=about_me)
@@ -239,6 +233,51 @@ def edit_user_field(user_id, field, value):
             setattr(user, field, value)
             session.commit()
 
+def edit_event(event_id, new_name=None, new_location=None, new_description=None, new_start_time=None, new_end_time=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        event = session.query(Event).filter_by(event_id=event_id).first()
+        if event:
+            if new_name:
+                event.name = new_name
+            if new_location:
+                event.location = new_location
+            if new_description:
+                event.description = new_description
+            if new_start_time:
+                event.start_time = new_start_time
+            if new_end_time:
+                event.end_time = new_end_time
+        session.commit()
+
+def edit_announcement(announcement_id, new_title=None, new_description=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        announcement = session.query(Announcement).filter_by(announcement_id=announcement_id).first()
+        if announcement:
+            if new_title:
+                announcement.title = new_title
+            if new_description:
+                announcement.description = new_description
+        session.commit()
+
+def delete_event(event_id):
+    with sqlalchemy.orm.Session(engine) as session:
+        event = session.query(Event).filter_by(event_id=event_id).first()
+        if event:
+            session.query(EventAttendee).filter(EventAttendee.event_id == event_id).delete()
+            session.query(UserEvent).filter(UserEvent.event_id == event_id).delete()
+            session.query(ClubEvent).filter(ClubEvent.event_id == event_id).delete()
+            session.query(Event).filter(Event.event_id == event_id).delete()
+            session.commit()
+
+def delete_announcement(announcement_id):
+    with sqlalchemy.orm.Session(engine) as session:
+        announcement = session.query(Announcement).filter_by(announcement_id=announcement_id).first()
+
+        if announcement:
+            session.query(ClubAnnouncement).filter(ClubAnnouncement.announcement_id == announcement_id).delete()
+            session.query(Announcement).filter(Announcement.announcement_id == announcement_id).delete()
+            session.commit()
+
 def main():
     if len(sys.argv) != 1:
         print('Usage: python ' + sys.argv[0], file=sys.stderr)
@@ -246,12 +285,9 @@ def main():
 
     try:
         Base.metadata.create_all(engine)
-        # create_user(user_id="test", name="test")
-        # create_event(name="test", location="TigerINN")
-        edit_user_field('mz1231', 'pronouns', 'he/him')
-        # events = get_records('event')
-        # for event in events:
-        #     print(event)
+        
+        # edit_announcement(22, 'Does this work', 'lets see')
+        # delete_announcement(22)
         
             
     except Exception as ex:
