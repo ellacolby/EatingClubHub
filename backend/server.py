@@ -151,21 +151,12 @@ def attend_event():
     response = make_response(html_code)
     return response
 
-# @app.route('/api/delete_event', methods=['POST'])
-# def delete_event():
-#     event_id = request.args.get('eventId')
-#     
-#    success = db.delete_event(event_id)
-
-    #  return {'success': success}
-
-#     _, is_officer, club_id, club_name = auth_info()
-#     html_code = render_template(
-#         'pages/events/calendarpage.html',
-#         is_officer=is_officer
-#     )
-#     response = make_response(html_code)
-#     return response
+@app.route('/api/delete_event', methods=['POST'])
+def delete_event():
+    event_id = request.args.get('eventId')
+    print('event_id:', event_id)
+    success = db.delete_event(event_id)
+    return {'success': success}
 
 # @app.route('/api/edit_event', methods=['POST'])
 # def edit_event():

@@ -60,7 +60,7 @@
                     </div>
                     {% if is_officer: %}
                     <div class="row delete-event">
-                        <button onClick="">Delete Event</button>
+                        <button class="delete-event-button" onClick="deleteEvent()">Delete Event</button>
                     </div>
                     {% endif %}
                 </div>
@@ -113,16 +113,29 @@
                 document.querySelector('.description').innerText = description;
                 document.querySelector('.startDateTime').innerText = start;
                 document.querySelector('.endDateTime').innerText = end;
+                if (eventId !== undefined) {
+                    document.querySelector('.delete-event-button').addEventListener('click', () => deleteEvent(eventId));
+                }
             }
 
             function handleExit() {
                 document.querySelector('.eventdetails-container').hidden = true;
             }
 
-            const deleteEvent = async () => {
-                const res = await fetch(`/api/delete_event?eventId=${eventId}`);
+            const deleteEvent = async (eventId) => {
+                if (eventId !== undefined) {
+                    const res = await fetch(`/api/delete_event?eventId=${eventId}`, {
+                        method: 'POST'
+                    });
+                    const { success } = await res.json();
+                    if (success) {
+                        await renderCalendar();
+                        document.querySelector('.eventdetails-container').hidden = true;
+                    } else {
+                        alert('Failed to delete event.');
+                    }
+                }
                 
-
             }   
 
             function color(clubname) {
