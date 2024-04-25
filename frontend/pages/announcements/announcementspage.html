@@ -14,9 +14,15 @@
             
             {% if announcements %}
                 {% for announcement in announcements %}
-                    <div class="announcement">
+                    <div class="announcement" >
                         <h2>{{ announcement[1] }}</h2>
                         <p>{{ announcement[2] }}</p>
+                        <div> 
+
+                        <button class="button-announcement" id="edit-announcement" onclick="alert('Placeholder Edit')">Edit</button>
+                        <button class="button-announcement" id="edit-announcement" onclick="alert('Placeholder Delete')">Delete</button>
+                        
+                        </div>
                     </div>
                 {% endfor %}
             {% else %}

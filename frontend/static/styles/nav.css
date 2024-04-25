@@ -89,7 +89,10 @@ mask-size: 100% 100%;
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown-content a:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgba(251,145,20,1);
+}
 
 .dropdown:hover .dropdown-content {
   display: block;
