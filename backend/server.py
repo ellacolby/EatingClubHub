@@ -158,9 +158,15 @@ def create_new_announcement():
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
 def home_page():
-    cas_username, is_officer, _, _ = auth_info()
+    cas_username, is_officer = auth_info()
+    images = ['styles/cap.jpeg', 'styles/colo.jpeg', 'styles/cannon.jpeg']
+    
+    fetched_announcements = announcements()
+    fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
+    print(fetched_announcements)
+    
     # Use the username from the session for consistency
-    return render_template('pages/home.html', USERNAME=cas_username, is_officer=is_officer)
+    return render_template('pages/home.html', USERNAME=cas_username, is_officer=is_officer, images=images, announcements=fetched_announcements)
 
 @app.route('/contact', methods=['GET'])
 def contact_page():

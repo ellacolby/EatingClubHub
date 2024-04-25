@@ -21,7 +21,44 @@
     font-size: 16px;
     font-size: 17px;
 }
-  
+.carousel {
+  width: 100%; /* Make the carousel take the full width of its container */
+  margin: auto; /* Center it horizontally */
+  overflow: hidden; /* Ensure nothing overflows from the carousel */
+}
+
+.carousel-item img {
+  width: 100%; /* Make images stretch to cover the carousel width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Carousel control styling */
+.carousel-control-prev,
+.carousel-control-next {
+    top: 50%; /* Adjust the percentage to lower or raise the icons */
+    transform: translateY(1230%); /* This centers them vertically */
+    width: 50px; /* Width of the clickable area */
+    height: 50px; /* Height of the clickable area */
+    color: black;
+    opacity: 1;
+}
+.sr-only{
+  color: #000;
+  opacity: 1;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 30px; /* Width of the arrow icon */
+    height: 30px; /* Height of the arrow icon */
+    background-image: url('path_to_your_arrow_icons.png'); /* Custom arrow icons */
+    background-color: #000;
+    opacity:1;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 0.75; /* Slightly less transparency on hover */
+}
   /* Change the color of links on hover */
   .navbar a:hover {
     background-color: rgba(251,145,20,1);
@@ -29,13 +66,11 @@
   }
 
 .background {
-    background-image: url('homephoto.png');
     opacity: 0.5;
     margin: 0; /* Removes the default margin around the body */
     height: 100vh; /* Sets the height of the body to fill the whole viewport height */
     background-size: cover; /* Scales the background image to be as large as possible */
     background-position: center; /* Centers the background image */
-    background-repeat: no-repeat; /* Ensures the image does not repeat */
 }
   
 .square {

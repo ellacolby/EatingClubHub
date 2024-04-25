@@ -19,3 +19,24 @@
     background-color:rgb(210, 118, 14);
 }
 
+#announcementsCarousel {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.announcement-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.carousel-inner .announcement {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
+}
+
+.carousel-indicators li {
+    background-color: black;
+}
