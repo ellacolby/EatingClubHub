@@ -20,6 +20,9 @@ class Announcement(Base):
     title = Column(Text)
     description = Column(Text)
     image = Column(Text)
+    club_id = Column(Integer, ForeignKey('clubs.club_id'), primary_key=True)
+
+    club = relationship('Club', backref='announcements')
 
 class ClubAnnouncement(Base):
     __tablename__ = 'club_announcements'
@@ -166,9 +169,9 @@ def get_users():
    with sqlalchemy.orm.Session(engine) as session:
         return session.query(User).all() 
    
-def create_announcement(announcement_id=None, title=None, description=None, image=None):
+def create_announcement(announcement_id=None, title=None, description=None, image=None, club_id=None):
     with sqlalchemy.orm.Session(engine) as session:
-        new_announcement = Announcement(announcement_id=announcement_id, title=title, description=description, image=image)
+        new_announcement = Announcement(announcement_id=announcement_id, title=title, description=description, image=image, club_id=club_id)
         session.add(new_announcement)
         session.commit()
 
@@ -288,7 +291,7 @@ def main():
         
         # edit_announcement(22, 'Does this work', 'lets see')
         # delete_announcement(22)
-        
+        create_announcement(title='testing2', club_id=2)
             
     except Exception as ex:
         print(ex, file=sys.stderr)
