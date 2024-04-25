@@ -42,7 +42,7 @@
   background-color: #ffffff !important;
 }
 
-.navbar .clubs, .navbar .events, .navbar .announcements {
+.navbar .clubs, .navbar .events, .navbar .announcements, .navbar .profile {
   display: flex;
   flex-direction: row;
   align-items: center;
