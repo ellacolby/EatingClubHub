@@ -79,7 +79,7 @@ def make_new_officer():
     if cas_username is None:
         return splash_page()
     if is_officer is False:
-        return error404()
+        return not_found(404)
 
     db.create_officer(user_id=cas_username, club_id=club_id)
 
@@ -122,7 +122,7 @@ def create_new_event():
         return splash_page()
     if is_officer is False:
         print("reached is officer false")
-        return error404()
+        return not_found(404)
     
     event_name = request.form['eventName']
     location = club_name
@@ -175,7 +175,7 @@ def delete_event():
     if cas_username is None:
         return splash_page()
     if is_officer is False:
-        return error404()
+        return not_found(404)
     
     event_id = request.args.get('eventId')
     print('event_id:', event_id)
@@ -208,7 +208,7 @@ def create_new_announcement():
     if cas_username is None:
         return splash_page()
     if is_officer is False:
-        return error404()
+        return not_found(404)
     
     announcement_title = request.form['announcementTitle']
     announcement_descrip = request.form['announcementDescription']
@@ -238,7 +238,7 @@ def delete_announcement():
     if cas_username is None:
         return splash_page()
     if is_officer is False:
-        return error404()
+        return not_found(404)
     
     announcement_id = int(request.data.decode('utf-8'))
     db.delete_announcement(announcement_id=announcement_id)
@@ -350,7 +350,7 @@ def event_creation_page():
     if cas_username is None:
         return splash_page()
     if is_officer is False:
-        return error404()
+        return not_found(404)
     return render_template('pages/events/eventcreation.html', is_officer=is_officer)
 
 @app.route('/announcementcreation', methods=['GET'])
@@ -359,7 +359,7 @@ def announcement_creation_page():
     if cas_username is None:
         return splash_page()
     if is_officer is False:
-        return error404()
+        return not_found(404)
     return render_template('pages/announcements/announcementcreation.html', is_officer=is_officer)
 
 @app.route('/announcements', methods=['GET'])
