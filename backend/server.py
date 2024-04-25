@@ -333,11 +333,6 @@ def contact_page():
         return splash_page()
     return render_template('pages/contact.html', is_officer=is_officer)
 
-@app.route('/error404', methods=['GET'])
-def error404():
-    images = ['styles/cap.jpeg', 'styles/colo.jpeg', 'styles/cannon.jpeg']
-    return render_template('pages/error404.html', images=images)
-
 @app.route('/profile', methods=['GET'])
 def profile_page():
     cas_username, is_officer, club_id, club_name = auth_info()
@@ -393,6 +388,19 @@ def events_page():
     
     return render_template(
         'pages/events/calendarpage.html',
+        is_officer=is_officer
+    )
+
+@app.errorhandler(404)
+def not_found(e):
+    images = ['styles/cap.jpeg', 'styles/colo.jpeg', 'styles/cannon.jpeg']
+    cas_username, is_officer, _, _ = auth_info()
+    
+    if cas_username is None:
+        return splash_page()
+    return render_template(
+        'pages/error404.html',
+        images=images,
         is_officer=is_officer
     )
 
