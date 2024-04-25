@@ -54,6 +54,11 @@
                             </div>
                         </div>
                     </div>
+                    {% if is_officer: %}
+                    <div class="row delete-event">
+                        <button onClick="">Delete Event</button>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -78,6 +83,7 @@
                     return {
                         title: `${club} - ${event}`,
                         extendedProps: {
+                            eventId,
                             club,
                             description
                         },
@@ -95,7 +101,7 @@
                     end,
                     extendedProps
                 } = eventInfo.event;
-                const {description, club} = extendedProps;
+                const {description, club, eventId} = extendedProps;
 
                 document.querySelector('.eventdetails-container').hidden = false;
                 document.querySelector('.event-name').innerText = title;
@@ -108,6 +114,12 @@
             function handleExit() {
                 document.querySelector('.eventdetails-container').hidden = true;
             }
+
+            const deleteEvent = async () => {
+                const res = await fetch(`/api/delete_event?eventId=${eventId}`);
+                
+
+            }   
 
             function color(clubname) {
                 if (clubname === "Cannon")
