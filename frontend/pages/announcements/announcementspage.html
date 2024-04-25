@@ -19,8 +19,8 @@
                         <p>{{ announcement[2] }}</p>
                         <div> 
                         {% if is_officer and club_id == announcement[4] %}
-                            <button class="button-announcement" id="edit-announcement" onclick="alert('Placeholder Edit')">Edit</button>
-                            <button class="button-announcement" id="edit-announcement" onclick="alert('Placeholder Delete')">Delete</button>
+                            <!-- <button class="button-announcement" id="edit-announcement" onclick="alert('Placeholder Edit')">Edit</button> -->
+                            <button class="button-announcement delete-announcement" data-id="{{ announcement[0] }}">Delete</button>
                         {% endif %}
                         </div>
                     </div>
@@ -33,5 +33,40 @@
                 <a href="/announcementcreation" class="btn btn-primary create-button">Create Announcement</a>
             {% endif %}
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var deleteButtons = document.querySelectorAll('.delete-announcement');
+                deleteButtons.forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        var confirmation = confirm('Are you sure you want to delete this announcement?');
+                        if (confirmation) {
+                            var announcementId = button.getAttribute('data-id');
+                            deleteAnnouncement(announcementId);
+                        }
+                    });
+                });
+        
+                function deleteAnnouncement(announcementId) {
+                    fetch('/api/delete_announcement', {
+                        method: 'POST',
+                        body: announcementId
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload(); 
+                        } else {
+                            // Handle error response
+                            console.error('Error deleting announcement');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                }
+            });
+        </script>
+        
+
     </body>
 </html>
