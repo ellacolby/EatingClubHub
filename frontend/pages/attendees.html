@@ -1,0 +1,20 @@
+<table class="table table-striped" id="overviewsTable">
+    <tr>
+       <td><strong>NetId</strong></td>
+       <td><strong>Name</strong></td>
+       <td><strong>Profile</strong></td>
+    </tr>
+
+    {% if attendees|length != 0: %}
+        {% for attendee in attendees: %}
+            <tr>
+                <td>
+                    <a target="childWindow" 
+                    href="/viewprofile?userid={{attendee[0]}}"{{attendee[0]}}>{{attendee[1]}}</a>
+                </td>
+                <td>{{attendee[2]}}</td>
+                <td>{{course[3]}}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>
