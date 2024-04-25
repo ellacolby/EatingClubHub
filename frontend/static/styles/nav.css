@@ -2,6 +2,7 @@
   background-color: #ffffff;
   display: flex;
   justify-content: space-around;
+  border-right: 20px solid transparent;
 }
 
 .title {
