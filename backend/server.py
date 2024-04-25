@@ -130,6 +130,24 @@ def create_new_event():
     response = make_response(html_code)
     return response
 
+@app.route('/api/attend_event', methods=['POST'])
+def attend_event():
+    user_id, is_officer, _, _ = auth_info()
+    event_id = 0
+
+    # Creates new event in database
+    db.create_event_attendee(
+        event_id = event_id,
+        user_id = user_id
+    )
+    
+    html_code = render_template(
+        'pages/events/calendarpage.html',
+        is_officer=is_officer
+    )
+    response = make_response(html_code)
+    return response
+
 # @app.route('/api/delete_event', methods=['POST'])
 # def delete_event():
 #     event_id = request.args.get('eventId')
