@@ -18,10 +18,10 @@
                         <h2>{{ announcement[1] }}</h2>
                         <p>{{ announcement[2] }}</p>
                         <div> 
-
-                        <button class="button-announcement" id="edit-announcement" onclick="alert('Placeholder Edit')">Edit</button>
-                        <button class="button-announcement" id="edit-announcement" onclick="alert('Placeholder Delete')">Delete</button>
-                        
+                        {% if is_officer and club_id == announcement[4] %}
+                            <button class="button-announcement" id="edit-announcement" onclick="alert('Placeholder Edit')">Edit</button>
+                            <button class="button-announcement" id="edit-announcement" onclick="alert('Placeholder Delete')">Delete</button>
+                        {% endif %}
                         </div>
                     </div>
                 {% endfor %}
