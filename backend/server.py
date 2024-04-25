@@ -281,12 +281,13 @@ def announcements_page():
     fetched_announcements = announcements()
     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
     print(fetched_announcements)
-    _, is_officer, _, _ = auth_info()
+    _, is_officer, club_id, _ = auth_info()
 
     return render_template(
         'pages/announcements/announcementspage.html',
         announcements=fetched_announcements,
-        is_officer=is_officer
+        is_officer=is_officer,
+        club_id=club_id
     )
 
 @app.route('/events', methods=['GET'])
