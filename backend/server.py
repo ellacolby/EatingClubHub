@@ -129,6 +129,37 @@ def create_new_event():
     response = make_response(html_code)
     return response
 
+# @app.route('/api/delete_event', methods=['POST'])
+# def delete_event():
+#     db.delete_event()
+
+#     _, is_officer, club_id, club_name = auth_info()
+#     html_code = render_template(
+#         'pages/events/calendarpage.html',
+#         is_officer=is_officer
+#     )
+#     response = make_response(html_code)
+#     return response
+
+# @app.route('/api/edit_event', methods=['POST'])
+# def edit_event():
+#     _, is_officer, club_id, club_name = auth_info()
+#     event_name = request.form['eventName']
+#     location = club_name
+#     description = request.form['description']
+#     start_datetime = request.form['startDateTime']
+#     end_datetime = request.form['endDateTime']
+
+#     db.edit_event(new_name=event_name, new_location=location, new_description=description, new_start_time=start_datetime, new_end_time=end_datetime)
+
+#     html_code = render_template(
+#         'pages/events/calendarpage.html',
+#         is_officer=is_officer
+#     )
+#     response = make_response(html_code)
+#     return response
+
+
 @app.route('/api/create_announcement', methods=['POST'])
 def create_new_announcement():
     announcement_title = request.form['announcementTitle']
@@ -151,7 +182,41 @@ def create_new_announcement():
     )
     response = make_response(html_code)
     return response
-    
+
+# @app.route('/api/delete_announcement', methods=['POST'])
+# def delete_announcement():
+#     db.delete_announcement()
+
+#     _, is_officer, _, _ = auth_info()
+#     fetched_announcements = announcements()
+#     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
+
+#     html_code = render_template(
+#         'pages/announcements/announcementspage.html',
+#         announcements=fetched_announcements,
+#         is_officer=is_officer
+#     )
+#     response = make_response(html_code)
+#     return response
+
+# @app.route('/api/edit_announcement', methods=['POST'])
+# def delete_announcement():
+#     announcement_title = request.form['announcementTitle']
+#     announcement_descrip = request.form['announcementDescription']
+
+#     db.edit_announcement(new_title=announcement_title,new_description=announcement_descrip)
+
+#     _, is_officer, _, _ = auth_info()
+#     fetched_announcements = announcements()
+#     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
+
+#     html_code = render_template(
+#         'pages/announcements/announcementspage.html',
+#         announcements=fetched_announcements,
+#         is_officer=is_officer
+#     )
+#     response = make_response(html_code)
+#     return response
 #-----------------------------------------------------------------------
 # Page Renderings
 
