@@ -284,7 +284,7 @@ def splash_page():
     if name is not None:
         return home_page()
     if ticket is None:
-        images = ['styles/cap.jpeg', 'styles/colo.jpeg', 'styles/cannon.jpeg']
+        images = ['styles/cannon.jpeg','styles/cap.jpeg', 'styles/charter.jpeg', 'styles/cloister.jpeg', 'styles/colo.jpeg', 'styles/cottage.png', 'styles/ivy.jpeg', 'styles/quad.jpeg', 'styles/terrace.jpeg', 'styles/ti.jpeg', 'styles/tower.jpeg']
         return render_template('pages/splash.html', images=images, CAS_LOGIN_URL=url)
     return home_page()
         
@@ -294,7 +294,7 @@ def home_page():
     cas_username, is_officer, _, _ = auth_info()
     if cas_username is None:
         return splash_page()
-    images = ['styles/cap.jpeg', 'styles/colo.jpeg', 'styles/cannon.jpeg']
+    images = ['styles/cannon.jpeg','styles/cap.jpeg', 'styles/charter.jpeg', 'styles/cloister.jpeg', 'styles/colo.jpeg', 'styles/cottage.png', 'styles/ivy.jpeg', 'styles/quad.jpeg', 'styles/terrace.jpeg', 'styles/ti.jpeg', 'styles/tower.jpeg']
     
     fetched_announcements = announcements()
     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
@@ -393,7 +393,7 @@ def events_page():
 
 @app.errorhandler(404)
 def not_found(e):
-    images = ['styles/cap.jpeg', 'styles/colo.jpeg', 'styles/cannon.jpeg']
+    images = ['styles/cannon.jpeg','styles/cap.jpeg', 'styles/charter.jpeg', 'styles/cloister.jpeg', 'styles/colo.jpeg', 'styles/cottage.png', 'styles/ivy.jpeg', 'styles/quad.jpeg', 'styles/terrace.jpeg', 'styles/ti.jpeg', 'styles/tower.jpeg']
     cas_username, is_officer, _, _ = auth_info()
     
     if cas_username is None:
