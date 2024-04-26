@@ -41,8 +41,47 @@
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea>
                 </div>
-                <button type="submit">Submit</button>
+                <a href="mailto:rdondero@princeton.edu" id="mailtoLink"><button class="sendbutton" type="button">Send Message</button></a>
             </form>
         </div>
+
+        <script>    
+            function updateMailtoLink() {
+                var emails = {
+                    "Cannon Club": "kuba.alicki@princeton.edu",
+                    "Cap and Gown": "rdondero@princeton.edu",
+                    "Charter Club": "kuba.alicki@princeton.edu",
+                    "Cloister Inn": "kuba.alicki@princeton.edu",
+                    "Colonial Club": "kuba.alicki@princeton.edu",
+                    "Cottage Club": "kuba.alicki@princeton.edu",
+                    "Ivy Club": "kuba.alicki@princeton.edu",
+                    "Quadrangle Club": "kuba.alicki@princeton.edu",
+                    "Terrace F. Club": "kuba.alicki@princeton.edu",
+                    "Tiger Inn": "kuba.alicki@princeton.edu",
+                    "Tower Club": "kuba.alicki@princeton.edu"
+                };
+
+                var selectedLocation = document.getElementById('location').value;
+                var email = encodeURIComponent(emails[selectedLocation]) || encodeURIComponent("rdondero@princeton.edu"); // Default email
+                var subject = encodeURIComponent(document.getElementById('subject').value);
+                var message = encodeURIComponent(document.getElementById('message').value);
+                var mailtoLink = `mailto:${email}?subject=${subject}&body=${message}`;
+
+                document.getElementById('mailtoLink').href = mailtoLink;
+            }
+
+            document.getElementById('location').addEventListener('change', function() {
+                updateMailtoLink();
+            });
+
+            document.getElementById('subject').addEventListener('input', function() {
+                updateMailtoLink();
+            });
+
+            document.getElementById('message').addEventListener('input', function() {
+                updateMailtoLink();
+            });
+
+            </script>
     </body>
 </html>
