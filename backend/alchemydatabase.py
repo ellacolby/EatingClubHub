@@ -145,7 +145,14 @@ def get_records(class_name):
 # def get_favorite_clubs():
 #     with sqlalchemy.orm.Session(engine) as session:
 #         return session.query(FavoriteClub).all() 
-
+def get_user_info(user_id):
+    with sqlalchemy.orm.Session(engine) as session:
+        user = session.query(User).filter(User.user_id == user_id).first()
+        if user:
+            return user.name, user.pronouns, user.about_me
+        else:
+            return None
+        
 def get_officer_club_info(user_id):
     with sqlalchemy.orm.Session(engine) as session:
         club_id = session.query(Officer).filter(Officer.user_id == user_id).first()
@@ -294,8 +301,10 @@ def main():
         
         # edit_announcement(22, 'Does this work', 'lets see')
         # delete_announcement(22)
-        create_announcement(title='testing2', club_id=2)
-            
+        # create_announcement(title='testing2', club_id=2)
+        result = get_user_info('mz1231')
+        for i in result:
+            print(i)
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
