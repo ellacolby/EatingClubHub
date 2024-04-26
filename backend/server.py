@@ -102,11 +102,10 @@ def edit_profile():
     _, netid = auth.authenticate()
     pronouns = request.form['pronouns']
     about_me = request.form['about_me']
-
-    if pronouns:
-        db.edit_user_field(netid, 'pronouns', pronouns)
-    if about_me:
-        db.edit_user_field(netid, 'about_me', about_me)
+    print(pronouns, about_me)
+    
+    db.edit_user_field(netid, 'pronouns', pronouns)
+    db.edit_user_field(netid, 'about_me', about_me)
         
     user_info = db.get_user_info(netid)
 
