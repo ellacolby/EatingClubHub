@@ -141,6 +141,15 @@
     left: 80%;
 }
 
+.announcement {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
 .headers {
   position: absolute;
   bottom: 96px;

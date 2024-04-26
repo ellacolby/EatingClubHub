@@ -52,25 +52,21 @@ def logout():
 @app.route('/api/announcements')
 def announcements():
     res = get_records('announcement')
-    print('announcements:', res)
     return {'announcements': res}
 
 @app.route('/api/clubs')
 def clubs():
     res = get_records('club')
-    print('clubs', res)
     return {'clubs': res}
 
 @app.route('/api/events')
 def events():
     res = get_records('event')
-    print('events:', res)
     return {'events': res}
 
 @app.route('/api/users')
 def users():
     res = get_records('user')
-    print('users:', res)
     return {'users': res}
 
 @app.route('/api/make_new_officer', methods=['POST'])
@@ -103,7 +99,6 @@ def edit_profile():
     _, netid = auth.authenticate()
     pronouns = request.form['pronouns']
     about_me = request.form['about_me']
-    print(pronouns, about_me)
     
     db.edit_user_field(netid, 'pronouns', pronouns)
     db.edit_user_field(netid, 'about_me', about_me)
@@ -127,7 +122,6 @@ def create_new_event():
     if cas_username is None:
         return splash_page()
     if is_officer is False:
-        print("reached is officer false")
         return not_found(404)
     
     event_name = request.form['eventName']
@@ -154,25 +148,26 @@ def create_new_event():
 
 @app.route('/api/attend_event', methods=['POST'])
 def attend_event():
-    cas_username, is_officer, _, _ = auth_info()
+    _, uid = auth.authenticate()
+    cas_username, _, _, _ = auth_info()
     
     if cas_username is None:
         return splash_page()
     
-    event_id = 0
+    event_id = request.args.get('eventId')
+
+    print('Event ID:', event_id)
 
     # Creates new event in database
     db.create_event_attendee(
         event_id = event_id,
-        user_id = cas_username
+        user_id = uid
     )
+
+    print('helloooo')
+
+    return {'success': True}
     
-    html_code = render_template(
-        'pages/events/calendarpage.html',
-        is_officer=is_officer
-    )
-    response = make_response(html_code)
-    return response
 
 @app.route('/api/delete_event', methods=['POST'])
 def delete_event():
@@ -184,10 +179,17 @@ def delete_event():
         return not_found(404)
     
     event_id = request.args.get('eventId')
-    print('event_id:', event_id)
     success = db.delete_event(event_id)
     return {'success': success}
 
+
+@app.route('/api/get_event_attendees', methods=['GET'])
+def get_event_attendees():
+    event_id = request.args.get('eventId')
+    uid_attendees = db.get_event_attendees(event_id=event_id)
+    name_attendees = list(map(lambda attendee: get_name(attendee), uid_attendees))
+
+    return {'attendees': name_attendees}
 # @app.route('/api/edit_event', methods=['POST'])
 # def edit_event():
 #     _, is_officer, club_id, club_name = auth_info()
@@ -325,10 +327,7 @@ def home_page():
                 prev = announcements_dict[i]
                 prev.append(announcement)
                 announcements_dict[i] = prev
-    
-    print(fetched_announcements)
-    print(announcements_dict)
-    
+        
     # Use the username from the session for consistency
     return render_template('pages/home.html', USERNAME=cas_username, is_officer=is_officer, images=images, announcements=announcements_dict)
 
@@ -376,7 +375,6 @@ def announcement_creation_page():
 def announcements_page():
     fetched_announcements = announcements()
     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
-    print(fetched_announcements)
     cas_username, is_officer, club_id, _ = auth_info()
     
     if cas_username is None:
@@ -398,6 +396,7 @@ def events_page():
     
     return render_template(
         'pages/events/calendarpage.html',
+        username=json.dumps(cas_username),
         is_officer=is_officer,
         club_name=json.dumps(club_name)
     )

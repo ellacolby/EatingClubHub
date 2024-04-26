@@ -53,14 +53,16 @@
                                 <p class="endDateTime"></p>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <!-- When user clicks attending button,  -->
-                            <button class="button-event" id="attend-event" onclick="alert('Placeholder RSVP')">I'm going!</button>
-                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="button-event" id="attend-event">I'm going! (work in progress)</button>
                     </div>
                     {% if is_officer: %}
                     <div class="row delete-event" hidden>
-                        <button class="delete-event-button" onClick="deleteEvent()">Delete Event</button>
+                        <button class="delete-event-button">Delete Event</button>
+                    </div>
+                    <div class="row attending-list-div" hidden>
+                        <p id="attendees-list"></p>
                     </div>
                     {% endif %}
                 </div>
@@ -98,7 +100,21 @@
                 });
             };
 
-            function handleEventDoubleClick(eventInfo) {
+            const attendEvent = async (eventId) => {
+                console.log(eventId);
+                const res = await fetch(`/api/attend_event?eventId=${eventId}`, {
+                    method: 'POST'
+                });
+                const { success } = await res.json();
+                if (success) {
+                    alert('Attending event!');
+                    document.querySelector('#attend-event').hidden = true;
+                } else {
+                    alert('Error with attending event');
+                }
+            };
+
+            const handleEventDoubleClick = async (eventInfo) => {
                 const {
                     title,
                     start,
@@ -106,6 +122,15 @@
                     extendedProps
                 } = eventInfo.event;
                 const {description, club, eventId} = extendedProps;
+
+                const res = await fetch(`/api/get_event_attendees?eventId=${eventId}`);
+                const { attendees } = await res.json();
+
+                if (attendees.includes({{ username|safe }})) {
+                    document.querySelector('#attend-event').hidden = true;
+                } else {
+                    document.querySelector('#attend-event').hidden = false;
+                }
 
                 const startDate = new Date(start);
                 const endDate = new Date(end);
@@ -130,10 +155,14 @@
 
                 if (club === {{ club_name | safe }}) {
                     document.querySelector('.delete-event').hidden = false;
+                    document.querySelector('.attending-list-div').hidden = false;
+                    document.querySelector('#attendees-list').innerText = `Attendees: ${attendees}`;
                 } else {
                     document.querySelector('.delete-event').hidden = true;
+                    document.querySelector('.attending-list-div').hidden = true;
                 }
                 if (eventId !== undefined) {
+                    document.querySelector('#attend-event').addEventListener('click', () => attendEvent(eventId))
                     document.querySelector('.delete-event-button').addEventListener('click', () => deleteEvent(eventId));
                 }
             }

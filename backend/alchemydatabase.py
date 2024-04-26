@@ -134,9 +134,12 @@ def get_records(class_name):
 #     with sqlalchemy.orm.Session(engine) as session:
 #         return session.query(Club).all()
 
-# def get_event_attendees():
-#     with sqlalchemy.orm.Session(engine) as session:
-#         return session.query(EventAttendee).all() 
+def get_event_attendees(event_id=None):
+    with sqlalchemy.orm.Session(engine) as session:
+        if event_id == None:
+            return []
+        attendees = list(map(lambda attendee: attendee.user_id, session.query(EventAttendee).filter(EventAttendee.event_id == event_id).all()))
+        return attendees
     
 # def get_events():
 #     with sqlalchemy.orm.Session(engine) as session:
@@ -205,6 +208,7 @@ def create_event_attendee(event_id=None, user_id=None):
         new_event_attendee = EventAttendee(event_id=event_id, user_id=user_id)
         session.add(new_event_attendee)
         session.commit()
+        return {'success': True}
 
 def create_event(event_id=None, name=None, location=None, description=None, start_time=None, end_time=None):
     with sqlalchemy.orm.Session(engine) as session:
