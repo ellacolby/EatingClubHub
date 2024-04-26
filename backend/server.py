@@ -74,19 +74,22 @@ def users():
 
 @app.route('/api/make_new_officer', methods=['POST'])
 def make_new_officer():
+    user_id = request.form['netid']
     cas_username, is_officer, club_id, club_name = auth_info()
-    
     if cas_username is None:
         return splash_page()
     if is_officer is False:
         return not_found(404)
 
-    db.create_officer(user_id=cas_username, club_id=club_id)
+    db.create_officer(user_id=user_id, club_id=club_id)
+    _, netid = auth.authenticate()
+    user_info = db.get_user_info(netid)
 
     html_code = render_template(
-       'pages/profile.html',
-       is_officer=is_officer,
-       club_name=club_name,
+        'pages/profile.html',
+        is_officer=is_officer,
+        club_name=club_name,
+        user_info=user_info
     )
     response = make_response(html_code)
     return response
@@ -96,19 +99,22 @@ def edit_profile():
     cas_username, is_officer, _, club_name = auth_info()
     if cas_username is None:
         return splash_page()
-    
+    _, netid = auth.authenticate()
     pronouns = request.form['pronouns']
     about_me = request.form['about_me']
 
     if pronouns:
-        db.edit_user_field(cas_username, 'pronouns', pronouns)
+        db.edit_user_field(netid, 'pronouns', pronouns)
     if about_me:
-        db.edit_user_field(cas_username, 'about_me', about_me)
+        db.edit_user_field(netid, 'about_me', about_me)
+        
+    user_info = db.get_user_info(netid)
 
     html_code = render_template(
-       'pages/profile.html',
-       is_officer=is_officer,
-       club_name=club_name,
+        'pages/profile.html',
+        is_officer=is_officer,
+        club_name=club_name,
+        user_info=user_info
     )
     response = make_response(html_code)
     return response
@@ -338,11 +344,15 @@ def profile_page():
     cas_username, is_officer, club_id, club_name = auth_info()
     if cas_username is None:
         return splash_page()
+    
+    _, netid = auth.authenticate()
+    user_info = db.get_user_info(netid)
     return render_template(
         'pages/profile.html',
         is_officer=is_officer,
         club_name=club_name,
-        )
+        user_info=user_info
+    )
 
 @app.route('/eventcreation', methods=['GET'])
 def event_creation_page():
