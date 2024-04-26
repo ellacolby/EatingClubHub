@@ -1,6 +1,7 @@
 # external imports
 import os
 from flask import Flask, jsonify, abort, redirect, request, session, render_template, make_response
+import json
 
 # internal imports
 import auth
@@ -390,14 +391,15 @@ def announcements_page():
 
 @app.route('/events', methods=['GET'])
 def events_page():
-    cas_username, is_officer, _, _ = auth_info()
+    cas_username, is_officer, _, club_name = auth_info()
     
     if cas_username is None:
         return splash_page()
     
     return render_template(
         'pages/events/calendarpage.html',
-        is_officer=is_officer
+        is_officer=is_officer,
+        club_name=json.dumps(club_name)
     )
 
 @app.errorhandler(404)

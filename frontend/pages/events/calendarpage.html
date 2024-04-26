@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     {% if is_officer: %}
-                    <div class="row delete-event">
+                    <div class="row delete-event" hidden>
                         <button class="delete-event-button" onClick="deleteEvent()">Delete Event</button>
                     </div>
                     {% endif %}
@@ -127,6 +127,12 @@
                 document.querySelector('.description').innerText = description;
                 document.querySelector('.startDateTime').innerText = formattedStartDate;
                 document.querySelector('.endDateTime').innerText = formattedEndDate;
+
+                if (club === {{ club_name | safe }}) {
+                    document.querySelector('.delete-event').hidden = false;
+                } else {
+                    document.querySelector('.delete-event').hidden = true;
+                }
                 if (eventId !== undefined) {
                     document.querySelector('.delete-event-button').addEventListener('click', () => deleteEvent(eventId));
                 }
