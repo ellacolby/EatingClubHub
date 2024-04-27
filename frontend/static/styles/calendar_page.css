@@ -18,6 +18,11 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.description {
+    word-wrap: break-word;
+    max-height: 300px;
+    overflow: scroll;
+}
 .time-row {
     height: 70px;
 }
