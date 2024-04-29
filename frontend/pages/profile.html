@@ -84,20 +84,25 @@
 
                 var formData = new FormData(this);
 
-                fetch('/api/make_new_officer', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(function (response) {
-                    if (response.ok) {
-                        console.log('Permissions given successfully!');
-                    } else {
-                        console.error('Failed to give permissions');
-                    }
-                })
-                .catch(function (error) {
-                    console.error('Error:', error);
-                });
+                // Show confirmation popup
+                var confirmation = confirm('Are you sure you want to give permissions to this user?');
+                if (confirmation) {
+                    // If confirmed, send form data to backend
+                    fetch('/api/make_new_officer', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(function (response) {
+                        if (response.ok) {
+                            console.log('Permissions given successfully!');
+                        } else {
+                            console.error('Failed to give permissions');
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                    });
+                }
             });
         });
     </script>
