@@ -1,26 +1,27 @@
 .navbar {
-    background-color: #ffffff;
-  }
-  
-  .title {
-    font-size: 30px;
-    color: rgba(251,145,20,1);
-    text-align: center;
-    padding: 12px 16px;
-  }
-  
-  /* Style the links inside the navigation bar */
-  .navbar a {
-    float: left;
-    color: rgba(251,145,20,1);
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    font-family: Inter;
-    font-weight: Regular;
-    font-size: 16px;
-    font-size: 17px;
+  background-color: #ffffff;
 }
+  
+.title {
+  font-size: 30px;
+  color: rgba(251,145,20,1);
+  text-align: center;
+  padding: 12px 16px;
+}
+  
+/* Style the links inside the navigation bar */
+.navbar a {
+  float: left;
+  color: rgba(251,145,20,1);
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 16px;
+  font-size: 17px;
+}
+
 .carousel {
   width: 100%; /* Make the carousel take the full width of its container */
   margin: auto; /* Center it horizontally */
@@ -35,12 +36,12 @@
 /* Carousel control styling */
 .carousel-control-prev,
 .carousel-control-next {
-    top: 50%; /* Adjust the percentage to lower or raise the icons */
-    transform: translateY(1230%); /* This centers them vertically */
-    width: 50px; /* Width of the clickable area */
-    height: 50px; /* Height of the clickable area */
-    color: black;
-    opacity: 1;
+  top: 50%; /* Adjust the percentage to lower or raise the icons */
+  transform: translateY(1230%); /* This centers them vertically */
+  width: 50px; /* Width of the clickable area */
+  height: 50px; /* Height of the clickable area */
+  color: black;
+  opacity: 1;
 }
 .sr-only{
   color: #000;
@@ -172,4 +173,99 @@
   text-decoration: none;
   padding: 20px 60px;
   border-radius: 100px;
+}
+
+.eating-club-container {
+  margin: 0;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.dark-overlay {
+  position: relative;
+}
+
+.dark-overlay::before {
+  z-index: 0;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.eating-club-body {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+  height: 100%;  
+}
+
+.eating-club-header {
+  padding: 36px;
+}
+
+.eating-club-info-body {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding-bottom: 196px;
+}
+
+.eating-club-description {
+  color: rgba(255, 253, 253, 1);
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 29px;
+  width: 700px; 
+  text-align: center;
+}
+
+.announcements-container {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255, 0.25);
+  border-radius: 15px;
+  padding: 5px 0;
+  padding-bottom: 20px;
+}
+.announcements-container-title {
+  z-index: 3;
+  color: #ffffff;
+  font-size: 24px;
+}
+.announcements-container-title, .announcements-title, .announcements-description {
+  text-align: center;
+}
+.announcements {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+  height: 200px;
+}
+.announcement-body {
+  display: flex;
+  flex-direction: row;
+}
+.carousel-arrow {
+  font-size: 36px;
+  margin: 0 10px;
+  background: none;
+  border: none;
+  color: white;
+  outline: none;
 }

@@ -1,3 +1,4 @@
+{% from '/pages/eating_clubs/eating_club.html' import eating_club as eating_club %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,14 +11,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-        
         <title>EatingClubHub</title>
     </head>
     <body>
         {% include '/components/nav.html' %}
-
         <div class="background">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <ul class="carousel-indicators">
@@ -47,38 +44,144 @@
             <h2 id="welcome-header">Welcome, {{ USERNAME }}</h2>
             <a id="icc-website" href="https://icc.princeton.edu">ICC Website</a>
         </div>
-        <div id="cannon-club-page">
-            {% include '/pages/eating_clubs/cannon.html' %}
-        </div>
-        <div id="cap-club-page">
-            {% include '/pages/eating_clubs/cap.html' %}
-        </div>
-        <div id="charter-club-page">
-            {% include '/pages/eating_clubs/charter.html' %}
-        </div>
-        <div id="cloister-club-page">
-            {% include '/pages/eating_clubs/cloister.html' %}
-        </div>
-        <div id="colo-club-page">
-            {% include '/pages/eating_clubs/colo.html' %}
-        </div>
-        <div id="cottage-club-page">
-            {% include '/pages/eating_clubs/cottage.html' %}
-        </div>
-        <div id="ivy-club-page">
-            {% include '/pages/eating_clubs/ivy.html' %}
-        </div>
-        <div id="quad-club-page">
-            {% include '/pages/eating_clubs/quad.html' %}
-        </div>
-        <div id="terrace-club-page">
-            {% include '/pages/eating_clubs/terrace.html' %}
-        </div>
-        <div id="ti-club-page">
-            {% include '/pages/eating_clubs/ti.html' %}
-        </div>
-        <div id="tower-club-page">
-            {% include '/pages/eating_clubs/tower.html' %}
+        <div>
+            {{ eating_club(
+                'Cannon Dial Elm Club',
+                'Established 1895',
+                'A club that is “wildly enthusiastic on weekends and rarely tweedy,” \
+                Cannon Dial Elm Club dons the names of four eating \
+                clubs: Cannon Club, Dial Lodge, Elm Club, and DEC. \
+                Reopened in 2011 and tracing its roots back to 1896, the club has \
+                quickly cemented itself on the Street once more.
+                ',
+                'img/cannon.jpeg',
+                announcements[0]
+              )
+            }}
+            {{ eating_club(
+                'Cap and Gown Club',
+                'Established 1891',
+                '
+                    Cap and Gown prides itself on the diversity of its members. \
+                    People from all different backgrounds, teams, groups, and \
+                    activities all come together to be a part of the unique experience that defines Cap.\
+                ',
+                'img/cap.jpeg',
+                announcements[1]
+              )
+            }}
+            {{ eating_club(
+                'Charter Club',
+                'Established 1901',
+                "\"The Indestructible,\" as the club is commonly referred to, is today most known for its tight-knit community, elegant \
+                clubhouse, and fantastic food. Charter’s social calendar features many noteworthy events including monthly semi-formals, \
+                live bands, and weekly parties.
+                ",
+                'img/charter.jpeg',
+                announcements[2]
+              )
+            }}
+            {{ 
+                eating_club(
+                    'Cloister Inn',
+                    'Established 1912',
+                    "
+                        We provide an Eating Club experience for all without restriction on membership, because we believe you should not have \
+                        to jump through hoops in order to eat meals with your peers and socialize with your friends. For the past 110 years \
+                        Cloister Inn has demonstrated that our model works as we continue to provide a warm environment.
+                    ",
+                    'img/cloister.jpeg',
+                    announcements[3]
+                )
+            }}
+            {{
+                eating_club(
+                    'Colonial Club',
+                    'Established 1891',
+                    "
+                        Colonial Club is the fifth oldest club on Prospect Avenue and is easily recognizable by its four large, white columns
+                        fashioned in the Colonial Revival style. As the first of Princeton’s eating clubs to move away from the bicker process
+                        and to go coeducational in 1969, we have retained an openness that has encompassed the heart of our community ever
+                        since.
+                    ",
+                    'img/colo.jpeg',
+                    announcements[4]
+                )
+            }}
+            {{
+                eating_club(
+                    'University Cottage Club',
+                    'Established 1884',
+                    "
+                        In 1884, a group of freshman, members of the Class of 1888 chose to eat in a private room on the second floor of Dohm’s \
+                        Restaurant on Nassau Street across from the campus. In time, this group named themselves \“The Seven Wise Men of Grease,\” \
+                        a reflection of the meals they endured. \
+                    ",
+                    'img/cottage.jpeg',
+                    announcements[5]
+                )
+            }}
+            {{
+                eating_club(
+                    'Ivy Club',
+                    'Established 1879',
+                    "
+                        When they joined fifteen seniors from the class of 1880 who took their meals in the west front room of the building \
+                        (originally built to house Princeton’s law school), the first permanent Princeton eating club was born.
+                    ",
+                    'img/ivy.jpeg',
+                    announcements[6]
+                )
+            }}
+            {{
+                eating_club(
+                    'Quadrangle Club',
+                    'Established 1901',
+                    "
+                        Founded in 1901 and referred to as \“literary Quadrangle\” by F. Scott Fitzgerald in This Side of Paradise, present-day
+                        Quad welcomes members from from all diverse academic, extracurricular, socioeconomic, and cultural backgrounds.
+                    ",
+                    'img/quad.jpeg',
+                    announcements[7]
+                )
+            }}
+            {{
+                eating_club(
+                    'Terrace Club',
+                    'Established 1904',
+                    "
+                        Music is the lifeblood of Terran identity. Terrace gives you the freedom to be yourself and, at the same time, to be \
+                        whoever you want to be. And ever-present music is a part of that.
+                    ",
+                    'img/terrace.jpeg',
+                    announcements[8]
+                )
+            }}
+            {{
+                eating_club(
+                    'Tiger Inn',
+                    'Established 1890',
+                    "
+                        The Tiger Inn (otherwise known as T.I) was established in 1890 and is the third oldest club on the street. The \
+                        contributions of over a century of traditions and fiercely loyal alumni have resulted in an amazingly fun-loving and \
+                        tightly knit community.
+                    ",
+                    'img/ti.jpeg',
+                    announcements[9]
+                )
+            }}
+            {{
+                eating_club(
+                    'Tower Club',
+                    'Established 1902',
+                    "
+                        Tower is epitomized by the dining room table. Sit down for a meal, and the first thing you’ll notice is the number of \
+                        people eating dinner. At Tower, an eight-person table can always hold a few more.
+                    ",
+                    'img/tower.jpeg',
+                    announcements[10]
+                )
+            }}
         </div>
     </body>
 </html>

@@ -1,0 +1,28 @@
+{% macro eating_club(name, subtitle, description, img, announcements) %}
+<div class="eating-club-container dark-overlay" style="background-image: url({{img}})">
+    <div class="eating-club-body">
+        <div class="eating-club-header">
+            <h1 class="club-title">{{ name }}</h1>
+            <h2 class="club-subtitle">{{ subtitle }}</h2>
+        </div>
+        <div class="eating-club-info-body">
+            <div class="announcements-container">
+                <b class="announcements-container-title">Announcements</b>
+                <div class="announcement-body">
+                    <button class="carousel-arrow">&lt;</button>
+                    <div class="announcements">
+                        {% from 'components/announcement.html' import announcements_carousel %}
+                        {{ announcements_carousel(announcements) }}
+                    </div>
+                    <button class="carousel-arrow">&gt;</button>
+                </div>
+            </div>
+            <div class="description-container">
+                <h3 class="eating-club-description">
+                    {{ description }}
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}

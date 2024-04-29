@@ -11,47 +11,47 @@
 }
 
 .cannon-background {
-    background-image: url('cannon.jpeg');
+    background-image: url('../img/cannon.jpeg');
 }
 
 .cap-background {
-    background-image: url('cap.jpeg');
+    background-image: url('../img/cap.jpeg');
 }
 
 .charter-background {
-    background-image: url('charter.jpeg');
+    background-image: url('../img/charter.jpeg');
 }
 
 .cloister-background {
-    background-image: url('charter.jpeg');
+    background-image: url('../img/charter.jpeg');
 }
 
 .colo-background {
-    background-image: url('colo.jpeg');
+    background-image: url('../img/colo.jpeg');
 }
 
 .cottage-background {
-    background-image: url('cottage.jpeg');
+    background-image: url('../img/cottage.png');
 }
 
 .ivy-background {
-    background-image: url('ivy.jpeg');
+    background-image: url('../img/ivy.jpeg');
 }
 
 .quad-background {
-    background-image: url('quad.jpeg');
+    background-image: url('../img/quad.jpeg');
 }
 
 .terrace-background {
-    background-image: url('terrace.jpeg');
+    background-image: url('../img/terrace.jpeg');
 }
 
 .ti-background {
-    background-image: url('ti.jpeg');
+    background-image: url('../img/ti.jpeg');
 }
 
 .tower-background {
-    background-image: url('tower.jpeg');
+    background-image: url('../img/tower.jpeg');
 }
 
 .dark-overlay::before {

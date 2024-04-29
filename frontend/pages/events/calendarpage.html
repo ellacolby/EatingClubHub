@@ -126,11 +126,11 @@
                 const res = await fetch(`/api/get_event_attendees?eventId=${eventId}`);
                 const { attendees } = await res.json();
 
-                // if (attendees.includes({{ username|safe }})) {
-                //     document.querySelector('#attend-event').hidden = true;
-                // } else {
-                //     document.querySelector('#attend-event').hidden = false;
-                // }
+                if (attendees.includes({{ username|safe }})) {
+                    document.querySelector('#attend-event').hidden = true;
+                } else {
+                    document.querySelector('#attend-event').hidden = false;
+                }
 
                 const startDate = new Date(start);
                 const endDate = new Date(end);
@@ -155,14 +155,14 @@
 
                 if (club === {{ club_name | safe }}) {
                     document.querySelector('.delete-event').hidden = false;
-                    // document.querySelector('.attending-list-div').hidden = false;
-                    // document.querySelector('#attendees-list').innerText = `Attendees: ${attendees}`;
+                    document.querySelector('.attending-list-div').hidden = false;
+                    document.querySelector('#attendees-list').innerText = `Attendees: ${attendees}`;
                 } else {
                     document.querySelector('.delete-event').hidden = true;
-                    // document.querySelector('.attending-list-div').hidden = true;
+                    document.querySelector('.attending-list-div').hidden = true;
                 }
                 if (eventId !== undefined) {
-                    // document.querySelector('#attend-event').addEventListener('click', () => attendEvent(eventId))
+                    document.querySelector('#attend-event').onclick =() => attendEvent(eventId);
                     document.querySelector('.delete-event-button').onclick = () => deleteEvent(eventId);
                 }
             }
