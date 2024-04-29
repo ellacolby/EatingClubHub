@@ -27,7 +27,6 @@
   text-decoration: none;
   font-family: Inter;
   font-weight: Regular;
-  font-size: 16px;
   font-size: 17px;
 }
 
@@ -38,7 +37,8 @@
   color: rgb(255, 255, 255);
 }
 
-.home a:hover {
+
+.navbar .home a:hover {
   color: rgba(251, 145, 20, 1);
   background-color: #ffffff !important;
 }
@@ -54,6 +54,7 @@
   padding: 100px 100px;
   text-align: center;
 }
+
 .akar-icons--chevron-down {
 display: inline-block;
 width: 1em;
@@ -100,3 +101,10 @@ mask-size: 100% 100%;
 .dropdown:hover .dropdown-trigger {
   cursor: pointer;
 }
+
+.navbar .active{
+  width: 100%;
+  background-color: rgba(251,145,20,1);
+  color: rgb(255, 255, 255);
+}
+

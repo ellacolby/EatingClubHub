@@ -12,12 +12,18 @@ rel="stylesheet" />
 <body>
     <div class="container-fluid navbar">
  
-        <div class="home">
-            <a href="/home">EatingClubHub</a>
+        <div class="home" style="display: flex;">
+            <div>
+                <img src="{{ url_for('static', filename='styles/ECH_Logo.jpg') }}" 
+                style="height: 45px; width: auto; margin-left: 20px; vertical-align: center;">
+            </div>
+            <div>
+                <a href="/home" style="vertical-align: center; font-weight: 900;">EatingClubHub</a>
+            </div>
         </div>
         <div class="right-side-links">
             <div class="events">
-                <a href="/events">Events</a>
+                <a href="/events" class="{{ 'active' if request.path == '/events' or request.path == '/eventcreation' else '' }}">Events</a>
                 {% if is_officer: %}
                 <div class="dropdown">
                     <span class="akar-icons--chevron-down dropdown-trigger"></span>
@@ -29,7 +35,8 @@ rel="stylesheet" />
                 {% endif %}
             </div>
             <div class="announcements">
-                <a href="/announcements">Announcements</a>
+                <a href="/announcements" class="{{ 'active' if request.path == '/announcements' 
+                or request.path == '/announcementcreation' else '' }}">Announcements</a>
                 {% if is_officer: %}
                 <div class="dropdown">
                     <span class="akar-icons--chevron-down dropdown-trigger"></span>
@@ -41,7 +48,7 @@ rel="stylesheet" />
                 {% endif %}
             </div>
             <div class="clubs">
-                <a href="../#cannon-club-page">Clubs</a>
+                <a href="../#cannon-club-page" class="{{ 'active' if request.path == '../#cannon-club-page' else '' }}" >Clubs</a>
                 <div class="dropdown">
                     <span class="akar-icons--chevron-down dropdown-trigger"></span>
                     <div class="dropdown-content">
@@ -60,10 +67,10 @@ rel="stylesheet" />
                 </div>
             </div>
             <div class="contact">
-                <a href="/contact">Contact A Club</a>
+                <a href="/contact" class="{{ 'active' if request.path == '/contact' else '' }}">Contact A Club</a>
             </div>
             <div class="profile">
-                <a href="/profile">Profile</a>
+                <a href="/profile" class="{{ 'active' if request.path == '/profile' else '' }}">Profile</a>
                 <div class="dropdown">
                     <span class="akar-icons--chevron-down dropdown-trigger"></span>
                     <div class="dropdown-content">
