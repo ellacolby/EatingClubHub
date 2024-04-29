@@ -182,12 +182,13 @@ def get_users():
 def get_announcements_with_club_names():
     with sqlalchemy.orm.Session(engine) as session:
         # Querying all announcements along with the related club object
-        announcements = session.query(Announcement).options(sqlalchemy.orm.joinedload(Announcement.club)).all()
+        announcements = get_records('announcement')
         results = []
         for announcement in announcements:
-            # Accessing the club name through the club relationship
-            club_name = announcement.club.name if announcement.club else "No Club Found"
-            results.append((announcement.title, club_name))
+            club_id = announcement[4]
+            club_name = session.query(Club).filter(Club.club_id == club_id).first().name
+            print(club_name)
+            results.append((announcement[0], announcement[1], announcement[2], announcement[4], club_name))
         return results
 
    
@@ -322,9 +323,10 @@ def main():
         # edit_announcement(22, 'Does this work', 'lets see')
         # delete_announcement(22)
         # create_announcement(title='testing2', club_id=2)
-        result = get_user_info('mz1231')
-        for i in result:
-            print(i)
+        resultt = get_announcements_with_club_names()
+        for announcement in resultt:
+            print(announcement)
+
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
