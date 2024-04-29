@@ -224,9 +224,13 @@ def create_favorite_club(user_id=None, club_id=None):
 
 def create_officer(user_id=None, club_id=None):
     with sqlalchemy.orm.Session(engine) as session:
-        new_officer = Officer(user_id=user_id, club_id=club_id)
-        session.add(new_officer)
-        session.commit()
+        try:
+            new_officer = Officer(user_id=user_id, club_id=club_id)
+            session.add(new_officer)
+            session.commit()
+            return None
+        except Exception as ex:
+            return ex
 
 def create_user_event(user_id=None, event_id=None):
     with sqlalchemy.orm.Session(engine) as session:
