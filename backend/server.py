@@ -263,24 +263,6 @@ def delete_announcement():
     response = make_response(html_code)
     return response
 
-# @app.route('/api/edit_announcement', methods=['POST'])
-# def delete_announcement():
-#     announcement_title = request.form['announcementTitle']
-#     announcement_descrip = request.form['announcementDescription']
-
-#     db.edit_announcement(new_title=announcement_title,new_description=announcement_descrip)
-
-#     _, is_officer, _, _ = auth_info()
-#     fetched_announcements = announcements()
-#     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
-
-#     html_code = render_template(
-#         'pages/announcements/announcementspage.html',
-#         announcements=fetched_announcements,
-#         is_officer=is_officer
-#     )
-#     response = make_response(html_code)
-#     return response
 #-----------------------------------------------------------------------
 # Page Renderings
 
@@ -374,26 +356,18 @@ def announcement_creation_page():
 
 @app.route('/announcements', methods=['GET'])
 def announcements_page():
-    fetched_announcements = announcements()
-    fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
+    fetched_announcements = db.get_announcements_with_club_names()
     
     cas_username, is_officer, club_id, _ = auth_info()
     
     if cas_username is None:
         return splash_page()
     
-    club_names = []
-    for (_, name) in db.get_announcements_with_club_names():
-        club_names.append(name)
-        
-    print(club_names)
-
     return render_template(
         'pages/announcements/announcementspage.html',
         announcements=fetched_announcements,
         is_officer=is_officer,
-        club_id=club_id,
-        club_names = club_names
+        club_id=club_id
     )
 
 
