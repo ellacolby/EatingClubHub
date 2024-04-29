@@ -1,5 +1,5 @@
 .sidebar {
-    width: 300px;
+    width: 450px;
     padding: 16px;
     min-height: 100%;
     background-color: white;
@@ -87,7 +87,11 @@ td {
     flex: 1;
 }
 .toggle-switch-div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     text-align: center;
+    margin: 4px 0;
 }
 
 .toggle-switch {
@@ -102,6 +106,8 @@ td {
     color: black;
     display: inline;
     margin-right: 4px;
+    margin-top: 16px;
+    margin-bottom: 0;
     font-size: 12px;
 }
 
