@@ -130,9 +130,9 @@ def get_records(class_name):
 #     with sqlalchemy.orm.Session(engine) as session:
 #         return session.query(ClubEvent).all()
 
-# def get_clubs():
-#     with sqlalchemy.orm.Session(engine) as session:
-#         return session.query(Club).all()
+def get_clubs():
+    with sqlalchemy.orm.Session(engine) as session:
+        return session.query(Club).all()
 
 def get_event_attendees(event_id=None):
     with sqlalchemy.orm.Session(engine) as session:
@@ -178,6 +178,18 @@ def get_user_events():
 def get_users():
    with sqlalchemy.orm.Session(engine) as session:
         return session.query(User).all() 
+    
+def get_announcements_with_club_names():
+    with sqlalchemy.orm.Session(engine) as session:
+        # Querying all announcements along with the related club object
+        announcements = session.query(Announcement).options(sqlalchemy.orm.joinedload(Announcement.club)).all()
+        results = []
+        for announcement in announcements:
+            # Accessing the club name through the club relationship
+            club_name = announcement.club.name if announcement.club else "No Club Found"
+            results.append((announcement.title, club_name))
+        return results
+
    
 def create_announcement(announcement_id=None, title=None, description=None, image=None, club_id=None):
     with sqlalchemy.orm.Session(engine) as session:

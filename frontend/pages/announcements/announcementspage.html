@@ -13,13 +13,16 @@
         <h1>Announcements</h1>
         
         {% if announcements %}
-            {% for announcement in announcements %}
+            {% for i in range(announcements | length) %}
                 <div class="announcement" >
-                    <h2>{{ announcement[1] }}</h2>
-                    <p>{{ announcement[2] }}</p>
+                    <div class = "club-name">
+                        {{club_names[i]}}
+                    </div>
+                    <h2>{{ announcements[i][1] }}</h2>
+                    <p>{{ announcements[i][2] }}</p>
                     <div> 
-                    {% if is_officer and club_id == announcement[4] %}
-                        <button class="button-announcement delete-announcement" data-id="{{ announcement[0] }}">Delete</button>
+                    {% if is_officer and club_id == announcements[i][4] %}
+                        <button class="button-announcement delete-announcement" data-id="{{ announcements[i][0] }}">Delete</button>
                     {% endif %}
                     </div>
                 </div>
