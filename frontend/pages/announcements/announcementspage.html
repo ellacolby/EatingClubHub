@@ -13,26 +13,22 @@
         <h1>Announcements</h1>
         
         {% if announcements %}
-            {% for i in range(announcements | length) %}
+            {% for announcement in announcements %}
                 <div class="announcement" >
                     <div class = "club-name">
-                        {{club_names[i]}}
+                        {{ announcement[4] }}
                     </div>
-                    <h2>{{ announcements[i][1] }}</h2>
-                    <p>{{ announcements[i][2] }}</p>
+                    <h2>{{ announcement[1] }}</h2>
+                    <p>{{ announcement[2] }}</p>
                     <div> 
-                    {% if is_officer and club_id == announcements[i][4] %}
-                        <button class="button-announcement delete-announcement" data-id="{{ announcements[i][0] }}">Delete</button>
+                    {% if is_officer and club_id == announcement[3] %}
+                        <button class="button-announcement delete-announcement" data-id="{{ announcement[0] }}">Delete</button>
                     {% endif %}
                     </div>
                 </div>
             {% endfor %}
         {% else %}
             <p>No announcements available.</p>
-        {% endif %}
-
-        {% if is_officer %}
-            <a href="/announcementcreation" class="btn btn-primary create-button">Create Announcement</a>
         {% endif %}
     </div>
 
@@ -69,3 +65,7 @@
     </script>
 </body>
 </html>
+
+
+
+
