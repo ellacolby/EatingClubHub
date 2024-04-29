@@ -1,8 +1,12 @@
 .navbar {
+  position: fixed !important;
+  top: 0;
+  width: 100%;
   background-color: #ffffff;
   display: flex;
   justify-content: space-around;
   border-right: 20px solid transparent;
+  z-index: 9999;
 }
 
 .title {
