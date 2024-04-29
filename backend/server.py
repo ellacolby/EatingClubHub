@@ -78,7 +78,8 @@ def make_new_officer():
     if is_officer is False:
         return not_found(404)
 
-    db.create_officer(user_id=user_id, club_id=club_id)
+    res = db.create_officer(user_id=user_id, club_id=club_id)
+    print(res)
     _, netid = auth.authenticate()
     user_info = db.get_user_info(netid)
 
