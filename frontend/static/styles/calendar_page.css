@@ -216,7 +216,7 @@ td {
 
 #TigerInn-checkbox:checked+#TigerInn-label .inner::before,
 #TigerInn-checkbox:checked+#TigerInn-label .inner::after {
-    background-color: rgba(55, 128, 06, .5);
+    background-color: rgba(144, 12, 63, .5);
 }
 
 #Tower-checkbox:checked+#Tower-label .inner::before,
