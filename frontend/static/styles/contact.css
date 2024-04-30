@@ -47,17 +47,17 @@ h2 {
     box-sizing: border-box; /* Makes sure padding does not affect overall width */
 }
 
-button[type=submit] {
-    background-color: #cd8321;
-    color: white;
+input[type="submit"] {
+    width: 100%;
+    background-color: rgba(251, 145, 20, 1);
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    float: right;
+    font-size: 16px;
 }
 
-button[type=submit]:hover {
+input[type="submit"]:hover {
     background-color: #b47221;
 }
 

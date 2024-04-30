@@ -22,7 +22,7 @@
                     <p>{{ announcement[2] }}</p>
                     <div> 
                     {% if is_officer and club_id == announcement[3] %}
-                        <button class="button-announcement delete-announcement" data-id="{{ announcement[0] }}">Delete</button>
+                        <input type="submit" class="button-announcement delete-announcement" data-id="{{ announcement[0] }}" value="Delete">
                     {% endif %}
                     </div>
                 </div>

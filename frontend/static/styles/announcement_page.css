@@ -51,3 +51,18 @@
 .carousel-indicators li {
     background-color: black;
 }
+
+input[type="submit"] {
+    width: 100%;
+    color: white;
+    background-color: rgba(251, 145, 20, 1);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #b47221;
+}
