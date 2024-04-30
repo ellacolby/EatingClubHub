@@ -47,6 +47,10 @@
     border-radius: 5px;
     background: white;
 }
+.carousel-inner p {
+    display: flex;
+    justify-content: center;
+}
 
 .carousel-indicators li {
     background-color: black;
