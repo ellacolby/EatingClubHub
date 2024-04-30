@@ -131,7 +131,7 @@
 
                 if (attendees.includes({{ username|safe }})) {
                     document.querySelector('#attend-event').hidden = true;
-                    document.querySelector('#rsvp').innerText = 'Attendance: I am attending this event';
+                    document.querySelector('#rsvp').innerText = 'Attendance Status: I am attending this event';
                 } else {
                     document.querySelector('#attend-event').hidden = false;
                     document.querySelector('#rsvp').innerText = '';
