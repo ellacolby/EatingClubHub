@@ -158,7 +158,9 @@
                 document.querySelector('.startDateTime').innerText = formattedStartDate;
                 document.querySelector('.endDateTime').innerText = formattedEndDate;
 
-                document.querySelector('#attendees-list').innerText = '';
+                if (document.querySelector('#attendees-list')) {
+                    document.querySelector('#attendees-list').innerText = '';
+                }
 
                 if (club === {{ club_name | safe }}) {
                     if (document.querySelector('.delete-event')) {
