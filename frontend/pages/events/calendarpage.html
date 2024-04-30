@@ -172,20 +172,23 @@
             }
 
             const deleteEvent = async (eventId) => {
-                if (eventId !== undefined) {
-                    const res = await fetch(`/api/delete_event?eventId=${eventId}`, {
-                        method: 'POST'
-                    });
-                    const { success } = await res.json();
-                    if (success) {
-                        await renderCalendar();
-                        document.querySelector('.eventdetails-container').hidden = true;
+                var confirmation = confirm('Are you sure you want to delete this event?');
+                if (confirmation) {
+                    if (eventId !== undefined) {
+                        const res = await fetch(`/api/delete_event?eventId=${eventId}`, {
+                            method: 'POST'
+                        });
+                        const { success } = await res.json();
+                        if (success) {
+                            await renderCalendar();
+                            document.querySelector('.eventdetails-container').hidden = true;
+                        } else {
+                            alert('Failed to delete event.');
+                        }
                     } else {
                         alert('Failed to delete event.');
-                    }
-                } else {
-                    alert('Failed to delete event.');
-                } 
+                    } 
+                }
             }   
 
             function color(clubname) {
