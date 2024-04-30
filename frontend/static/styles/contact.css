@@ -103,3 +103,18 @@ input[type="submit"]:hover {
 .sendbutton:active {
     background-color:rgb(210, 118, 14);
 }
+
+.background {
+    background-image: url('homephoto.png');
+    opacity: 0.5;
+    margin: 0;
+    /* Removes the default margin around the body */
+    height: 100vh;
+    /* Sets the height of the body to fill the whole viewport height */
+    background-size: cover;
+    /* Scales the background image to be as large as possible */
+    background-position: center;
+    /* Centers the background image */
+    background-repeat: no-repeat;
+    /* Ensures the image does not repeat */
+}

@@ -20,6 +20,13 @@ rel="stylesheet" />
             <div>
                 <a href="/home" style="vertical-align: center; font-weight: 900;">EatingClubHub</a>
             </div>
+
+            {% if is_officer: %}
+            <div>
+                <a href="/home" style="vertical-align: center; font-weight: 900;">Officer Portal</a>
+            </div>
+            {% endif %}
+
         </div>
         <div class="right-side-links">
             <div class="events">
