@@ -65,6 +65,9 @@
                         <p id="attendees-list"></p>
                     </div>
                     {% endif %}
+                    <div class="rsvp-div">
+                        <p id="rsvp"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,7 +111,7 @@
                 const { success } = await res.json();
                 if (success) {
                     alert('Attending event!');
-                    document.querySelector('#attend-event').hidden = true;
+                    document.querySelector('.eventdetails-container').hidden = true;
                 } else {
                     alert('Error with attending event');
                 }
@@ -128,8 +131,10 @@
 
                 if (attendees.includes({{ username|safe }})) {
                     document.querySelector('#attend-event').hidden = true;
+                    document.querySelector('#rsvp').innerText = 'Attendance: I am attending this event';
                 } else {
                     document.querySelector('#attend-event').hidden = false;
+                    document.querySelector('#rsvp').innerText = '';
                 }
 
                 const startDate = new Date(start);
@@ -154,16 +159,25 @@
                 document.querySelector('.endDateTime').innerText = formattedEndDate;
 
                 if (club === {{ club_name | safe }}) {
-                    document.querySelector('.delete-event').hidden = false;
-                    document.querySelector('.attending-list-div').hidden = false;
-                    document.querySelector('#attendees-list').innerText = `Attendees: ${attendees}`;
+                    if (document.querySelector('.delete-event')) {
+                        document.querySelector('.delete-event').hidden = false;
+                        document.querySelector('.attending-list-div').hidden = false;
+                    }
+                    if (attendees.length > 0) {
+                        document.querySelector('#attendees-list').innerText = `Attendees: ${attendees}`;
+                    }
                 } else {
-                    document.querySelector('.delete-event').hidden = true;
-                    document.querySelector('.attending-list-div').hidden = true;
+                    if (document.querySelector('.delete-event')) {
+                        document.querySelector('.delete-event').hidden = true;
+                        document.querySelector('.attending-list-div').hidden = true;
+                    }
+                    
                 }
                 if (eventId !== undefined) {
                     document.querySelector('#attend-event').onclick =() => attendEvent(eventId);
-                    document.querySelector('.delete-event-button').onclick = () => deleteEvent(eventId);
+                    if (document.querySelector('.delete-event-button')) {
+                        document.querySelector('.delete-event-button').onclick = () => deleteEvent(eventId);
+                    }
                 }
             }
 
