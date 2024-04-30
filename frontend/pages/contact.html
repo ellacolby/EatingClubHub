@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Contact Us</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-        <link href="{{ url_for('static', filename='styles/contact.css')}}" rel="stylesheet" />
         <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+        <link href="{{ url_for('static', filename='styles/contact.css')}}" rel="stylesheet" />
     </head>
 
     <body>
@@ -41,7 +41,7 @@
                 <label for="message">Message</label>
                 <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea>
             </div>
-            <button class="btn btn-primary" onclick="updateMailtoLink()">Send Message</button>
+            <button class="btn btn-primary contact-submit-button" onclick="updateMailtoLink()">Send Message</button>
         </div>
 
         <script>    

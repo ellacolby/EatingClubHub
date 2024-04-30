@@ -47,20 +47,6 @@ h2 {
     box-sizing: border-box; /* Makes sure padding does not affect overall width */
 }
 
-input[type="submit"] {
-    width: 100%;
-    background-color: rgba(251, 145, 20, 1);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-input[type="submit"]:hover {
-    background-color: #b47221;
-}
-
 .dropbtn {
     background-color: #04AA6D;
     color: white;
@@ -117,4 +103,20 @@ input[type="submit"]:hover {
     /* Centers the background image */
     background-repeat: no-repeat;
     /* Ensures the image does not repeat */
+}
+
+input[type="submit"],
+.contact-submit-button {
+    width: 100% !important;
+    background-color: rgba(251, 145, 20, 1) !important;
+    padding: 10px 20px !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    font-size: 16px I !important;
+}
+
+input[type="submit"]:hover,
+.contact-submit-button:hover {
+    background-color: #b47221 !important;
 }
