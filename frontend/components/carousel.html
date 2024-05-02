@@ -1,3 +1,28 @@
+{% macro images_carousel(images) %}
+<div id="imagesCarousel" class="carousel slide" data-ride="carousel">
+    <ul class="carousel-indicators">
+        {% set images = ['img/cannon.jpeg','img/cap.jpeg', 'img/charter.jpeg', 'img/cloister.jpeg', 'img/colo.jpg', 'img/cottage.jpeg', 'img/ivy.jpeg', 'img/quad.jpeg', 'img/terrace.jpeg', 'img/ti.jpeg', 'img/tower.jpeg'] %}
+        {% for image in images %}
+        <li data-target="#imagesCarousel" data-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></li>
+        {% endfor %}
+    </ul>
+    <div class="carousel-inner">
+        {% for image in images %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <img src="{{ url_for('static', filename=image) }}" alt="Image {{ loop.index }}" class="d-block w-100">
+        </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#imagesCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#imagesCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+{% endmacro %}
 {% macro announcements_carousel(announcements) %}
 <div id="announcementsCarousel" class="carousel slide" data-ride="carousel">
     <ul class="carousel-indicators">
