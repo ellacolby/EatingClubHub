@@ -275,8 +275,7 @@ def splash_page():
     if name is not None:
         return home_page()
     if ticket is None:
-        images = ['img/cannon.jpeg','img/cap.jpeg', 'img/charter.jpeg', 'img/cloister.jpeg', 'img/colo.jpg', 'img/cottage.jpeg', 'img/ivy.jpeg', 'img/quad.jpeg', 'img/terrace.jpeg', 'img/ti.jpeg', 'img/tower.jpeg']
-        return render_template('pages/splash.html', images=images, CAS_LOGIN_URL=url)
+        return render_template('pages/splash.html', CAS_LOGIN_URL=url)
     return home_page()
         
 
@@ -285,7 +284,6 @@ def home_page():
     cas_username, is_officer, _, _ = auth_info()
     if cas_username is None:
         return splash_page()
-    images = ['img/cannon.jpeg','img/cap.jpeg', 'img/charter.jpeg', 'img/cloister.jpeg', 'img/colo.jpg', 'img/cottage.jpeg', 'img/ivy.jpeg', 'img/quad.jpeg', 'img/terrace.jpeg', 'img/ti.jpeg', 'img/tower.jpeg']
     
     fetched_announcements = announcements()
     fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]  # Convert tuples to lists
@@ -312,7 +310,7 @@ def home_page():
                 announcements_dict[i] = prev
         
     # Use the username from the session for consistency
-    return render_template('pages/home.html', USERNAME=cas_username, is_officer=is_officer, images=images, announcements=announcements_dict)
+    return render_template('pages/home.html', USERNAME=cas_username, is_officer=is_officer, announcements=announcements_dict)
 
 @app.route('/contact', methods=['GET'])
 def contact_page():
@@ -387,14 +385,12 @@ def events_page():
 
 @app.errorhandler(404)
 def not_found(e):
-    images = ['img/cannon.jpeg','img/cap.jpeg', 'img/charter.jpeg', 'img/cloister.jpeg', 'img/colo.jpg', 'img/cottage.jpeg', 'img/ivy.jpeg', 'img/quad.jpeg', 'img/terrace.jpeg', 'img/ti.jpeg', 'img/tower.jpeg']
     cas_username, is_officer, _, _ = auth_info()
     
     if cas_username is None:
         return splash_page()
     return render_template(
         'pages/error404.html',
-        images=images,
         is_officer=is_officer
     )
 
