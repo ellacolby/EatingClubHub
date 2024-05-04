@@ -24,25 +24,6 @@ class Announcement(Base):
 
     club = relationship('Club', backref='announcements')
 
-class ClubAnnouncement(Base):
-    __tablename__ = 'club_announcements'
-
-    user_id = Column(Text, ForeignKey('users.user_id'), primary_key=True)
-    announcement_id = Column(Integer, ForeignKey('announcements.announcement_id'), primary_key=True)
-
-    user = relationship('User', backref='club_announcements')
-    announcement = relationship('Announcement', backref='club_announcements')
-
-
-class ClubEvent(Base):
-    __tablename__ = 'club_events'
-
-    club_id = Column(Integer, ForeignKey('clubs.club_id'), primary_key=True)
-    event_id = Column(Integer, ForeignKey('events.event_id'), primary_key=True)
-
-    club = relationship('Club', backref='club_events')
-    event = relationship('Event', backref='club_events')
-
 class Club(Base):
     __tablename__ = 'clubs'
 
@@ -123,7 +104,7 @@ def get_clubs():
         print(str(ex), file=sys.stderr)
 
 def get_event_attendees(event_id=None):
-    assert isinstance(event_id, (int, type(None))), "event_id must be an integer or None"
+    assert isinstance(int(event_id), (int, type(None))), "event_id must be an integer or None"
 
     try:
         with sqlalchemy.orm.Session(engine) as session:
@@ -192,8 +173,13 @@ def get_announcements_with_club_names():
     except Exception as ex:
         print(str(ex), file=sys.stderr)
 
-   
 def create_announcement(announcement_id=None, title=None, description=None, image=None, club_id=None):
+    assert isinstance(announcement_id, (int , type(None))), "announcement_id must be a int or None"
+    assert isinstance(title, (str, type(None))), "title must be a string or None"
+    assert isinstance(description, (str, type(None))), " must be a string or None"
+    assert isinstance(image, (str, type(None))), " must be a string or None"
+    assert isinstance(club_id, (int, type(None))), " must be a int or None"
+    
     try:
         with sqlalchemy.orm.Session(engine) as session:
             new_announcement = Announcement(announcement_id=announcement_id, title=title, description=description, image=image, club_id=club_id)
@@ -203,6 +189,9 @@ def create_announcement(announcement_id=None, title=None, description=None, imag
         print(str(ex), file=sys.stderr)
 
 def create_club_announcement(user_id=None, announcement_id=None):
+    assert isinstance(user_id, (str , type(None))), "user_id must be a string or None"
+    assert isinstance(announcement_id, (int , type(None))), "announcement_id must be a int or None"
+
     try:
         with sqlalchemy.orm.Session(engine) as session:
             new_club_announcement = ClubAnnouncement(user_id=user_id, announcement_id=announcement_id)
