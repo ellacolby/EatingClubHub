@@ -61,15 +61,6 @@ class Officer(Base):
     user = relationship('User', backref='officers')
     club = relationship('Club', backref='officers')
 
-class UserEvent(Base):
-    __tablename__ = 'user_events'
-
-    user_id = Column(Text, ForeignKey('users.user_id'), primary_key=True)
-    event_id = Column(Integer, ForeignKey('events.event_id'), primary_key=True)
-
-    user = relationship('User', backref='user_events')
-    event = relationship('Event', backref='user_events')
-
 class User(Base):
     __tablename__ = 'users'
 
@@ -188,28 +179,13 @@ def create_announcement(announcement_id=None, title=None, description=None, imag
     except Exception as ex:
         print(str(ex), file=sys.stderr)
 
-def create_club_announcement(user_id=None, announcement_id=None):
-    assert isinstance(user_id, (str , type(None))), "user_id must be a string or None"
-    assert isinstance(announcement_id, (int , type(None))), "announcement_id must be a int or None"
-
-    try:
-        with sqlalchemy.orm.Session(engine) as session:
-            new_club_announcement = ClubAnnouncement(user_id=user_id, announcement_id=announcement_id)
-            session.add(new_club_announcement)
-            session.commit()
-    except Exception as ex:
-        print(str(ex), file=sys.stderr)
-
-# def create_club_event(club_id=None, event_id=None):
-#     try:
-#         with sqlalchemy.orm.Session(engine) as session:
-#             new_club_event = ClubEvent(club_id=club_id, event_id=event_id)
-#             session.add(new_club_event)
-#             session.commit()
-#     except Exception as ex:
-#         print(str(ex), file=sys.stderr)
-
 def create_club(club_id=None, name=None, description=None, image=None, coffee_chat_link=None):
+    assert isinstance(club_id, (int , type(None))), "club_id must be a int or None"
+    assert isinstance(name, (str, type(None))), "name must be a string or None"
+    assert isinstance(description, (str, type(None))), "description must be a string or None"
+    assert isinstance(image, (str, type(None))), "image must be a string or None"
+    assert isinstance(coffee_chat_link, (str, type(None))), "coffee_chat_link must be a string or None"
+
     try:
         with sqlalchemy.orm.Session(engine) as session:
             new_club = Club(club_id=club_id, name=name, description=description, image=image, coffee_chat_link=coffee_chat_link)
@@ -247,15 +223,6 @@ def create_officer(user_id=None, club_id=None):
     except Exception as ex:
         print(str(ex), file=sys.stderr)
 
-def create_user_event(user_id=None, event_id=None):
-    try:
-        with sqlalchemy.orm.Session(engine) as session:
-            new_user_event = UserEvent(user_id=user_id, event_id=event_id)
-            session.add(new_user_event)
-            session.commit()
-    except Exception as ex:
-        print(str(ex), file=sys.stderr)
-
 def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=None, about_me=None):
     try:
         with sqlalchemy.orm.Session(engine) as session:
@@ -271,7 +238,6 @@ def delete_event(event_id):
             event = session.query(Event).filter_by(event_id=event_id).first()
             if event:
                 session.query(EventAttendee).filter(EventAttendee.event_id == event_id).delete()
-                session.query(UserEvent).filter(UserEvent.event_id == event_id).delete()
                 session.query(Event).filter(Event.event_id == event_id).delete()
                 session.commit()
                 return True
