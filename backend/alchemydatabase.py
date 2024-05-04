@@ -200,14 +200,14 @@ def create_club_announcement(user_id=None, announcement_id=None):
     except Exception as ex:
         print(str(ex), file=sys.stderr)
 
-def create_club_event(club_id=None, event_id=None):
-    try:
-        with sqlalchemy.orm.Session(engine) as session:
-            new_club_event = ClubEvent(club_id=club_id, event_id=event_id)
-            session.add(new_club_event)
-            session.commit()
-    except Exception as ex:
-        print(str(ex), file=sys.stderr)
+# def create_club_event(club_id=None, event_id=None):
+#     try:
+#         with sqlalchemy.orm.Session(engine) as session:
+#             new_club_event = ClubEvent(club_id=club_id, event_id=event_id)
+#             session.add(new_club_event)
+#             session.commit()
+#     except Exception as ex:
+#         print(str(ex), file=sys.stderr)
 
 def create_club(club_id=None, name=None, description=None, image=None, coffee_chat_link=None):
     try:
@@ -272,7 +272,7 @@ def delete_event(event_id):
             if event:
                 session.query(EventAttendee).filter(EventAttendee.event_id == event_id).delete()
                 session.query(UserEvent).filter(UserEvent.event_id == event_id).delete()
-                session.query(ClubEvent).filter(ClubEvent.event_id == event_id).delete()
+                # session.query(ClubEvent).filter(ClubEvent.event_id == event_id).delete()
                 session.query(Event).filter(Event.event_id == event_id).delete()
                 session.commit()
                 return True
