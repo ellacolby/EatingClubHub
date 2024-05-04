@@ -272,7 +272,6 @@ def delete_event(event_id):
             if event:
                 session.query(EventAttendee).filter(EventAttendee.event_id == event_id).delete()
                 session.query(UserEvent).filter(UserEvent.event_id == event_id).delete()
-                # session.query(ClubEvent).filter(ClubEvent.event_id == event_id).delete()
                 session.query(Event).filter(Event.event_id == event_id).delete()
                 session.commit()
                 return True
@@ -287,7 +286,6 @@ def delete_announcement(announcement_id):
             announcement = session.query(Announcement).filter_by(announcement_id=announcement_id).first()
 
             if announcement:
-                session.query(ClubAnnouncement).filter(ClubAnnouncement.announcement_id == announcement_id).delete()
                 session.query(Announcement).filter(Announcement.announcement_id == announcement_id).delete()
                 session.commit()
     except Exception as ex:
