@@ -180,7 +180,7 @@ def create_announcement(announcement_id=None, title=None, description=None, imag
         print(str(ex), file=sys.stderr)
 
 def create_club(club_id=None, name=None, description=None, image=None, coffee_chat_link=None):
-    assert isinstance(club_id, (int , type(None))), "club_id must be a int or None"
+    assert isinstance(club_id, (int, type(None))), "club_id must be a int or None"
     assert isinstance(name, (str, type(None))), "name must be a string or None"
     assert isinstance(description, (str, type(None))), "description must be a string or None"
     assert isinstance(image, (str, type(None))), "image must be a string or None"
@@ -195,6 +195,9 @@ def create_club(club_id=None, name=None, description=None, image=None, coffee_ch
         print(str(ex), file=sys.stderr)
 
 def create_event_attendee(event_id=None, user_id=None):
+    assert isinstance(int(event_id), (int, type(None))), "event_id must be a int or None"
+    assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
+
     try:
         with sqlalchemy.orm.Session(engine) as session:
             new_event_attendee = EventAttendee(event_id=event_id, user_id=user_id)
@@ -205,6 +208,13 @@ def create_event_attendee(event_id=None, user_id=None):
         print(str(ex), file=sys.stderr)
 
 def create_event(event_id=None, name=None, location=None, description=None, start_time=None, end_time=None):
+    assert isinstance(event_id, (int, type(None))), "event_id must be a int or None"
+    assert isinstance(name, (str, type(None))), "name must be a string or None"
+    assert isinstance(location, (str, type(None))), "location must be a string or None"
+    assert isinstance(description, (str, type(None))), "description must be a string or None"
+    assert isinstance(start_time, (str, type(None))), "start_time must be a string or None"
+    assert isinstance(end_time, (str, type(None))), "end_time must be a string or None"
+
     try:
         with sqlalchemy.orm.Session(engine) as session:
             new_event = Event(event_id=event_id, name=name, location=location, description=description, start_time=start_time, end_time=end_time)
@@ -214,6 +224,9 @@ def create_event(event_id=None, name=None, location=None, description=None, star
         print(str(ex), file=sys.stderr)
 
 def create_officer(user_id=None, club_id=None):
+    assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
+    assert isinstance(club_id, (int, type(None))), "club_id must be a int or None"
+
     try:
         with sqlalchemy.orm.Session(engine) as session:
             new_officer = Officer(user_id=user_id, club_id=club_id)
@@ -224,6 +237,13 @@ def create_officer(user_id=None, club_id=None):
         print(str(ex), file=sys.stderr)
 
 def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=None, about_me=None):
+    assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
+    assert isinstance(name, (str, type(None))), "name must be a string or None"
+    assert isinstance(netid, (str, type(None))), "netid must be a string or None"
+    assert isinstance(profile_pic, (str, type(None))), "profile_pic must be a string or None"
+    assert isinstance(pronouns, (str, type(None))), "pronouns must be a string or None"
+    assert isinstance(about_me, (str, type(None))), "about_me must be a string or None"
+
     try:
         with sqlalchemy.orm.Session(engine) as session:
             new_user = User(user_id=user_id, name=name, netid=netid, profile_pic=profile_pic, pronouns=pronouns, about_me=about_me)
@@ -233,6 +253,8 @@ def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=
         print(str(ex), file=sys.stderr)
 
 def delete_event(event_id):
+    assert isinstance(int(event_id), (int, type(None))), "event_id must be a int or None"
+
     try:
         with sqlalchemy.orm.Session(engine) as session:
             event = session.query(Event).filter_by(event_id=event_id).first()
@@ -247,6 +269,7 @@ def delete_event(event_id):
         print(str(ex), file=sys.stderr)
 
 def delete_announcement(announcement_id):
+    assert isinstance(announcement_id, (int, type(None))), "announcement_id must be a int or None"
     try:
         with sqlalchemy.orm.Session(engine) as session:
             announcement = session.query(Announcement).filter_by(announcement_id=announcement_id).first()
@@ -258,6 +281,8 @@ def delete_announcement(announcement_id):
         print(str(ex), file=sys.stderr)
 
 def edit_user_field(user_id, field, value):
+    assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
+    
     try:
         with sqlalchemy.orm.Session(engine) as session:
             user = session.query(User).filter_by(user_id=user_id).first()
@@ -267,37 +292,37 @@ def edit_user_field(user_id, field, value):
     except Exception as ex:
         print(str(ex), file=sys.stderr)
 
-def edit_event(event_id, new_name=None, new_location=None, new_description=None, new_start_time=None, new_end_time=None):
-    try:
-        with sqlalchemy.orm.Session(engine) as session:
-            event = session.query(Event).filter_by(event_id=event_id).first()
-            if event:
-                if new_name:
-                    event.name = new_name
-                if new_location:
-                    event.location = new_location
-                if new_description:
-                    event.description = new_description
-                if new_start_time:
-                    event.start_time = new_start_time
-                if new_end_time:
-                    event.end_time = new_end_time
-            session.commit()
-    except Exception as ex:
-        print(str(ex), file=sys.stderr)
+# def edit_event(event_id, new_name=None, new_location=None, new_description=None, new_start_time=None, new_end_time=None):
+#     try:
+#         with sqlalchemy.orm.Session(engine) as session:
+#             event = session.query(Event).filter_by(event_id=event_id).first()
+#             if event:
+#                 if new_name:
+#                     event.name = new_name
+#                 if new_location:
+#                     event.location = new_location
+#                 if new_description:
+#                     event.description = new_description
+#                 if new_start_time:
+#                     event.start_time = new_start_time
+#                 if new_end_time:
+#                     event.end_time = new_end_time
+#             session.commit()
+#     except Exception as ex:
+#         print(str(ex), file=sys.stderr)
 
-def edit_announcement(announcement_id, new_title=None, new_description=None):
-    try:
-        with sqlalchemy.orm.Session(engine) as session:
-            announcement = session.query(Announcement).filter_by(announcement_id=announcement_id).first()
-            if announcement:
-                if new_title:
-                    announcement.title = new_title
-                if new_description:
-                    announcement.description = new_description
-            session.commit()
-    except Exception as ex:
-        print(str(ex), file=sys.stderr)
+# def edit_announcement(announcement_id, new_title=None, new_description=None):
+#     try:
+#         with sqlalchemy.orm.Session(engine) as session:
+#             announcement = session.query(Announcement).filter_by(announcement_id=announcement_id).first()
+#             if announcement:
+#                 if new_title:
+#                     announcement.title = new_title
+#                 if new_description:
+#                     announcement.description = new_description
+#             session.commit()
+#     except Exception as ex:
+#         print(str(ex), file=sys.stderr)
 
 def main():
     if len(sys.argv) != 1:
