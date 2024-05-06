@@ -34,40 +34,40 @@
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('announcementForm').addEventListener('submit', function (event) {
                 event.preventDefault(); // Prevent the form from submitting normally
+                document.querySelector('.btn').disabled = true;
 
                 const announcementTitle = document.querySelector('#announcementTitle');
                 const announcementDescription = document.querySelector('#announcementDescription');
 
                 if (announcementTitle.value.length > 75) {
                     alert('The title of the announcement is too long. Please keep the title to less than 75 characters.');
+                    document.querySelector('.btn').disabled = false;
                     return;
                 }
 
                 if (announcementDescription.value.length > 3000) {
                     alert('The title of the announcement is too long. Please keep the title to less than 3000 characters.');
+                    document.querySelector('.btn').disabled = false;
                     return;           
                 }
 
-                // Get form data
-                var formData = new FormData(this);
+                const formData = new FormData(this);
 
-                // Send form data to backend server using Fetch API
                 fetch('/api/create_announcement', {
                     method: 'POST',
                     body: formData
                 })
                 .then(function (response) {
                     if (response.ok) {
-                        // handle success response
                         console.log('Announcement created successfully!');
                         window.location.href = '/announcements';
                     } else {
-                        // handle error response
-                        console.error('Failed to create announcement');
+                        alert('Failed to create announcement');
+                        document.querySelector('.btn').disabled = false;
                     }
                 })
                 .catch(function (error) {
-                    // Handle network errors
+                    document.querySelector('.btn').disabled = false;
                     console.error('Error:', error);
                 });
             });
