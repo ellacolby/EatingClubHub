@@ -14,33 +14,30 @@
         <div class="calendar-page">
             {% include '/components/calendar_page/sidebar.html' %}
             <div id='calendar'></div>
+            <!-- Event details container -->
             <div class="container">
                 <div class="eventdetails-container" hidden>
-                    <div class="header">
+                    <div class="form-group header">
                         <h2>Event Details</h2>
-                        <header style="background-color:#000;color:#fff;">
-                            <span onclick=handleExit() class="close-button">&times;</span>
-                        </header>
+                        <span onclick=handleExit() class="close-button">&#10006;</span>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="eventName">Event Name:</label>
-                                <p class="event-name"></p>
-                            </div>
+                    <div class="eventdetails-row">
+                        <div class="form-group">
+                            <label for="eventName">Event Name:</label>
+                            <p class="event-name"></p>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="location">Location:</label>
-                                <p class="location"></p>
-                            </div>
+                        <div class="form-group">
+                            <label for="location">Location:</label>
+                            <p class="location"></p>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <p class="description"></p>
+                    <div class="eventdetails-row eventdetails-description">
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <p class="description"></p>
+                        </div>
                     </div>
-                    <div class="row">
+                    <div class="eventdetails-row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="startDateTime">Start Date and Time:</label>
@@ -54,22 +51,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <button class="button-event" id="attend-event">I'm going!</button>
-                    </div>
-                    {% if is_officer: %}
-                    <div class="row delete-event" hidden>
-                        <button class="delete-event-button">Delete Event</button>
-                    </div>
-                    <div class="row attending-list-div" hidden>
-                        <p id="attendees-list"></p>
-                    </div>
-                    {% endif %}
-                    <div class="rsvp-div">
+                    <div class="rsvp-div" hidden>
                         <p id="rsvp"></p>
+                    </div>
+
+                    {% if is_officer: %}
+                    <div class="eventdetails-row attending-list-div" hidden>
+                        <p id="attendees-list">Attendees:</p>
+                        <ul class="attending-list">
+                        </ul>
+                    </div>
+                    <div class="eventdetails-row delete-event" hidden>
+                        <button class="delete-event-button button-event">Delete Event</button>
+                    </div>
+
+                    {% endif %}
+                    <div class="eventdetails-row">
+                        <button class="button-event" id="attend-event">I'm going!</button>
                     </div>
                 </div>
             </div>
+            <!-- End of event details container -->
         </div>
         <script>
             /* Function for fetching all events in the calendar and loading it onto the page. */
@@ -156,9 +158,11 @@
                 const isAttendingEvent = attendees.includes({{ username| safe }});
                 if (isAttendingEvent) {
                     document.querySelector('#attend-event').hidden = true;
+                    document.querySelector('.rsvp-div').hidden = false;
                     document.querySelector('#rsvp').innerText = 'Attendance Status: I am attending this event';
                 } else {
                     document.querySelector('#attend-event').hidden = false;
+                    document.querySelector('.rsvp-div').hidden = true;
                     document.querySelector('#rsvp').innerText = '';
                 }
 
@@ -183,8 +187,9 @@
                 document.querySelector('.startDateTime').innerText = formattedStartDate;
                 document.querySelector('.endDateTime').innerText = formattedEndDate;
 
-                if (document.querySelector('#attendees-list')) {
-                    document.querySelector('#attendees-list').innerText = '';
+                if (document.querySelector('.attending-list-div')) {
+                    document.querySelector('.attending-list-div').hidden = true;
+                    document.querySelector('.attending-list').innerHTML = '';
                 }
 
                 /* Ignore warnings, it's a Jinja specific syntax for JavaScript */
@@ -195,7 +200,14 @@
                         document.querySelector('.attending-list-div').hidden = false;
                     }
                     if (attendees.length > 0) {
-                        document.querySelector('#attendees-list').innerText = `Attendees: ${attendees}`;
+                        document.querySelector('.attending-list-div').hidden = false;
+                        attendees.forEach(attendee => {
+                            const list = document.createElement('li');
+                            list.innerText = attendee;
+                            document.querySelector('.attending-list').appendChild(list);
+                        });
+                    } else {
+                         document.querySelector('.attending-list-div').hidden = true;
                     }
                 } else {
                     const isOfficer = {{ is_officer | safe }};

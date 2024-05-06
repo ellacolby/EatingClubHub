@@ -11,12 +11,15 @@ body {
 }
 
 .eventcreation-container, .eventdetails-container {
+    display: flex;
+    flex-direction: column;
     max-width: 500px;
     margin: 50px auto;
-    padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    padding: 20px;
 }
 
 .close-button {
@@ -26,11 +29,41 @@ body {
     vertical-align: middle;
     overflow: hidden;
     text-decoration: none;
-    color: inherit;
-    background-color: inherit;
+    color: black;
+    background-color: white;
     text-align: center;
     cursor: pointer;
     white-space: nowrap
+  }
+
+  .button-event {
+    margin: 20px;
+    background-color: rgba(251, 145, 20, 1);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .eventdetails-row {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+  }
+
+  .eventdetails-description {
+    flex-direction: column !important;
+  }
+
+  .header {
+    flex-direction: row !important;
+  }
+
+  .header h2 {
+    margin: 0;
   }
   
   .topright {
@@ -40,11 +73,40 @@ body {
   }
 
 .form-group {
-    margin-bottom: 20px;
+    flex: 1;
 }
 
+.button-event {
+    margin: 0;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#rsvp {
+    width: 100%;
+    margin: 0;
+    color: green;
+    text-align: center;
+}
 /* label {
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
 } */
+
+.attending-list-div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.attending-list {
+    border-radius: 15px;
+    border: solid grey 1px;
+    max-height: 150px;
+    overflow-y: scroll;
+}
+
+#attendees-list {
+    margin: 0;
+}
