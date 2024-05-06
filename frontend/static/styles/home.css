@@ -149,6 +149,11 @@
     justify-content: center;
     align-items: center;
     padding: 0;
+    height: 200px;
+}
+
+.announcement p {
+  text-align: center;
 }
 
 .headers {
@@ -253,11 +258,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
   border-radius: 15px;
   height: 200px;
 }
 .announcement-body {
+  padding: 0 20px;
   display: flex;
   flex-direction: row;
 }
