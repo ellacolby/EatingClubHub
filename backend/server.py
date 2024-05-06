@@ -1,12 +1,17 @@
 # external imports
 import os
-from flask import Flask, jsonify, abort, redirect, request, session, render_template, make_response
+import sys
+from flask import (
+    Flask, 
+    request, 
+    render_template, 
+    make_response
+)
 import json
 
 # internal imports
 import auth
 import alchemydatabase as db
-from datetime import datetime
 from alchemydatabase import (
     get_records
 )
@@ -38,8 +43,8 @@ def auth_info():
     return name, is_officer, club_id, club_name
 
 def announcements_format(need_dict):
-    fetched_announcements = announcements()
-    fetched_announcements = [list(announcement) for announcement in fetched_announcements['announcements']]
+    fetched_announcements = get_records('announcement')
+    fetched_announcements = [list(announcement) for announcement in fetched_announcements]
     
     if need_dict:
         announcements_dict = {
@@ -74,76 +79,113 @@ def logout():
 
 #-----------------------------------------------------------------------
 # API Routes
+
 @app.route('/api/announcements')
 def announcements():
-    res = get_records('announcement')
-    return {'announcements': res}
+    try:
+        res = get_records('announcement')
+        return {'announcements': res}, 200
+    except Exception as ex:
+        print('ex:', str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
 @app.route('/api/clubs')
 def clubs():
-    res = get_records('club')
-    return {'clubs': res}
+    try:
+        res = get_records('club')
+        return {'clubs': res}, 200
+    except Exception as ex:
+        print('ex:', str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
 @app.route('/api/events')
 def events():
-    res = get_records('event')
-    return {'events': res}
+    try:
+        res = get_records('event')
+        return {'events': res}, 200
+    except Exception as ex:
+        print('ex:', str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
 @app.route('/api/users')
 def users():
-    res = get_records('user')
-    return {'users': res}
+    try:
+        res = get_records('user')
+        return {'users': res}, 200
+    except Exception as ex:
+        print('ex:', str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
 @app.route('/api/make_new_officer', methods=['POST'])
 def make_new_officer():
-    user_id = request.form['netid']
-    cas_username, is_officer, club_id, club_name = auth_info()
-    if cas_username is None:
-        return splash_page()
-    if is_officer is False:
-        return not_found(404)
+    try:
+        if not 'netid' in request.form:
+            raise Exception('netid is not included in the form request.')
+        user_id = request.form['netid']
+        cas_username, is_officer, club_id, _ = auth_info()
+        if cas_username is None:
+            return splash_page()
+        if is_officer is False:
+            return not_found(404)
 
-    res = db.create_officer(user_id=user_id, club_id=club_id)
-    print(res)
-    _, netid = auth.authenticate()
-    user_info = db.get_user_info(netid)
+        db.create_officer(user_id=user_id, club_id=club_id)
+        return {
+            'success': True,
+            'message': 'New officer has been appointed.'
+        }, 200
+    except Exception as ex:
+        print('ex:', str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
-    html_code = render_template(
-        'pages/profile.html',
-        is_officer=is_officer,
-        club_name=club_name,
-        user_info=user_info
-    )
-    response = make_response(html_code)
-    return response
-
+    
 @app.route('/api/edit_profile', methods=['POST'])
 def edit_profile():
-    cas_username, is_officer, _, club_name = auth_info()
+    cas_username, _, _, _ = auth_info()
     if cas_username is None:
         return splash_page()
-    _, netid = auth.authenticate()
-    pronouns = request.form['pronouns']
-    about_me = request.form['about_me']
+    try:
+        if not request.form:
+            raise Exception('form was not submitted properly.')
+        
+        pronouns = request.form['pronouns']
+        about_me = request.form['about_me']
 
-    db.edit_user_field(netid, 'pronouns', pronouns)
-    db.edit_user_field(netid, 'about_me', about_me)
+        # User will have already been authenticated from auth_info()
+        _, netid = auth.authenticate()
 
-    user_info = db.get_user_info(netid)
+        db.edit_user_field(netid, 'pronouns', pronouns)
+        db.edit_user_field(netid, 'about_me', about_me)
+        return {
+            'success': True,
+            'message': 'The profile has been edited.',
+        }, 200
+    except Exception as ex:
+        print(str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
-    html_code = render_template(
-        'pages/profile.html',
-        is_officer=is_officer,
-        club_name=club_name,
-        user_info=user_info
-    )
-    response = make_response(html_code)
-    return response
 
     
 @app.route('/api/create_event', methods=['POST'])
 def create_new_event():
-    cas_username, is_officer, club_id, club_name = auth_info()
+    cas_username, is_officer, _, club_name = auth_info()
 
     if cas_username is None:
         return splash_page()
@@ -157,20 +199,24 @@ def create_new_event():
     end_datetime = request.form['endDateTime']
 
     # Creates new event in database
-    db.create_event(
-        name=event_name, 
-        location=location, 
-        description=description, 
-        start_time=start_datetime, 
-        end_time=end_datetime
-    )
-
-    html_code = render_template(
-        'pages/events/calendarpage.html',
-        is_officer=is_officer
-    )
-    response = make_response(html_code)
-    return response
+    try:
+        db.create_event(
+            name=event_name, 
+            location=location, 
+            description=description, 
+            start_time=start_datetime, 
+            end_time=end_datetime
+        )
+        return {
+            'success': True,
+            'message': 'Event created successfully.'
+        }, 200
+    except Exception as ex:        
+        print(str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
 @app.route('/api/attend_event', methods=['POST'])
 def attend_event():
@@ -180,19 +226,27 @@ def attend_event():
     if cas_username is None:
         return splash_page()
 
-    event_id = request.args.get('eventId')
+    try:
+        if not 'eventId' in request.json:
+            raise Exception('event-id not found request')
 
-    print('Event ID:', event_id)
+        event_id = request.json['eventId']
 
-    # Creates new event in database
-    db.create_event_attendee(
-        event_id = event_id,
-        user_id = uid
-    )
-
-    print('helloooo')
-
-    return {'success': True}
+        # Creates new event in database
+        db.create_event_attendee(
+            event_id = event_id,
+            user_id = uid
+        )
+        return {
+            'success': True,
+            'message': 'The event has been marked as attended.',
+        }, 200
+    except Exception as ex:
+        print(str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
 
 @app.route('/api/delete_event', methods=['POST'])
@@ -203,37 +257,39 @@ def delete_event():
         return splash_page()
     if is_officer is False:
         return not_found(404)
-
-    event_id = request.args.get('eventId')
-    success = db.delete_event(event_id)
-    return {'success': success}
+        
+    try:
+        if not 'eventId' in request.json:
+            raise Exception('event-id is not found in request body.')
+        event_id = request.json['eventId']
+        db.delete_event(event_id)
+        return {
+            'success': True,
+            'messasge': 'The event has been deleted.'
+        }, 200
+    except Exception as ex:        
+        print(str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
 
 @app.route('/api/get_event_attendees', methods=['GET'])
 def get_event_attendees():
     event_id = request.args.get('eventId')
-    uid_attendees = db.get_event_attendees(event_id=event_id)
-    name_attendees = list(
-        map(lambda attendee: get_name(attendee), uid_attendees))
+    try:
+        uid_attendees = db.get_event_attendees(event_id=event_id)
+        name_attendees = list(
+            map(lambda attendee: get_name(attendee), uid_attendees))
 
-    return {'attendees': name_attendees}
-# @app.route('/api/edit_event', methods=['POST'])
-# def edit_event():
-#     _, is_officer, club_id, club_name = auth_info()
-#     event_name = request.form['eventName']
-#     location = club_name
-#     description = request.form['description']
-#     start_datetime = request.form['startDateTime']
-#     end_datetime = request.form['endDateTime']
-
-#     db.edit_event(new_name=event_name, new_location=location, new_description=description, new_start_time=start_datetime, new_end_time=end_datetime)
-
-#     html_code = render_template(
-#         'pages/events/calendarpage.html',
-#         is_officer=is_officer
-#     )
-#     response = make_response(html_code)
-#     return response
+        return {'attendees': name_attendees}, 200
+    except Exception as ex:
+        print(str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
 
 @app.route('/api/create_announcement', methods=['POST'])
@@ -245,24 +301,28 @@ def create_new_announcement():
     if is_officer is False:
         return not_found(404)
 
-    announcement_title = request.form['announcementTitle']
-    announcement_descrip = request.form['announcementDescription']
+    try:
+        if not request.form:
+            raise Exception('form not submitted properly')
+        announcement_title = request.form['announcementTitle']
+        announcement_descrip = request.form['announcementDescription']
+        # Creates new announcement in database
+        db.create_announcement(
+            title=announcement_title, 
+            description=announcement_descrip,
+            club_id=club_id
+        )
 
-    # Creates new announcement in database
-    db.create_announcement(
-        title=announcement_title, 
-        description=announcement_descrip,
-        club_id=club_id
-    )
-    fetched_announcements = announcements_format(False)
-
-    html_code = render_template(
-        'pages/announcements/announcementspage.html',
-        announcements=fetched_announcements,
-        is_officer=is_officer
-    )
-    response = make_response(html_code)
-    return response
+        return {
+            'success': True,
+            'message': 'The announcement has been created.'
+        }, 200
+    except Exception as ex:
+        print(str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
 
 @app.route('/api/delete_announcement', methods=['POST'])
 def delete_announcement():
@@ -273,19 +333,23 @@ def delete_announcement():
     if is_officer is False:
         return not_found(404)
 
-    announcement_id = int(request.data.decode('utf-8'))
-    db.delete_announcement(announcement_id=announcement_id)
+    try:
+        if not request.data:
+            raise Exception('failed to decode data.')
+        announcement_id = int(request.data.decode('utf-8'))
 
-    fetched_announcements = announcements_format(False)
-
-    html_code = render_template(
-        'pages/announcements/announcementspage.html',
-        announcements=fetched_announcements,
-        is_officer=is_officer
-    )
-    response = make_response(html_code)
-    return response
-
+        db.delete_announcement(announcement_id=announcement_id)
+        return {
+            'success': True,
+            'message': 'The announcement has been deleted.'
+        }
+    except Exception as ex:
+        print(str(ex), file=sys.stderr)
+        return {
+            'error': 'Internal Service Error',
+            'message': str(ex)
+        }, 500
+    
 #-----------------------------------------------------------------------
 # Page Renderings
 
@@ -386,7 +450,7 @@ def events_page():
     return render_template(
         'pages/events/calendarpage.html',
         username=json.dumps(cas_username),
-        is_officer=is_officer,
+        is_officer=json.dumps(is_officer),
         club_name=json.dumps(club_name)
     )
 
