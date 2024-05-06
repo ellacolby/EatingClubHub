@@ -86,6 +86,7 @@ def get_records(class_name):
         return records
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def get_clubs():
     try:
@@ -93,6 +94,7 @@ def get_clubs():
             return session.query(Club).all()
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def get_event_attendees(event_id=None):
     assert isinstance(int(event_id), (int, type(None))), "event_id must be an integer or None"
@@ -105,6 +107,7 @@ def get_event_attendees(event_id=None):
             return attendees
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def get_user_info(user_id):
     assert isinstance(user_id, (str, type(None))), "user_id must be an string or None"
@@ -118,6 +121,7 @@ def get_user_info(user_id):
                 return None
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
         
 def get_officer_club_info(user_id):
     assert isinstance(user_id, (str, type(None))), "user_id must be an string or None"
@@ -134,6 +138,7 @@ def get_officer_club_info(user_id):
             return club_id, club_name
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def get_officers():
     try:
@@ -141,6 +146,7 @@ def get_officers():
             return session.query(Officer).all()
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def get_users():
     try:
@@ -148,6 +154,7 @@ def get_users():
             return session.query(User).all() 
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
     
 def get_announcements_with_club_names():
     try:
@@ -158,11 +165,11 @@ def get_announcements_with_club_names():
             for announcement in announcements:
                 club_id = announcement[4]
                 club_name = session.query(Club).filter(Club.club_id == club_id).first().name
-                print(club_name)
                 results.append((announcement[0], announcement[1], announcement[2], announcement[4], club_name))
             return results
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def create_announcement(announcement_id=None, title=None, description=None, image=None, club_id=None):
     assert isinstance(announcement_id, (int , type(None))), "announcement_id must be a int or None"
@@ -178,6 +185,7 @@ def create_announcement(announcement_id=None, title=None, description=None, imag
             session.commit()
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def create_club(club_id=None, name=None, description=None, image=None, coffee_chat_link=None):
     assert isinstance(club_id, (int, type(None))), "club_id must be a int or None"
@@ -193,6 +201,7 @@ def create_club(club_id=None, name=None, description=None, image=None, coffee_ch
             session.commit()
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def create_event_attendee(event_id=None, user_id=None):
     assert isinstance(int(event_id), (int, type(None))), "event_id must be a int or None"
@@ -203,9 +212,9 @@ def create_event_attendee(event_id=None, user_id=None):
             new_event_attendee = EventAttendee(event_id=event_id, user_id=user_id)
             session.add(new_event_attendee)
             session.commit()
-            return {'success': True}
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def create_event(event_id=None, name=None, location=None, description=None, start_time=None, end_time=None):
     assert isinstance(event_id, (int, type(None))), "event_id must be a int or None"
@@ -222,6 +231,7 @@ def create_event(event_id=None, name=None, location=None, description=None, star
             session.commit()
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def create_officer(user_id=None, club_id=None):
     assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
@@ -235,6 +245,7 @@ def create_officer(user_id=None, club_id=None):
             return None
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=None, about_me=None):
     assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
@@ -251,6 +262,7 @@ def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=
             session.commit()
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def delete_event(event_id):
     assert isinstance(int(event_id), (int, type(None))), "event_id must be a int or None"
@@ -262,11 +274,9 @@ def delete_event(event_id):
                 session.query(EventAttendee).filter(EventAttendee.event_id == event_id).delete()
                 session.query(Event).filter(Event.event_id == event_id).delete()
                 session.commit()
-                return True
-            else:
-                return False
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def delete_announcement(announcement_id):
     assert isinstance(announcement_id, (int, type(None))), "announcement_id must be a int or None"
@@ -279,6 +289,7 @@ def delete_announcement(announcement_id):
                 session.commit()
     except Exception as ex:
         print(str(ex), file=sys.stderr)
+        raise ex
 
 def edit_user_field(user_id, field, value):
     assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
@@ -291,38 +302,7 @@ def edit_user_field(user_id, field, value):
                 session.commit()
     except Exception as ex:
         print(str(ex), file=sys.stderr)
-
-# def edit_event(event_id, new_name=None, new_location=None, new_description=None, new_start_time=None, new_end_time=None):
-#     try:
-#         with sqlalchemy.orm.Session(engine) as session:
-#             event = session.query(Event).filter_by(event_id=event_id).first()
-#             if event:
-#                 if new_name:
-#                     event.name = new_name
-#                 if new_location:
-#                     event.location = new_location
-#                 if new_description:
-#                     event.description = new_description
-#                 if new_start_time:
-#                     event.start_time = new_start_time
-#                 if new_end_time:
-#                     event.end_time = new_end_time
-#             session.commit()
-#     except Exception as ex:
-#         print(str(ex), file=sys.stderr)
-
-# def edit_announcement(announcement_id, new_title=None, new_description=None):
-#     try:
-#         with sqlalchemy.orm.Session(engine) as session:
-#             announcement = session.query(Announcement).filter_by(announcement_id=announcement_id).first()
-#             if announcement:
-#                 if new_title:
-#                     announcement.title = new_title
-#                 if new_description:
-#                     announcement.description = new_description
-#             session.commit()
-#     except Exception as ex:
-#         print(str(ex), file=sys.stderr)
+        raise ex
 
 def main():
     if len(sys.argv) != 1:
