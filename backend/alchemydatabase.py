@@ -178,6 +178,12 @@ def create_announcement(announcement_id=None, title=None, description=None, imag
     assert isinstance(image, (str, type(None))), " must be a string or None"
     assert isinstance(club_id, (int, type(None))), " must be a int or None"
     
+    if title is not None:
+        assert len(title) <= 75, "name must be at most 75 characters"
+    
+    if description is not None:
+        assert len(description) <= 3000, "description must be at most 3000 characters"
+
     try:
         with sqlalchemy.orm.Session(engine) as session:
             new_announcement = Announcement(announcement_id=announcement_id, title=title, description=description, image=image, club_id=club_id)
@@ -223,6 +229,12 @@ def create_event(event_id=None, name=None, location=None, description=None, star
     assert isinstance(description, (str, type(None))), "description must be a string or None"
     assert isinstance(start_time, (str, type(None))), "start_time must be a string or None"
     assert isinstance(end_time, (str, type(None))), "end_time must be a string or None"
+
+    if name is not None:
+        assert len(name) <= 75, "name must be at most 75 characters"
+    
+    if description is not None:
+        assert len(description) <= 3000, "description must be at most 3000 characters"
 
     try:
         with sqlalchemy.orm.Session(engine) as session:
@@ -312,10 +324,6 @@ def main():
     try:
         Base.metadata.create_all(engine)
         
-        record = get_officer_club_info('mz123')
-        for data in record:
-            print(data)
-
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
