@@ -54,6 +54,19 @@
             document.getElementById('eventForm').addEventListener('submit', function (event) {
                 event.preventDefault(); // Prevent the form from submitting normally
 
+                const eventName = document.querySelector('#eventName');
+                const description = document.querySelector('#description');
+
+                if (eventName.value.length > 75) {
+                    alert('The title of the event is too long. Please keep the title to less than 75 characters.');
+                    return;
+                }
+
+                if (description.value.length > 3000) {
+                    alert('The title of the announceventement is too long. Please keep the title to less than 3000 characters.');
+                    return;
+                }
+
                 // Get form data
                 const formData = new FormData(this);
 
