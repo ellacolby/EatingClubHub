@@ -179,7 +179,7 @@ def create_announcement(announcement_id=None, title=None, description=None, imag
     assert isinstance(club_id, (int, type(None))), " must be a int or None"
     
     if title is not None:
-        assert len(title) <= 75, "name must be at most 75 characters"
+        assert len(title) <= 75, "title must be at most 75 characters"
     
     if description is not None:
         assert len(description) <= 3000, "description must be at most 3000 characters"
