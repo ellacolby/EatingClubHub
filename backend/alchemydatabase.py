@@ -276,16 +276,21 @@ def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=
         print(str(ex), file=sys.stderr)
         raise ex
 
-def delete_event(event_id):
+def delete_event(event_id, club_id):
     assert isinstance(int(event_id), (int, type(None))), "event_id must be a int or None"
 
     try:
         with sqlalchemy.orm.Session(engine) as session:
+            club = session.query(Club).filter_by(club_id=club_id).first()
             event = session.query(Event).filter_by(event_id=event_id).first()
-            if event:
+            if event and club:
+                if event.location != club.name:
+                    raise Exception('The officer is not permitted to delete this event.')
                 session.query(EventAttendee).filter(EventAttendee.event_id == event_id).delete()
                 session.query(Event).filter(Event.event_id == event_id).delete()
                 session.commit()
+            else:
+                raise Exception('Event or club not found.')
     except Exception as ex:
         print(str(ex), file=sys.stderr)
         raise ex

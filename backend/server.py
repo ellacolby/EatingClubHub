@@ -251,7 +251,7 @@ def attend_event():
 
 @app.route('/api/delete_event', methods=['POST'])
 def delete_event():
-    cas_username, is_officer, _, _ = auth_info()
+    cas_username, is_officer, club_id, _ = auth_info()
 
     if cas_username is None:
         return splash_page()
@@ -262,7 +262,7 @@ def delete_event():
         if not 'eventId' in request.json:
             raise Exception('event-id is not found in request body.')
         event_id = request.json['eventId']
-        db.delete_event(event_id)
+        db.delete_event(event_id, club_id)
         return {
             'success': True,
             'messasge': 'The event has been deleted.'
