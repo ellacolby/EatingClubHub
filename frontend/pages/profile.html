@@ -67,40 +67,37 @@
                 })
                 .then(function (response) {
                     if (response.ok) {
-                        // handle success response
-                        console.log('Profile Updated Sucessfully!');
+                        alert('Profile Updated Sucessfully!');
                     } else {
-                        // handle error response
-                        console.error('Failed to update User Profile');
+                        alert('Failed to update User Profile.');
                     }
                 })
                 .catch(function (error) {
-                    // Handle network errors
+                    aleret('Failed to update User Profile.');
                     console.error('Error:', error);
                 });
             });
 
-            document.getElementById('officerPermissionsForm').addEventListener('submit', function (event) { // Permissions form
-                event.preventDefault(); // Prevent the form from submitting empty
+            document.getElementById('officerPermissionsForm').addEventListener('submit', function (event) {
+                event.preventDefault();
 
-                var formData = new FormData(this);
+                const formData = new FormData(this);
 
-                // Show confirmation popup
-                var confirmation = confirm('Are you sure you want to give permissions to this user?');
+                const confirmation = confirm('Are you sure you want to give permissions to this user?');
                 if (confirmation) {
-                    // If confirmed, send form data to backend
                     fetch('/api/make_new_officer', {
                         method: 'POST',
                         body: formData
                     })
                     .then(function (response) {
                         if (response.ok) {
-                            console.log('Permissions given successfully!');
+                            alert('Permissions given successfully!');
                         } else {
-                            console.error('Failed to give permissions');
+                            alert('Failed to give permissions.');
                         }
                     })
                     .catch(function (error) {
+                        alert('Failed to give permissions.')
                         console.error('Error:', error);
                     });
                 }
