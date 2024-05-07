@@ -8,8 +8,11 @@
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    max-height: 200px; 
-    overflow: auto; /* Enable scrolling for long descriptions */
+}
+
+.announcement-body {
+    max-height: 100px;
+    overflow-y: scroll;
 }
 
 .announcement h2 {

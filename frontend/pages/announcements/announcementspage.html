@@ -15,16 +15,18 @@
         {% if announcements %}
             {% for announcement in announcements %}
                 <div class="announcement" >
-                    <div class = "club-name">
-                        {{ announcement[4] }}
+                    <div class="announcement-body">
+                        <div class="club-name">
+                            {{ announcement[4] }}
+                        </div>
+                        <h2>{{ announcement[1] }}</h2>
+                        <p>{{ announcement[2] }}</p>
                     </div>
-                    <h2>{{ announcement[1] }}</h2>
-                    <p>{{ announcement[2] }}</p>
-                    <div> 
                     {% if is_officer and club_id == announcement[3] %}
+                    <div class="delete-announcement-div">
                         <input type="submit" class="button-announcement delete-announcement" data-id="{{ announcement[0] }}" value="Delete">
-                    {% endif %}
                     </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         {% else %}
