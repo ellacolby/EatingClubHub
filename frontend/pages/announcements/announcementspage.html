@@ -33,19 +33,22 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var deleteButtons = document.querySelectorAll('.delete-announcement');
-            deleteButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    var confirmation = confirm('Are you sure you want to delete this announcement?');
+        document.addEventListener('DOMContentLoaded', () => {
+            const deleteButtons = document.querySelectorAll('.delete-announcement');
+            deleteButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    button.disabled = true;
+                    const confirmation = confirm('Are you sure you want to delete this announcement?');
                     if (confirmation) {
-                        var announcementId = button.getAttribute('data-id');
+                        const announcementId = button.getAttribute('data-id');
                         deleteAnnouncement(announcementId);
+                    } else {
+                        button.disabled = false;
                     }
                 });
             });
     
-            function deleteAnnouncement(announcementId) {
+            const deleteAnnouncement = (announcementId) => {
                 fetch('/api/delete_announcement', {
                     method: 'POST',
                     body: announcementId
