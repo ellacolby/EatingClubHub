@@ -6,13 +6,19 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 import dotenv
 
+# Load environment variables from .env file
 dotenv.load_dotenv()
+
+# Get database URL from environment variables
 DATABASE_URL = os.environ['ALCHEMY_DATABASE_URL']
 
 # SQLAlchemy setup
 engine = create_engine(DATABASE_URL)
 Base = declarative_base()
 
+# Define SQLAlchemy classes corresponding to the database tables
+
+# Define Announcement class
 class Announcement(Base):
     __tablename__ = 'announcements'
 
@@ -24,6 +30,7 @@ class Announcement(Base):
 
     club = relationship('Club', backref='announcements')
 
+# Define Club class
 class Club(Base):
     __tablename__ = 'clubs'
 
@@ -33,6 +40,7 @@ class Club(Base):
     image = Column(Text)
     coffee_chat_link = Column(Text)
 
+# Define EventAttendee class
 class EventAttendee(Base):
     __tablename__ = 'event_attendees'
 
@@ -42,6 +50,7 @@ class EventAttendee(Base):
     event = relationship('Event', backref='event_attendees')
     user = relationship('User', backref='event_attendees')
 
+# Define Event class
 class Event(Base):
     __tablename__ = 'events'
 
@@ -52,6 +61,7 @@ class Event(Base):
     start_time = Column(Text)
     end_time = Column(Text)
 
+# Define Officer class
 class Officer(Base):
     __tablename__ = 'officers'
 
@@ -61,6 +71,7 @@ class Officer(Base):
     user = relationship('User', backref='officers')
     club = relationship('Club', backref='officers')
 
+# Define User class
 class User(Base):
     __tablename__ = 'users'
 
@@ -71,6 +82,9 @@ class User(Base):
     pronouns = Column(Text)
     about_me = Column(Text)
 
+# Define getter functions
+    
+# Function to get records from database table (Not for EventAttendee)
 def get_records(class_name):
     possible_class_names = ['User', 'Officer', 'Announcement', 'Event', 'Club']
     assert (class_name.capitalize() in possible_class_names), "Not a valid class name"
@@ -87,7 +101,7 @@ def get_records(class_name):
     except Exception as ex:
         print(str(ex), file=sys.stderr)
         raise ex
-
+# Retreives all clubs in database
 def get_clubs():
     try:
         with sqlalchemy.orm.Session(engine) as session:
@@ -95,7 +109,8 @@ def get_clubs():
     except Exception as ex:
         print(str(ex), file=sys.stderr)
         raise ex
-
+    
+# retreives list of event attendees for a given event
 def get_event_attendees(event_id=None):
     assert isinstance(int(event_id), (int, type(None))), "event_id must be an integer or None"
 
@@ -109,6 +124,7 @@ def get_event_attendees(event_id=None):
         print(str(ex), file=sys.stderr)
         raise ex
 
+# retreives user info for a given user
 def get_user_info(user_id):
     assert isinstance(user_id, (str, type(None))), "user_id must be an string or None"
 
@@ -122,7 +138,8 @@ def get_user_info(user_id):
     except Exception as ex:
         print(str(ex), file=sys.stderr)
         raise ex
-        
+
+# retreives the club information for a given user if they are an officer
 def get_officer_club_info(user_id):
     assert isinstance(user_id, (str, type(None))), "user_id must be an string or None"
 
@@ -140,6 +157,7 @@ def get_officer_club_info(user_id):
         print(str(ex), file=sys.stderr)
         raise ex
 
+# retreives all officers in the database
 def get_officers():
     try:
         with sqlalchemy.orm.Session(engine) as session:
@@ -148,6 +166,7 @@ def get_officers():
         print(str(ex), file=sys.stderr)
         raise ex
 
+# retreives all users in the database
 def get_users():
     try:
         with sqlalchemy.orm.Session(engine) as session:
@@ -155,7 +174,8 @@ def get_users():
     except Exception as ex:
         print(str(ex), file=sys.stderr)
         raise ex
-    
+
+# retreives a list of announcements with the their associated club name   
 def get_announcements_with_club_names():
     try:
         with sqlalchemy.orm.Session(engine) as session:
@@ -171,6 +191,9 @@ def get_announcements_with_club_names():
         print(str(ex), file=sys.stderr)
         raise ex
 
+# Define setter functions
+    
+# inserts a new announcement into the database
 def create_announcement(announcement_id=None, title=None, description=None, image=None, club_id=None):
     assert isinstance(announcement_id, (int , type(None))), "announcement_id must be a int or None"
     assert isinstance(title, (str, type(None))), "title must be a string or None"
@@ -193,6 +216,7 @@ def create_announcement(announcement_id=None, title=None, description=None, imag
         print(str(ex), file=sys.stderr)
         raise ex
 
+# creates a new club in the database
 def create_club(club_id=None, name=None, description=None, image=None, coffee_chat_link=None):
     assert isinstance(club_id, (int, type(None))), "club_id must be a int or None"
     assert isinstance(name, (str, type(None))), "name must be a string or None"
@@ -209,6 +233,7 @@ def create_club(club_id=None, name=None, description=None, image=None, coffee_ch
         print(str(ex), file=sys.stderr)
         raise ex
 
+# creates a new event attendee in the database
 def create_event_attendee(event_id=None, user_id=None):
     assert isinstance(int(event_id), (int, type(None))), "event_id must be a int or None"
     assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
@@ -222,6 +247,7 @@ def create_event_attendee(event_id=None, user_id=None):
         print(str(ex), file=sys.stderr)
         raise ex
 
+# creates a new event in the database
 def create_event(event_id=None, name=None, location=None, description=None, start_time=None, end_time=None):
     assert isinstance(event_id, (int, type(None))), "event_id must be a int or None"
     assert isinstance(name, (str, type(None))), "name must be a string or None"
@@ -245,6 +271,7 @@ def create_event(event_id=None, name=None, location=None, description=None, star
         print(str(ex), file=sys.stderr)
         raise ex
 
+# creates a new officer associated with a club in the database
 def create_officer(user_id=None, club_id=None):
     assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
     assert isinstance(club_id, (int, type(None))), "club_id must be a int or None"
@@ -259,6 +286,7 @@ def create_officer(user_id=None, club_id=None):
         print(str(ex), file=sys.stderr)
         raise ex
 
+# creates a new user in the database
 def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=None, about_me=None):
     assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
     assert isinstance(name, (str, type(None))), "name must be a string or None"
@@ -276,6 +304,7 @@ def create_user(user_id=None, name=None, netid=None, profile_pic=None, pronouns=
         print(str(ex), file=sys.stderr)
         raise ex
 
+# deletes an event from the database
 def delete_event(event_id, club_id):
     assert isinstance(int(event_id), (int, type(None))), "event_id must be a int or None"
 
@@ -294,7 +323,7 @@ def delete_event(event_id, club_id):
     except Exception as ex:
         print(str(ex), file=sys.stderr)
         raise ex
-
+# deletes an announcement from the database
 def delete_announcement(announcement_id, club_id):
     assert isinstance(announcement_id, (int, type(None))), "announcement_id must be a int or None"
     try:
@@ -312,6 +341,7 @@ def delete_announcement(announcement_id, club_id):
         print(str(ex), file=sys.stderr)
         raise ex
 
+# edits the user info of a given user 
 def edit_user_field(user_id, field, value):
     assert isinstance(user_id, (str, type(None))), "user_id must be a string or None"
     
@@ -325,6 +355,7 @@ def edit_user_field(user_id, field, value):
         print(str(ex), file=sys.stderr)
         raise ex
 
+# main function
 def main():
     if len(sys.argv) != 1:
         print('Usage: python ' + sys.argv[0], file=sys.stderr)
