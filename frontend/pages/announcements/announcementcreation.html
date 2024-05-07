@@ -67,6 +67,7 @@
                     }
                 })
                 .catch(function (error) {
+                    alert('Failed to create announcement');
                     document.querySelector('.btn').disabled = false;
                     console.error('Error:', error);
                 });
