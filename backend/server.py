@@ -326,7 +326,7 @@ def create_new_announcement():
 
 @app.route('/api/delete_announcement', methods=['POST'])
 def delete_announcement():
-    cas_username, is_officer, _, _ = auth_info()
+    cas_username, is_officer, club_id, _ = auth_info()
 
     if cas_username is None:
         return splash_page()
@@ -338,7 +338,7 @@ def delete_announcement():
             raise Exception('failed to decode data.')
         announcement_id = int(request.data.decode('utf-8'))
 
-        db.delete_announcement(announcement_id=announcement_id)
+        db.delete_announcement(announcement_id=announcement_id, club_id=club_id)
         return {
             'success': True,
             'message': 'The announcement has been deleted.'

@@ -295,15 +295,19 @@ def delete_event(event_id, club_id):
         print(str(ex), file=sys.stderr)
         raise ex
 
-def delete_announcement(announcement_id):
+def delete_announcement(announcement_id, club_id):
     assert isinstance(announcement_id, (int, type(None))), "announcement_id must be a int or None"
     try:
         with sqlalchemy.orm.Session(engine) as session:
             announcement = session.query(Announcement).filter_by(announcement_id=announcement_id).first()
 
             if announcement:
+                if announcement.club_id != club_id:
+                    raise Exception('The officer is not permitted to delete this announcement.')
                 session.query(Announcement).filter(Announcement.announcement_id == announcement_id).delete()
                 session.commit()
+            else:
+                raise Exception('Announcement or club not found.')
     except Exception as ex:
         print(str(ex), file=sys.stderr)
         raise ex
