@@ -274,7 +274,6 @@ def delete_event():
             'message': str(ex)
         }, 500
 
-
 @app.route('/api/get_event_attendees', methods=['GET'])
 def get_event_attendees():
     event_id = request.args.get('eventId')
